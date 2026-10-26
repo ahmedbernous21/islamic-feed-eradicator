@@ -1,0 +1,95 @@
+name: Suggest a Qur'anic verse
+description: Propose a verse for the reminder library. This issue is public.
+labels: ["content:quran", "moderation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is publicly visible. Do not include an email address or other private detail. The verse will not appear in the extension until a reviewer checks the wording and a pull request adds it. Leave a field blank rather than inventing a reason for revelation or a translation credit. Read the content policy before submitting.
+  - type: input
+    id: surah
+    attributes:
+      label: Surah name
+    validations:
+      required: true
+  - type: input
+    id: verses
+    attributes:
+      label: Verse number
+      placeholder: "2:186"
+    validations:
+      required: true
+  - type: textarea
+    id: arabic
+    attributes:
+      label: Exact Arabic text
+    validations:
+      required: true
+  - type: textarea
+    id: translation
+    attributes:
+      label: Translation
+      description: Optional. If you include one, name its source below.
+  - type: input
+    id: translation_language
+    attributes:
+      label: Translation language
+  - type: input
+    id: translation_source
+    attributes:
+      label: Translator or translation source
+  - type: dropdown
+    id: translation_kind
+    attributes:
+      label: Is the translation literal or interpretive?
+      options:
+        - Not specified
+        - Literal
+        - Interpretive
+  - type: textarea
+    id: context
+    attributes:
+      label: Context, meaning, and circumstances
+      description: What the verse is saying, and what a reader needs in order to understand this selection.
+    validations:
+      required: true
+  - type: textarea
+    id: qualifications
+    attributes:
+      label: Qualifications or limits
+  - type: textarea
+    id: commonly_misunderstood
+    attributes:
+      label: Is this commonly misunderstood out of context?
+  - type: textarea
+    id: asbab
+    attributes:
+      label: Reason for revelation
+      description: Only when a reliable source reports it. Leave blank otherwise.
+  - type: textarea
+    id: benefit
+    attributes:
+      label: Why this would be a beneficial reminder
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Source references
+    validations:
+      required: true
+  - type: input
+    id: quran_source_url
+    attributes:
+      label: Link to a reliable Qur'an source
+    validations:
+      required: true
+  - type: textarea
+    id: links
+    attributes:
+      label: Other supporting links
+  - type: input
+    id: submitter
+    attributes:
+      label: Name or public alias
+      description: Optional. This will be public.

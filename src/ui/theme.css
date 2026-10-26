@@ -1,0 +1,129 @@
+:root {
+  color-scheme: light;
+  --ink: #1d1a16;
+  --muted: #5e584e;
+  --paper: #f4efe6;
+  --card: #fffdf8;
+  --line: #e2d5c3;
+  --green: #0f6b4c;
+  --green-deep: #0c3d2e;
+  --gold: #8d6840;
+  --danger: #8a3d32;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --ink: #f4efe4;
+  --muted: #c9bfae;
+  --paper: #101411;
+  --card: #171c19;
+  --line: #314038;
+  --green: #8fceb0;
+  --green-deep: #d7efe4;
+  --gold: #d7b48a;
+  --danger: #f0b2a8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='system'] {
+    color-scheme: dark;
+    --ink: #f4efe4;
+    --muted: #c9bfae;
+    --paper: #101411;
+    --card: #171c19;
+    --line: #314038;
+    --green: #8fceb0;
+    --green-deep: #d7efe4;
+    --gold: #d7b48a;
+    --danger: #f0b2a8;
+  }
+}
+
+@font-face {
+  font-family: "Amiri";
+  src: url("/fonts/amiri-arabic-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amiri";
+  src: url("/fonts/amiri-arabic-700.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button,
+select {
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+a { color: var(--green); }
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+h1, h2, p { margin-top: 0; }
+
+h1 {
+  font-family: "Iowan Old Style", Palatino, Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.muted { color: var(--muted); }
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.row:first-of-type { border-top: 0; }
+
+.stack { display: grid; gap: 0.75rem; }

@@ -1,0 +1,89 @@
+main {
+  width: min(920px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+header p {
+  max-width: 42rem;
+}
+
+.layout {
+  display: grid;
+  gap: 1rem;
+}
+
+.site-block + .site-block {
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--line);
+}
+
+label.choice {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+  padding: 0.35rem 0;
+}
+
+label.choice small {
+  display: block;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+textarea, input[type='number'], input[type='text'], input[type='url'], select {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 12px;
+  padding: 0.6rem 0.7rem;
+}
+
+.preview {
+  margin-top: 0.5rem;
+}
+
+.danger {
+  color: var(--danger);
+}
+
+.split {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.suggest label:not(.choice) {
+  display: block;
+  margin: 0.9rem 0;
+  font-weight: 650;
+}
+
+.suggest label:not(.choice) input,
+.suggest label:not(.choice) textarea,
+.suggest label:not(.choice) select {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  font-weight: 400;
+}
+
+.suggest select,
+.suggest button {
+  border-radius: 12px;
+}
+
+.suggest .split label {
+  flex: 1 1 14rem;
+}
+
+.suggest fieldset {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin: 0.5rem 0 1rem;
+}
+
+.suggest ul {
+  padding-left: 1.2rem;
+}

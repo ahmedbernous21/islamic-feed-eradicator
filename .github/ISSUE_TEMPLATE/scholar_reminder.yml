@@ -1,0 +1,88 @@
+name: Suggest a scholar quotation
+description: Propose a sourced quotation from an early or later Islamic scholar. This issue is public.
+labels: ["content:scholar", "moderation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is publicly visible. Give the scholar's full name and a traceable book, chapter, or link. Explain what the scholar was discussing. Do not invent a page or a book. The quotation will not appear in the extension until a reviewed pull request publishes it.
+  - type: input
+    id: scholar
+    attributes:
+      label: Scholar's full name
+    validations:
+      required: true
+  - type: textarea
+    id: arabic
+    attributes:
+      label: Exact quotation in its original language
+    validations:
+      required: true
+  - type: input
+    id: book
+    attributes:
+      label: Book title
+  - type: input
+    id: location
+    attributes:
+      label: Page, chapter, or volume
+  - type: input
+    id: source_url
+    attributes:
+      label: Source link or bibliographic URL
+  - type: textarea
+    id: translation
+    attributes:
+      label: Translation
+  - type: input
+    id: translation_language
+    attributes:
+      label: Translation language
+  - type: input
+    id: translation_source
+    attributes:
+      label: Translator or translation source
+  - type: dropdown
+    id: translation_kind
+    attributes:
+      label: Is the translation literal or interpretive?
+      options:
+        - Not specified
+        - Literal
+        - Interpretive
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What the scholar was discussing, and how the quotation should be understood.
+    validations:
+      required: true
+  - type: textarea
+    id: qualifications
+    attributes:
+      label: Qualifications or limits
+  - type: textarea
+    id: commonly_misunderstood
+    attributes:
+      label: Is this commonly misunderstood out of context?
+  - type: textarea
+    id: benefit
+    attributes:
+      label: Why this would be a beneficial reminder
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Bibliographic reference
+    validations:
+      required: true
+  - type: textarea
+    id: links
+    attributes:
+      label: Other supporting links
+  - type: input
+    id: submitter
+    attributes:
+      label: Name or public alias
+      description: Optional. This will be public.

@@ -1,0 +1,35 @@
+{
+  "name": "islamic-feed-eradicator",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmedbernous21/islamic-feed-eradicator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ahmedbernous21/islamic-feed-eradicator/issues"
+  },
+  "homepage": "https://github.com/ahmedbernous21/islamic-feed-eradicator#readme",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build && vite build --config vite.content.config.ts && vite build --config vite.background.config.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "validate-submission": "node --experimental-strip-types scripts/validate-submission.mjs"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.1.1",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "linkedom": "^0.18.12",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.1.3"
+  }
+}

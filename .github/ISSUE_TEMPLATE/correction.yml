@@ -1,0 +1,46 @@
+name: Correct or withdraw a reminder
+description: Report a mistake in a reminder that is already in the extension.
+labels: ["correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public. A published reminder stays in the bundled library until a reviewed pull request changes it. Do not include private contact details.
+  - type: input
+    id: reminder_id
+    attributes:
+      label: Reminder id
+      description: The id in reminders.json, such as quran-2-186 or hadith-bukhari-1.
+    validations:
+      required: true
+  - type: dropdown
+    id: action
+    attributes:
+      label: What should happen?
+      options:
+        - Correct the wording or reference
+        - Add a missing limit or context
+        - Withdraw it from the library
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Correct wording or reference
+      description: Leave blank if you are asking for the reminder to be withdrawn and you do not have a replacement.
+  - type: input
+    id: source_url
+    attributes:
+      label: Source that shows the correction
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything a reviewer should not assume

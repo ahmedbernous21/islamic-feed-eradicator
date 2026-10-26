@@ -1,0 +1,214 @@
+.ife-card,
+.ife-pill {
+  --ink: #1d1a16;
+  --muted: #5e584e;
+  --paper: #f7f3ea;
+  --paper-2: #fffdf8;
+  --line: #e2d5c3;
+  --green: #0f6b4c;
+  --green-deep: #0c3d2e;
+  --gold: #8d6840;
+  --focus: #0f6b4c;
+  color: var(--ink);
+  font-family: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.ife-card[data-theme='dark'],
+.ife-pill[data-theme='dark'] {
+  --ink: #f4efe4;
+  --muted: #c9bfae;
+  --paper: #171c19;
+  --paper-2: #101411;
+  --line: #314038;
+  --green: #8fceb0;
+  --green-deep: #d7efe4;
+  --gold: #d7b48a;
+  --focus: #8fceb0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .ife-card[data-theme='system'],
+  .ife-pill[data-theme='system'] {
+    --ink: #f4efe4;
+    --muted: #c9bfae;
+    --paper: #171c19;
+    --paper-2: #101411;
+    --line: #314038;
+    --green: #8fceb0;
+    --green-deep: #d7efe4;
+    --gold: #d7b48a;
+    --focus: #8fceb0;
+  }
+}
+
+.ife-card {
+  box-sizing: border-box;
+  width: min(42rem, calc(100% - 2rem));
+  margin: 1.25rem auto;
+  padding: 1.35rem 1.4rem 1.1rem;
+  background:
+    linear-gradient(180deg, var(--paper-2), var(--paper));
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(20, 24, 20, 0.06);
+}
+
+.ife-card.is-compact {
+  width: min(22rem, 100%);
+  margin: 0.75rem;
+  padding: 1rem;
+}
+
+.ife-kicker {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: baseline;
+  margin: 0 0 0.85rem;
+  color: var(--green);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ife-arabic {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Amiri", "Noto Naskh Arabic", "Scheherazade New", "Traditional Arabic", serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  line-height: 2.15;
+  text-align: right;
+  direction: rtl;
+}
+
+.ife-card.is-compact .ife-arabic {
+  font-size: 1.35rem;
+  line-height: 1.9;
+}
+
+.ife-translation {
+  margin: 0.9rem 0 0;
+  color: var(--ink);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  direction: ltr;
+  text-align: left;
+}
+
+.ife-source,
+.ife-note,
+.ife-grade {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.ife-source {
+  color: var(--gold);
+}
+
+.ife-rule {
+  height: 1px;
+  margin: 1rem 0 0.8rem;
+  border: 0;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+.ife-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.ife-actions button,
+.ife-pill button {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--green-deep);
+  border-radius: 999px;
+  padding: 0.38rem 0.75rem;
+  font: 600 0.82rem/1 "Avenir Next", "Segoe UI", sans-serif;
+  cursor: pointer;
+}
+
+.ife-actions button:hover,
+.ife-pill button:hover,
+.ife-actions button:focus-visible,
+.ife-pill button:focus-visible,
+.ife-card:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.ife-actions button[aria-pressed='true'] {
+  background: var(--green);
+  border-color: var(--green);
+  color: #f7f3ea;
+}
+
+.ife-details {
+  margin-top: 0.75rem;
+  color: var(--muted);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.84rem;
+}
+
+.ife-details summary {
+  cursor: pointer;
+  color: var(--green);
+}
+
+.ife-full {
+  margin: 0.6rem 0 0;
+  direction: rtl;
+  text-align: right;
+  font-family: "Amiri", "Noto Naskh Arabic", serif;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: var(--ink);
+}
+
+.ife-empty {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.ife-pill {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483646;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  max-width: min(24rem, calc(100vw - 2rem));
+  padding: 0.7rem 0.8rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.ife-pill p {
+  margin: 0;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ife-card,
+  .ife-pill,
+  .ife-actions button {
+    transition: none;
+  }
+}

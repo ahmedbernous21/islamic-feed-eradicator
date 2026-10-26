@@ -1,0 +1,404 @@
+{
+  "meta": {
+    "translation": "English fields are concise renderings of the meaning prepared for this extension. They are not a published translation. Compare a printed mushaf or hadith edition.",
+    "quranText": "Uthmani text from the Quran.com content API, version 4, field text_uthmani, fetched for the verse keys in each entry.",
+    "hadithText": "Arabic hadith text from the public-domain hadith-api dataset by fawazahmed0, editions ara-bukhari and ara-muslim."
+  },
+  "reminders": [
+    {
+      "category": "quran",
+      "id": "quran-1-1-7",
+      "surah": {
+        "number": 1,
+        "arabic": "الفاتحة",
+        "english": "Al-Fatiha"
+      },
+      "verses": "1:1–7",
+      "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ\nٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ\nٱلرَّحْمَـٰنِ ٱلرَّحِيمِ\nمَـٰلِكِ يَوْمِ ٱلدِّينِ\nإِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ\nٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ\nصِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ",
+      "translation": "In the name of Allah, the Entirely Merciful, the Especially Merciful. Praise belongs to Allah, Lord of the worlds, the Entirely Merciful, the Especially Merciful, Master of the Day of Judgment. You alone we worship and You alone we ask for help. Guide us to the straight path, the path of those You have blessed, not of those who have earned anger, nor of those who have gone astray.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-2-152",
+      "surah": {
+        "number": 2,
+        "arabic": "البقرة",
+        "english": "Al-Baqarah"
+      },
+      "verses": "2:152",
+      "arabic": "فَٱذْكُرُونِىٓ أَذْكُرْكُمْ وَٱشْكُرُوا۟ لِى وَلَا تَكْفُرُونِ",
+      "translation": "So remember Me; I will remember you. Be grateful to Me and do not deny Me.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-2-153",
+      "surah": {
+        "number": 2,
+        "arabic": "البقرة",
+        "english": "Al-Baqarah"
+      },
+      "verses": "2:153",
+      "arabic": "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ ٱسْتَعِينُوا۟ بِٱلصَّبْرِ وَٱلصَّلَوٰةِ ۚ إِنَّ ٱللَّهَ مَعَ ٱلصَّـٰبِرِينَ",
+      "translation": "You who believe, seek help through patience and prayer. Allah is with those who are patient.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-2-186",
+      "surah": {
+        "number": 2,
+        "arabic": "البقرة",
+        "english": "Al-Baqarah"
+      },
+      "verses": "2:186",
+      "arabic": "وَإِذَا سَأَلَكَ عِبَادِى عَنِّى فَإِنِّى قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ ٱلدَّاعِ إِذَا دَعَانِ ۖ فَلْيَسْتَجِيبُوا۟ لِى وَلْيُؤْمِنُوا۟ بِى لَعَلَّهُمْ يَرْشُدُونَ",
+      "translation": "When My servants ask you about Me, I am near. I answer the call of the caller when they call Me. So let them respond to Me and believe in Me, that they may be guided.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-2-255",
+      "surah": {
+        "number": 2,
+        "arabic": "البقرة",
+        "english": "Al-Baqarah"
+      },
+      "verses": "2:255",
+      "arabic": "ٱللَّهُ لَآ إِلَـٰهَ إِلَّا هُوَ ٱلْحَىُّ ٱلْقَيُّومُ ۚ لَا تَأْخُذُهُۥ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُۥ مَا فِى ٱلسَّمَـٰوَٰتِ وَمَا فِى ٱلْأَرْضِ ۗ مَن ذَا ٱلَّذِى يَشْفَعُ عِندَهُۥٓ إِلَّا بِإِذْنِهِۦ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَىْءٍ مِّنْ عِلْمِهِۦٓ إِلَّا بِمَا شَآءَ ۚ وَسِعَ كُرْسِيُّهُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ ۖ وَلَا يَـُٔودُهُۥ حِفْظُهُمَا ۚ وَهُوَ ٱلْعَلِىُّ ٱلْعَظِيمُ",
+      "translation": "Allah: there is no god but Him, the Ever-Living, the All-Sustaining. Neither drowsiness nor sleep overtakes Him. To Him belongs whatever is in the heavens and whatever is on the earth. Who can intercede with Him except by His permission? He knows what is before them and what is behind them, and they encompass nothing of His knowledge except what He wills. His Kursi extends over the heavens and the earth, and caring for them does not weary Him. He is the Most High, the Magnificent.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation. Kursi is left untranslated because published translations differ."
+    },
+    {
+      "category": "quran",
+      "id": "quran-3-139",
+      "surah": {
+        "number": 3,
+        "arabic": "آل عمران",
+        "english": "Al Imran"
+      },
+      "verses": "3:139",
+      "arabic": "وَلَا تَهِنُوا۟ وَلَا تَحْزَنُوا۟ وَأَنتُمُ ٱلْأَعْلَوْنَ إِن كُنتُم مُّؤْمِنِينَ",
+      "translation": "Do not lose heart and do not grieve. You have the upper hand, if you are believers.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-3-173",
+      "surah": {
+        "number": 3,
+        "arabic": "آل عمران",
+        "english": "Al Imran"
+      },
+      "verses": "3:173",
+      "arabic": "ٱلَّذِينَ قَالَ لَهُمُ ٱلنَّاسُ إِنَّ ٱلنَّاسَ قَدْ جَمَعُوا۟ لَكُمْ فَٱخْشَوْهُمْ فَزَادَهُمْ إِيمَـٰنًا وَقَالُوا۟ حَسْبُنَا ٱللَّهُ وَنِعْمَ ٱلْوَكِيلُ",
+      "translation": "Those to whom people said, \"The people have gathered against you, so fear them.\" It increased them in faith and they said, \"Allah is sufficient for us, and He is the best disposer of affairs.\"",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-13-28",
+      "surah": {
+        "number": 13,
+        "arabic": "الرعد",
+        "english": "Ar-Ra'd"
+      },
+      "verses": "13:28",
+      "arabic": "ٱلَّذِينَ ءَامَنُوا۟ وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ ٱللَّهِ ۗ أَلَا بِذِكْرِ ٱللَّهِ تَطْمَئِنُّ ٱلْقُلُوبُ",
+      "translation": "Those who believe and whose hearts find rest in the remembrance of Allah. Surely in the remembrance of Allah hearts find rest.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-14-7",
+      "surah": {
+        "number": 14,
+        "arabic": "إبراهيم",
+        "english": "Ibrahim"
+      },
+      "verses": "14:7",
+      "arabic": "وَإِذْ تَأَذَّنَ رَبُّكُمْ لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ ۖ وَلَئِن كَفَرْتُمْ إِنَّ عَذَابِى لَشَدِيدٌ",
+      "translation": "And when your Lord proclaimed, \"If you are grateful, I will surely give you more; but if you are ungrateful, My punishment is severe.\"",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-20-25-28",
+      "surah": {
+        "number": 20,
+        "arabic": "طه",
+        "english": "Ta-Ha"
+      },
+      "verses": "20:25–28",
+      "arabic": "قَالَ رَبِّ ٱشْرَحْ لِى صَدْرِى\nوَيَسِّرْ لِىٓ أَمْرِى\nوَٱحْلُلْ عُقْدَةً مِّن لِّسَانِى\nيَفْقَهُوا۟ قَوْلِى",
+      "translation": "He said, \"My Lord, expand my chest for me, make my task easy for me, and undo the knot from my tongue so they may understand my speech.\"",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-29-69",
+      "surah": {
+        "number": 29,
+        "arabic": "العنكبوت",
+        "english": "Al-Ankabut"
+      },
+      "verses": "29:69",
+      "arabic": "وَٱلَّذِينَ جَـٰهَدُوا۟ فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا ۚ وَإِنَّ ٱللَّهَ لَمَعَ ٱلْمُحْسِنِينَ",
+      "translation": "Those who strive for Our sake, We will guide them to Our ways. Allah is with those who do good.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-39-53",
+      "surah": {
+        "number": 39,
+        "arabic": "الزمر",
+        "english": "Az-Zumar"
+      },
+      "verses": "39:53",
+      "arabic": "۞ قُلْ يَـٰعِبَادِىَ ٱلَّذِينَ أَسْرَفُوا۟ عَلَىٰٓ أَنفُسِهِمْ لَا تَقْنَطُوا۟ مِن رَّحْمَةِ ٱللَّهِ ۚ إِنَّ ٱللَّهَ يَغْفِرُ ٱلذُّنُوبَ جَمِيعًا ۚ إِنَّهُۥ هُوَ ٱلْغَفُورُ ٱلرَّحِيمُ",
+      "translation": "Say: My servants who have transgressed against themselves, do not despair of the mercy of Allah. Allah forgives sins entirely. He is the All-Forgiving, the Especially Merciful.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-49-13",
+      "surah": {
+        "number": 49,
+        "arabic": "الحجرات",
+        "english": "Al-Hujurat"
+      },
+      "verses": "49:13",
+      "arabic": "يَـٰٓأَيُّهَا ٱلنَّاسُ إِنَّا خَلَقْنَـٰكُم مِّن ذَكَرٍ وَأُنثَىٰ وَجَعَلْنَـٰكُمْ شُعُوبًا وَقَبَآئِلَ لِتَعَارَفُوٓا۟ ۚ إِنَّ أَكْرَمَكُمْ عِندَ ٱللَّهِ أَتْقَىٰكُمْ ۚ إِنَّ ٱللَّهَ عَلِيمٌ خَبِيرٌ",
+      "translation": "People, We created you from a male and a female and made you into peoples and tribes so that you may know one another. The most honored of you before Allah is the most mindful of Allah. Allah is Knowing and Aware.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-65-2-3",
+      "surah": {
+        "number": 65,
+        "arabic": "الطلاق",
+        "english": "At-Talaq"
+      },
+      "verses": "65:2–3",
+      "arabic": "فَإِذَا بَلَغْنَ أَجَلَهُنَّ فَأَمْسِكُوهُنَّ بِمَعْرُوفٍ أَوْ فَارِقُوهُنَّ بِمَعْرُوفٍ وَأَشْهِدُوا۟ ذَوَىْ عَدْلٍ مِّنكُمْ وَأَقِيمُوا۟ ٱلشَّهَـٰدَةَ لِلَّهِ ۚ ذَٰلِكُمْ يُوعَظُ بِهِۦ مَن كَانَ يُؤْمِنُ بِٱللَّهِ وَٱلْيَوْمِ ٱلْـَٔاخِرِ ۚ وَمَن يَتَّقِ ٱللَّهَ يَجْعَل لَّهُۥ مَخْرَجًا\nوَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ ۚ وَمَن يَتَوَكَّلْ عَلَى ٱللَّهِ فَهُوَ حَسْبُهُۥٓ ۚ إِنَّ ٱللَّهَ بَـٰلِغُ أَمْرِهِۦ ۚ قَدْ جَعَلَ ٱللَّهُ لِكُلِّ شَىْءٍ قَدْرًا",
+      "translation": "When they have reached their term, either keep them honorably or part from them honorably, and call two just people from among you as witnesses, and give testimony for Allah. This is counsel for whoever believes in Allah and the Last Day. Whoever is mindful of Allah, He will make a way out for them and will provide for them from where they do not expect. Whoever relies on Allah, He is enough for them. Allah carries out His affair. Allah has set a measure for everything.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation. These verses also contain rulings about divorce. The reminder is the whole passage, including the promise that follows mindfulness of Allah."
+    },
+    {
+      "category": "quran",
+      "id": "quran-94-1-8",
+      "surah": {
+        "number": 94,
+        "arabic": "الشرح",
+        "english": "Ash-Sharh"
+      },
+      "verses": "94:1–8",
+      "arabic": "أَلَمْ نَشْرَحْ لَكَ صَدْرَكَ\nوَوَضَعْنَا عَنكَ وِزْرَكَ\nٱلَّذِىٓ أَنقَضَ ظَهْرَكَ\nوَرَفَعْنَا لَكَ ذِكْرَكَ\nفَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا\nإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا\nفَإِذَا فَرَغْتَ فَٱنصَبْ\nوَإِلَىٰ رَبِّكَ فَٱرْغَب",
+      "translation": "Did We not expand your chest for you, lift your burden from you, the burden that weighed on your back, and raise your mention for you? For with hardship comes ease. With hardship comes ease. So when you are free, work on, and turn to your Lord with longing.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-103-1-3",
+      "surah": {
+        "number": 103,
+        "arabic": "العصر",
+        "english": "Al-Asr"
+      },
+      "verses": "103:1–3",
+      "arabic": "وَٱلْعَصْرِ\nإِنَّ ٱلْإِنسَـٰنَ لَفِى خُسْرٍ\nإِلَّا ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّـٰلِحَـٰتِ وَتَوَاصَوْا۟ بِٱلْحَقِّ وَتَوَاصَوْا۟ بِٱلصَّبْرِ",
+      "translation": "By time, people are in loss, except those who believe, do good works, urge one another to truth, and urge one another to patience.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-112-1-4",
+      "surah": {
+        "number": 112,
+        "arabic": "الإخلاص",
+        "english": "Al-Ikhlas"
+      },
+      "verses": "112:1–4",
+      "arabic": "قُلْ هُوَ ٱللَّهُ أَحَدٌ\nٱللَّهُ ٱلصَّمَدُ\nلَمْ يَلِدْ وَلَمْ يُولَدْ\nوَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌۢ",
+      "translation": "Say: He is Allah, One. Allah, the Eternal Refuge. He neither begets nor is born, and there is none comparable to Him.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "id": "hadith-bukhari-1",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 1",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى دُنْيَا يُصِيبُهَا أَوْ إِلَى امْرَأَةٍ يَنْكِحُهَا، فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ",
+      "arabicFull": "حَدَّثَنَا الْحُمَيْدِيُّ عَبْدُ اللَّهِ بْنُ الزُّبَيْرِ ، قَالَ : حَدَّثَنَا سُفْيَانُ ، قَالَ : حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ الْأَنْصَارِيُّ ، قَالَ : أَخْبَرَنِي مُحَمَّدُ بْنُ إِبْرَاهِيمَ التَّيْمِيُّ ، أَنَّهُ سَمِعَ عَلْقَمَةَ بْنَ وَقَّاصٍ اللَّيْثِيَّ ، يَقُولُ : سَمِعْتُ عُمَرَ بْنَ الْخَطَّابِ رَضِيَ اللَّهُ عَنْهُ عَلَى الْمِنْبَرِ، قَالَ : سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، يَقُولُ : \" إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى دُنْيَا يُصِيبُهَا أَوْ إِلَى امْرَأَةٍ يَنْكِحُهَا، فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ",
+      "translation": "Actions are only by intentions, and each person has only what they intended. Whoever emigrated for some worldly gain, or to marry a woman, their emigration is only for what they emigrated for.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 1. Many printed copies also contain a clause, before the worldly example, that emigration for Allah and His Messenger is for Allah and His Messenger. Compare a printed edition."
+    },
+    {
+      "id": "hadith-bukhari-10",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 10",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ، وَالْمُهَاجِرُ مَنْ هَجَرَ مَا نَهَى اللَّهُ عَنْهُ",
+      "arabicFull": "حَدَّثَنَا آدَمُ بْنُ أَبِي إِيَاسٍ، قَالَ حَدَّثَنَا شُعْبَةُ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي السَّفَرِ، وَإِسْمَاعِيلَ، عَنِ الشَّعْبِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو ـ رضى الله عنهما ـ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ، وَالْمُهَاجِرُ مَنْ هَجَرَ مَا نَهَى اللَّهُ عَنْهُ ‏\"‏‏.‏ قَالَ أَبُو عَبْدِ اللَّهِ وَقَالَ أَبُو مُعَاوِيَةَ حَدَّثَنَا دَاوُدُ عَنْ عَامِرٍ قَالَ سَمِعْتُ عَبْدَ اللَّهِ عَنِ النَّبِيِّ صلى الله عليه وسلم‏.‏ وَقَالَ عَبْدُ الأَعْلَى عَنْ دَاوُدَ عَنْ عَامِرٍ عَنْ عَبْدِ اللَّهِ عَنِ النَّبِيِّ صلى الله عليه وسلم‏.‏",
+      "translation": "The Muslim is the one from whose tongue and hand other Muslims are safe, and the emigrant is the one who leaves what Allah has forbidden.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 10. The full narration includes the chain and a short note from the compiler."
+    },
+    {
+      "id": "hadith-bukhari-13",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 13",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "لا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
+      "arabicFull": "حَدَّثَنَا مُسَدَّدٌ، قَالَ حَدَّثَنَا يَحْيَى، عَنْ شُعْبَةَ، عَنْ قَتَادَةَ، عَنْ أَنَسٍ ـ رضى الله عنه ـ عَنِ النَّبِيِّ صلى الله عليه وسلم‏.‏ وَعَنْ حُسَيْنٍ الْمُعَلِّمِ، قَالَ حَدَّثَنَا قَتَادَةُ، عَنْ أَنَسٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ لا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ ‏\"‏‏.‏",
+      "translation": "None of you truly believes until they love for their brother what they love for themselves.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 13. Sahih Muslim records a wording that says \"his brother, or his neighbor.\""
+    },
+    {
+      "id": "hadith-bukhari-69",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 69",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "يَسِّرُوا وَلاَ تُعَسِّرُوا، وَبَشِّرُوا وَلاَ تُنَفِّرُوا",
+      "arabicFull": "حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ، قَالَ حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ، قَالَ حَدَّثَنَا شُعْبَةُ، قَالَ حَدَّثَنِي أَبُو التَّيَّاحِ، عَنْ أَنَسٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ يَسِّرُوا وَلاَ تُعَسِّرُوا، وَبَشِّرُوا وَلاَ تُنَفِّرُوا ‏\"‏‏.‏",
+      "translation": "Make things easy and do not make them difficult. Give good news and do not drive people away.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 69."
+    },
+    {
+      "id": "hadith-bukhari-5027",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 5027",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
+      "arabicFull": "حَدَّثَنَا حَجَّاجُ بْنُ مِنْهَالٍ، حَدَّثَنَا شُعْبَةُ، قَالَ أَخْبَرَنِي عَلْقَمَةُ بْنُ مَرْثَدٍ، سَمِعْتُ سَعْدَ بْنَ عُبَيْدَةَ، عَنْ أَبِي عَبْدِ الرَّحْمَنِ السُّلَمِيِّ، عَنْ عُثْمَانَ ـ رضى الله عنه ـ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ ‏\"‏‏.‏ قَالَ وَأَقْرَأَ أَبُو عَبْدِ الرَّحْمَنِ فِي إِمْرَةِ عُثْمَانَ حَتَّى كَانَ الْحَجَّاجُ، قَالَ وَذَاكَ الَّذِي أَقْعَدَنِي مَقْعَدِي هَذَا‏.‏",
+      "translation": "The best of you are those who learn the Qur'an and teach it.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 5027. The report continues with a remark about Abu Abd al-Rahman al-Sulami."
+    },
+    {
+      "id": "hadith-bukhari-5143",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 5143",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "إِيَّاكُمْ وَالظَّنَّ، فَإِنَّ الظَّنَّ أَكْذَبُ الْحَدِيثِ، وَلاَ تَجَسَّسُوا، وَلاَ تَحَسَّسُوا، وَلاَ تَبَاغَضُوا، وَكُونُوا إِخْوَانًا",
+      "arabicFull": "حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ، حَدَّثَنَا اللَّيْثُ، عَنْ جَعْفَرِ بْنِ رَبِيعَةَ، عَنِ الأَعْرَجِ، قَالَ قَالَ أَبُو هُرَيْرَةَ يَأْثُرُ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ إِيَّاكُمْ وَالظَّنَّ، فَإِنَّ الظَّنَّ أَكْذَبُ الْحَدِيثِ، وَلاَ تَجَسَّسُوا، وَلاَ تَحَسَّسُوا، وَلاَ تَبَاغَضُوا، وَكُونُوا إِخْوَانًا ‏\"‏‏.‏ وَلَا يَخْطُبُ الرَّجُلُ عَلَى خِطْبَةِ أَخِيهِ حَتَّى يَنْكِحَ أَوْ يَتْرُكَ",
+      "translation": "Beware of suspicion, for suspicion is the most false kind of talk. Do not spy, do not probe, do not turn away from one another, and be brothers.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 5143. The entry also continues with a prohibition of proposing marriage over a brother's proposal."
+    },
+    {
+      "id": "hadith-bukhari-6018",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 6018",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلاَ يُؤْذِ جَارَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيُكْرِمْ ضَيْفَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
+      "arabicFull": "حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، حَدَّثَنَا أَبُو الأَحْوَصِ، عَنْ أَبِي حَصِينٍ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ \"‏ مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلاَ يُؤْذِ جَارَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيُكْرِمْ ضَيْفَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ ‏\"‏‏.‏",
+      "translation": "Whoever believes in Allah and the Last Day should not harm their neighbor. Whoever believes in Allah and the Last Day should honor their guest. Whoever believes in Allah and the Last Day should speak well or stay quiet.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6018."
+    },
+    {
+      "id": "hadith-bukhari-6114",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 6114",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "لَيْسَ الشَّدِيدُ بِالصُّرَعَةِ، إِنَّمَا الشَّدِيدُ الَّذِي يَمْلِكُ نَفْسَهُ عِنْدَ الْغَضَبِ",
+      "arabicFull": "حَدَّثَنَا عَبْدُ اللَّهِ بْنُ يُوسُفَ، أَخْبَرَنَا مَالِكٌ، عَنِ ابْنِ شِهَابٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ أَبِي هُرَيْرَةَ ـ رضى الله عنه ـ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ \"‏ لَيْسَ الشَّدِيدُ بِالصُّرَعَةِ، إِنَّمَا الشَّدِيدُ الَّذِي يَمْلِكُ نَفْسَهُ عِنْدَ الْغَضَبِ ‏\"‏‏.‏",
+      "translation": "The strong person is not the one who throws people down. The strong person is the one who controls themself when angry.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6114."
+    },
+    {
+      "id": "hadith-bukhari-6465",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 6465",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "أَدْوَمُهَا وَإِنْ قَلَّ",
+      "arabicFull": "حَدَّثَنِي مُحَمَّدُ بْنُ عَرْعَرَةَ، حَدَّثَنَا شُعْبَةُ، عَنْ سَعْدِ بْنِ إِبْرَاهِيمَ، عَنْ أَبِي سَلَمَةَ، عَنْ عَائِشَةَ ـ رضى الله عنها ـ أَنَّهَا قَالَتْ سُئِلَ النَّبِيُّ صلى الله عليه وسلم أَىُّ الأَعْمَالِ أَحَبُّ إِلَى اللَّهِ قَالَ ‏\"‏ أَدْوَمُهَا وَإِنْ قَلَّ ‏\"‏‏.‏ وَقَالَ ‏\"‏ اكْلَفُوا مِنَ الأَعْمَالِ مَا تُطِيقُونَ ‏\"‏‏.‏",
+      "translation": "Aishah said the Prophet, peace be upon him, was asked which deeds are most beloved to Allah. He said, \"The most consistent of them, even if they are few.\" He also said, \"Take on the deeds you can sustain.\"",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6465. The short Arabic line is the answer; the full entry includes the question and the second statement."
+    },
+    {
+      "id": "hadith-bukhari-7405",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 7405, hadith qudsi",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "أَنَا عِنْدَ ظَنِّ عَبْدِي بِي، وَأَنَا مَعَهُ إِذَا ذَكَرَنِي، فَإِنْ ذَكَرَنِي فِي نَفْسِهِ ذَكَرْتُهُ فِي نَفْسِي، وَإِنْ ذَكَرَنِي فِي مَلأٍ ذَكَرْتُهُ فِي مَلأٍ خَيْرٍ مِنْهُمْ، وَإِنْ تَقَرَّبَ إِلَىَّ بِشِبْرٍ تَقَرَّبْتُ إِلَيْهِ ذِرَاعًا، وَإِنْ تَقَرَّبَ إِلَىَّ ذِرَاعًا تَقَرَّبْتُ إِلَيْهِ بَاعًا، وَإِنْ أَتَانِي يَمْشِي أَتَيْتُهُ هَرْوَلَةً",
+      "arabicFull": "حَدَّثَنَا عُمَرُ بْنُ حَفْصٍ، حَدَّثَنَا أَبِي، حَدَّثَنَا الأَعْمَشُ، سَمِعْتُ أَبَا صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ ـ رضى الله عنه ـ قَالَ قَالَ النَّبِيُّ صلى الله عليه وسلم ‏ \"‏ يَقُولُ اللَّهُ تَعَالَى أَنَا عِنْدَ ظَنِّ عَبْدِي بِي، وَأَنَا مَعَهُ إِذَا ذَكَرَنِي، فَإِنْ ذَكَرَنِي فِي نَفْسِهِ ذَكَرْتُهُ فِي نَفْسِي، وَإِنْ ذَكَرَنِي فِي مَلأٍ ذَكَرْتُهُ فِي مَلأٍ خَيْرٍ مِنْهُمْ، وَإِنْ تَقَرَّبَ إِلَىَّ بِشِبْرٍ تَقَرَّبْتُ إِلَيْهِ ذِرَاعًا، وَإِنْ تَقَرَّبَ إِلَىَّ ذِرَاعًا تَقَرَّبْتُ إِلَيْهِ بَاعًا، وَإِنْ أَتَانِي يَمْشِي أَتَيْتُهُ هَرْوَلَةً ‏\"‏‏.‏",
+      "translation": "Allah says: I am as My servant thinks of Me, and I am with them when they remember Me. If they remember Me in themselves, I remember them in Myself. If they remember Me in a gathering, I remember them in a better gathering. If they draw near to Me by a handspan, I draw near to them by an arm's length. If they draw near to Me by an arm's length, I draw near to them by a fathom. If they come to Me walking, I come to them running.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 7405. This is a hadith qudsi: the Prophet, peace be upon him, reported Allah's words."
+    },
+    {
+      "id": "hadith-muslim-6543",
+      "category": "hadith",
+      "collection": "Sahih Muslim",
+      "reference": "Hadith-api number 6543; Book 45, Hadith 42",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih Muslim. That inclusion is the grading used here.",
+      "arabic": "إِنَّ اللَّهَ لاَ يَنْظُرُ إِلَى صُوَرِكُمْ وَأَمْوَالِكُمْ وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ وَأَعْمَالِكُمْ",
+      "arabicFull": "حَدَّثَنَا عَمْرٌو النَّاقِدُ، حَدَّثَنَا كَثِيرُ بْنُ هِشَامٍ، حَدَّثَنَا جَعْفَرُ بْنُ بُرْقَانَ، عَنْ يَزِيدَ بْنِ، الأَصَمِّ عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ \"‏ إِنَّ اللَّهَ لاَ يَنْظُرُ إِلَى صُوَرِكُمْ وَأَمْوَالِكُمْ وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ وَأَعْمَالِكُمْ ‏\"‏ ‏.‏",
+      "translation": "Allah does not look at your forms or your wealth. He looks at your hearts and your deeds.",
+      "note": "Arabic follows hadith-api, Sahih Muslim number 6543, in-book reference Book 45, Hadith 42. Other editions, including some websites, use a different global number for this report. A nearby narration says \"bodies and forms\" and mentions the heart."
+    },
+    {
+      "id": "hadith-muslim-6578",
+      "category": "hadith",
+      "collection": "Sahih Muslim",
+      "reference": "Hadith-api number 6578; Book 45, Hadith 76",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih Muslim. That inclusion is the grading used here.",
+      "arabic": "الْمُسْلِمُ أَخُو الْمُسْلِمِ لاَ يَظْلِمُهُ وَلاَ يُسْلِمُهُ مَنْ كَانَ فِي حَاجَةِ أَخِيهِ كَانَ اللَّهُ فِي حَاجَتِهِ وَمَنْ فَرَّجَ عَنْ مُسْلِمٍ كُرْبَةً فَرَّجَ اللَّهُ عَنْهُ بِهَا كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ وَمَنْ سَتَرَ مُسْلِمًا سَتَرَهُ اللَّهُ يَوْمَ الْقِيَامَةِ",
+      "arabicFull": "حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، حَدَّثَنَا لَيْثٌ، عَنْ عُقَيْلٍ، عَنِ الزُّهْرِيِّ، عَنْ سَالِمٍ، عَنْ أَبِيهِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ \"‏ الْمُسْلِمُ أَخُو الْمُسْلِمِ لاَ يَظْلِمُهُ وَلاَ يُسْلِمُهُ مَنْ كَانَ فِي حَاجَةِ أَخِيهِ كَانَ اللَّهُ فِي حَاجَتِهِ وَمَنْ فَرَّجَ عَنْ مُسْلِمٍ كُرْبَةً فَرَّجَ اللَّهُ عَنْهُ بِهَا كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ وَمَنْ سَتَرَ مُسْلِمًا سَتَرَهُ اللَّهُ يَوْمَ الْقِيَامَةِ ‏\"‏ ‏.‏",
+      "translation": "A Muslim is the brother of a Muslim. They do not wrong them or abandon them. Whoever meets a brother's need, Allah meets their need. Whoever relieves a Muslim of a distress, Allah relieves them of a distress among the distresses of the Day of Resurrection. Whoever covers a Muslim, Allah covers them on the Day of Resurrection.",
+      "note": "Arabic follows hadith-api, Sahih Muslim number 6578, in-book reference Book 45, Hadith 76. Other editions may number this report differently."
+    },
+    {
+      "id": "scholar-abu-hurayrah-heart",
+      "category": "scholar",
+      "scholar": "Abu Hurayrah",
+      "arabic": "القلب ملك وله جنود، فإذا صلح الملك صلحت جنوده، وإذا فسد الملك فسدت جنوده",
+      "translation": "The heart is a king and it has soldiers. If the king is sound, his soldiers are sound, and if the king is corrupt, his soldiers are corrupt.",
+      "source": "Musannaf Abd al-Razzaq, Kitab al-Jami', Bab al-Qalb, no. 20375",
+      "verification": "source_checked",
+      "verificationNote": "This is a statement of Abu Hurayrah, a Companion, recorded by Abd al-Razzaq. It is not a prophetic hadith. The wording follows the text on Islamweb's copy of the Musannaf and was not recollated against a critical print. The report continues by describing the limbs."
+    },
+    {
+      "id": "scholar-ibn-qayyim-quran",
+      "category": "scholar",
+      "scholar": "Ibn Qayyim al-Jawziyyah",
+      "arabic": "إِذا أردْت الِانْتِفَاع بِالْقُرْآنِ فاجمع قَلْبك عِنْد تِلَاوَته وسماعه وأَلْقِ سَمعك واحضر حُضُور من يخاطبه بِهِ من تكلّم بِهِ سُبْحَانَهُ مِنْهُ إِلَيْهِ",
+      "translation": "If you want to benefit from the Qur'an, gather your heart when you recite it and when you hear it, give it your hearing, and be present as someone whom the One who spoke it, glory be to Him, is addressing through it.",
+      "source": "al-Fawa'id, opening section. Edition listed by usul.ai: Dar al-Kutub al-Ilmiyyah, Beirut, second printing, 1393 AH",
+      "verification": "source_checked",
+      "verificationNote": "The Arabic is the digital text as displayed on usul.ai, including its orthography. Check a printed copy of al-Fawa'id before treating the spelling as critical."
+    },
+    {
+      "id": "scholar-ibn-qayyim-effect",
+      "category": "scholar",
+      "scholar": "Ibn Qayyim al-Jawziyyah",
+      "arabic": "فَإِذا حصل الْمُؤثر وَهُوَ الْقُرْآن وَالْمحل الْقَابِل وَهُوَ الْقلب الْحَيّ وَوجد الشَّرْط وَهُوَ الإصغاء وانتفى الْمَانِع وَهُوَ اشْتِغَال الْقلب وذهوله عَن معنى الْخطاب وانصرافه عَنهُ إِلَى شَيْء آخر حصل الْأَثر وَهُوَ الِانْتِفَاع والتذكّر",
+      "translation": "When the cause is present, and that is the Qur'an, and the receptive place is present, and that is the living heart, and the condition is present, and that is listening, and the obstacle is absent, and that is the heart being busy and absent from the meaning of the address, the effect follows: benefit and being reminded.",
+      "source": "al-Fawa'id, same opening section as the previous passage. Edition listed by usul.ai: Dar al-Kutub al-Ilmiyyah, Beirut",
+      "verification": "source_checked",
+      "verificationNote": "The Arabic is the digital text as displayed on usul.ai, including its orthography. It is Ibn al-Qayyim's explanation of Qur'an 50:37, not a separate prophetic report."
+    }
+  ]
+}

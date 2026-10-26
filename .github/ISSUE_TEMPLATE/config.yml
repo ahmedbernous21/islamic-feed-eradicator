@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Content policy
+    url: https://github.com/ahmedbernous21/islamic-feed-eradicator/blob/main/docs/content-policy.md
+    about: Read the verification rules before suggesting or reviewing a reminder.

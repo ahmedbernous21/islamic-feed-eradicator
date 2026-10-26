@@ -1,0 +1,25 @@
+name: Feature request
+description: Suggest a change to the extension that is not a new reminder.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For a Qur'anic verse, hadith, or scholar quotation, use the reminder templates instead of this form.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What should the extension do?
+    validations:
+      required: true
+  - type: textarea
+    id: limits
+    attributes:
+      label: What should stay unchanged?
+      description: For example playback, search, messages, or the offline reminder library.
