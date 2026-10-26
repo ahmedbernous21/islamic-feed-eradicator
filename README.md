@@ -88,6 +88,8 @@ Keyboard, when the reminder card is focused: Right arrow next, Left arrow previo
 
 Settings, favorites, and personal notes stay in `chrome.storage.local` on this device. The extension does not have `history` or `tabs` permissions, does not send reminder text or page contents to a server, and does not embed a GitHub token. Opening **Suggest a Reminder** sends you to a public GitHub issue form in the browser. Anything typed into that form is visible to anyone who can see the repository's issues.
 
+The public privacy policy is at [ahmedbernous21.github.io/islamic-feed-eradicator/privacy.html](https://ahmedbernous21.github.io/islamic-feed-eradicator/privacy.html). The content policy is at [policy.html](https://ahmedbernous21.github.io/islamic-feed-eradicator/policy.html).
+
 ## License and third-party works
 
 Project code is MIT. These pieces stay under their own terms and are not relicensed:
