@@ -1,6 +1,9 @@
 import library from './reminders.json';
-import type { Settings } from '../settings';
+import type { ReminderCursor, Settings } from '../settings';
+import type { SiteId } from '../sites/types';
 import type { LibraryReminder, PersonalReminder, Reminder, ReminderLibrary } from './types';
+
+const SITE_ORDER: SiteId[] = ['youtube', 'facebook', 'linkedin', 'instagram'];
 
 const data = library as ReminderLibrary;
 
@@ -48,14 +51,51 @@ export function randomId(reminders: Reminder[], currentId: string | null, rng: (
   return pool[Math.min(pool.length - 1, Math.max(0, index))].id;
 }
 
+function emptyCursor(): ReminderCursor {
+  return { reminderId: null, lastPath: null, lastAdvancedAt: 0 };
+}
+
+/** First reminder for a site, skipping one already showing on another open site. */
+function openingId(reminders: Reminder[], siteId: string, settings: Settings): string {
+  const used = new Set(
+    Object.entries(settings.cursors)
+      .filter(([key]) => key !== siteId)
+      .map(([, cursor]) => cursor?.reminderId)
+      .filter((id): id is string => Boolean(id)),
+  );
+  const offset = Math.max(0, SITE_ORDER.indexOf(siteId as SiteId));
+  for (let step = 0; step < reminders.length; step += 1) {
+    const candidate = reminders[(offset + step) % reminders.length];
+    if (!used.has(candidate.id)) return candidate.id;
+  }
+  return reminders[offset % reminders.length].id;
+}
+
+function withCursor(settings: Settings, siteId: string | undefined, cursor: ReminderCursor): Settings {
+  if (!siteId) return { ...settings, cursor };
+  return {
+    ...settings,
+    cursors: { ...settings.cursors, [siteId]: cursor },
+  };
+}
+
+/**
+ * Moves one site's cursor forward when that page calls for it.
+ * Omit `siteId` for the options and popup preview, which keep `settings.cursor`.
+ * `navigated` is false for refreshes that were not caused by this tab opening a
+ * new page, such as another tab writing to storage. Those refreshes never count
+ * as a visit, otherwise two open tabs would hand the rotation back and forth.
+ */
 export function advanceCursor(
   settings: Settings,
   path: string,
   now: number,
   visible: boolean,
+  navigated = true,
+  siteId?: string,
 ): { settings: Settings; changed: boolean } {
   const reminders = collectReminders(settings);
-  const cursor = { ...settings.cursor };
+  const cursor = { ...(siteId ? settings.cursors[siteId as SiteId] ?? emptyCursor() : settings.cursor) };
   let changed = false;
   let id = cursor.reminderId;
 
@@ -64,16 +104,18 @@ export function advanceCursor(
       cursor.reminderId = null;
       changed = true;
     }
-    return { settings: { ...settings, cursor }, changed };
+    return { settings: withCursor(settings, siteId, cursor), changed };
   }
 
   if (visible && (!id || !reminders.some((reminder) => reminder.id === id))) {
-    id = reminders[0].id;
+    id = siteId ? openingId(reminders, siteId, settings) : reminders[0].id;
     changed = true;
   }
 
-  if (settings.rotation.mode === 'visit') {
-    if (visible && cursor.lastPath && cursor.lastPath !== path && id) {
+  if (navigated && settings.rotation.mode === 'visit') {
+    // Every page load counts, including a refresh of the same page. Only the
+    // very first view keeps the opening reminder.
+    if (visible && cursor.lastPath && id) {
       id = nextId(reminders, id);
       changed = true;
     }
@@ -100,7 +142,7 @@ export function advanceCursor(
     changed = true;
   }
 
-  return { settings: { ...settings, cursor }, changed };
+  return { settings: withCursor(settings, siteId, cursor), changed };
 }
 
 export function moveCursor(
@@ -109,23 +151,24 @@ export function moveCursor(
   path: string,
   now: number,
   rng?: () => number,
+  siteId?: string,
 ): Settings {
   const reminders = collectReminders(settings);
-  const current = reminderById(reminders, settings.cursor.reminderId)?.id ?? reminders[0]?.id ?? null;
+  const stored = siteId ? settings.cursors[siteId as SiteId] : settings.cursor;
+  const current =
+    reminderById(reminders, stored?.reminderId ?? null)?.id ??
+    (siteId && reminders.length ? openingId(reminders, siteId, settings) : reminders[0]?.id ?? null);
   const id =
     direction === 'next'
       ? nextId(reminders, current)
       : direction === 'previous'
         ? previousId(reminders, current)
         : randomId(reminders, current, rng);
-  return {
-    ...settings,
-    cursor: {
-      reminderId: id,
-      lastPath: path,
-      lastAdvancedAt: now,
-    },
-  };
+  return withCursor(settings, siteId, {
+    reminderId: id,
+    lastPath: path,
+    lastAdvancedAt: now,
+  });
 }
 
 export function toggleFavorite(settings: Settings, id: string): Settings {
@@ -137,7 +180,9 @@ export function toggleFavorite(settings: Settings, id: string): Settings {
 
 export function citation(reminder: Reminder): string {
   if (reminder.category === 'quran') {
-    return `${reminder.surah.english} (${reminder.surah.arabic}) ${reminder.verses}`;
+    const arabicName = `\u2068${reminder.surah.arabic}\u2069`;
+    const verses = `\u2066${reminder.verses}\u2069`;
+    return `${reminder.surah.english} (${arabicName}) ${verses}`;
   }
   if (reminder.category === 'hadith') return `${reminder.collection}, ${reminder.reference}`;
   if (reminder.category === 'scholar') return `${reminder.scholar} — ${reminder.source}`;

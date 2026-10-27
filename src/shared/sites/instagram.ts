@@ -12,6 +12,7 @@ const site: SiteDefinition = {
       defaultEnabled: true,
       paths: ['/'],
       placement: 'primary',
+      replaceColumn: true,
       mountSelectors: ['main[role="main"]', 'main'],
       selectors: ['main article', 'main > :nth-child(1) > div[style]'],
     },

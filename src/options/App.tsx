@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { renderReminder } from '../content/widget';
 import { collectReminders, libraryMeta, moveCursor, reminderById, toggleFavorite } from '../shared/reminders/engine';
-import { defaultSettings, normalizeSettings, type RotationMode, type Settings, type Theme } from '../shared/settings';
+import { defaultSettings, isSnoozing, normalizeSettings, type RotationMode, type Settings, type Theme } from '../shared/settings';
 import { SITES } from '../shared/sites';
 import type { SiteId } from '../shared/sites/types';
 import { useSettings } from '../ui/useSettings';
@@ -26,7 +26,6 @@ function Preview({ settings, onUpdate }: { settings: Settings; onUpdate: (mutato
         emptyMessage: 'Nothing to show with the current filters.',
       },
       {
-        snoozeLabel: `Show feed for ${settings.snoozeMinutes} min`,
         onPrevious: () => onUpdate((current) => moveCursor(current, 'previous', 'options', Date.now())),
         onNext: () => onUpdate((current) => moveCursor(current, 'next', 'options', Date.now())),
         onRandom: () => onUpdate((current) => moveCursor(current, 'random', 'options', Date.now())),
@@ -34,10 +33,9 @@ function Preview({ settings, onUpdate }: { settings: Settings; onUpdate: (mutato
           if (reminder) onUpdate((current) => toggleFavorite(current, reminder.id));
         },
         onToggleTranslation: () => onUpdate((current) => ({ ...current, showTranslation: !current.showTranslation })),
-        onSnooze: () => onUpdate((current) => ({ ...current, snoozeUntil: Date.now() + current.snoozeMinutes * 60_000 })),
       },
     );
-  }, [onUpdate, reminder, settings.favorites, settings.showTranslation, settings.snoozeMinutes, settings.theme]);
+  }, [onUpdate, reminder, settings.favorites, settings.showTranslation, settings.theme]);
 
   return <div className="preview" ref={ref} />;
 }
@@ -124,7 +122,7 @@ export function App() {
                 }))
               }
             >
-              <option value="visit">When the page changes</option>
+              <option value="visit">Each page load or refresh</option>
               <option value="interval">On a timer</option>
               <option value="manual">Only when I press next</option>
             </select>
@@ -155,6 +153,21 @@ export function App() {
               value={settings.snoozeMinutes}
               onChange={(event) => update((current) => ({ ...current, snoozeMinutes: Number(event.target.value) }))}
             />
+          </div>
+          <div className="row">
+            <span>{isSnoozing(settings) ? 'The feed is visible right now.' : 'Show the original feed for a while.'}</span>
+            <button
+              type="button"
+              onClick={() =>
+                update((current) =>
+                  isSnoozing(current)
+                    ? { ...current, snoozeUntil: null }
+                    : { ...current, snoozeUntil: Date.now() + current.snoozeMinutes * 60_000 },
+                )
+              }
+            >
+              {isSnoozing(settings) ? 'Resume reminders' : `Show feed for ${settings.snoozeMinutes} min`}
+            </button>
           </div>
         </section>
 

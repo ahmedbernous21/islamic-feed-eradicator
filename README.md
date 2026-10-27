@@ -18,8 +18,8 @@ Behavior carried over for the four target sites:
 - Facebook: home feed and stories. The groups feed is off by default.
 - LinkedIn: home feed and the news sidebar. Jobs, messaging, search, notifications, and profiles are not targeted.
 - Instagram: home feed, stories, and suggested accounts. The Explore grid is off by default because Instagram uses Explore for search.
-- A temporary way to see the feed again. NFE uses press-and-hold. This extension uses a keyboard-reachable **Show feed for N minutes** control and a **Resume reminders** button.
-- A new reminder when you move between pages. NFE does this per visit. Here you can choose per visit, a timer, or manual only.
+- A temporary way to see the feed again. NFE uses press-and-hold. This extension uses **Show feed for N minutes** and **Resume reminders** on the settings page.
+- A new reminder on each page load or refresh. NFE does this per visit. Here you can choose per visit, a timer, or manual only.
 - Settings stored in `chrome.storage.local` on this device. Nothing is uploaded.
 
 Also included, because the product needs them: a toolbar popup, favorites, category filters, light / dark / system theme, optional English rendering, personal notes that are never labeled as scripture, and a JSON settings backup.
@@ -30,9 +30,9 @@ The library is `src/shared/reminders/reminders.json`.
 
 - Qur'an text is the Uthmani script from the Quran.com content API (`text_uthmani`). A check compared every stored line with that API.
 - English fields are concise renderings written for this extension. They are not a published translation such as Sahih International. Compare a printed mushaf.
-- Hadith Arabic comes from the public-domain [hadith-api](https://github.com/fawazahmed0/hadith-api) dataset. Bukhari numbers match that edition's hadith numbers. Muslim entries cite the hadith-api number and the in-book reference, because other sites use different global numbers for the same report.
-- Grading is "Sahih" only because the report is in Sahih al-Bukhari or Sahih Muslim. No extra grade was invented.
-- Sahih al-Bukhari 1 in that dataset does not include a clause about emigrating for Allah and His Messenger that many printed copies include. The card says so.
+- Hadith Arabic comes from the public-domain [hadith-api](https://github.com/fawazahmed0/hadith-api) edition `ara-bukhari`. The card shows the whole short report, not a clipped sentence. The chain of narrators stays under **Full entry**. Numbers match that edition. Long reports are not included.
+- Grading is "Sahih" only because the report is in Sahih al-Bukhari. No extra grade was invented.
+- Sahih al-Bukhari 1 in that dataset omits a clause about emigrating for Allah and His Messenger. The library uses hadith 54 from the same dataset, which includes that clause.
 - Scholar entries are limited to wording checked against a named source. Abu Hurayrah's statement is from Musannaf Abd al-Razzaq, no. 20375, and is not a prophetic hadith. The Ibn al-Qayyim lines follow the digital text of al-Fawa'id on usul.ai (Dar al-Kutub al-Ilmiyyah) and should be checked against a printed copy. Their orthography is kept as displayed there.
 
 New reminders are suggested from **Suggest a Reminder** in the extension settings, or with a [GitHub issue template](https://github.com/ahmedbernous21/islamic-feed-eradicator/issues/new/choose). The issue is public. It is not added to this file until a reviewer checks the wording and a pull request includes a valid `reviews/<id>.json`. See [CONTRIBUTING.md](CONTRIBUTING.md) and the [content policy](docs/content-policy.md). Do not invent a source, a grade, or a reason for revelation.
@@ -65,8 +65,8 @@ These checks were not all run against logged-in production sites in this workspa
 6. Facebook home: the news feed is replaced. Open Messenger, notifications, a profile, and a group. The groups feed stays visible unless you enable that region.
 7. LinkedIn `/feed`: the post list is replaced. Open Jobs, Messaging, search, and a profile.
 8. Instagram home: the post feed is replaced. Open Direct, search, and a profile. Leave Explore off unless you want that grid hidden.
-9. On a hidden feed, press **Show feed for N minutes**, confirm the posts come back, then press **Resume reminders**.
-10. Move from a feed to another page and back with **When the page changes** selected. The reminder should advance. Set rotation to **Only when I press next** and confirm it stays put.
+9. In the extension settings, press **Show feed for N minutes**, confirm the posts come back, then press **Resume reminders**.
+10. Refresh a feed page with **Each page load or refresh** selected. The reminder should advance. Set rotation to **Only when I press next** and confirm it stays put.
 
 Keyboard, when the reminder card is focused: Right arrow next, Left arrow previous, `R` random, `F` favorite.
 

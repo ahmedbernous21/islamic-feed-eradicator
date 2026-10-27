@@ -91,7 +91,10 @@ export function createSettingsStore(): SettingsStore {
     },
     subscribe(listener) {
       return area.onChanged(() => {
-        void load().then(listener);
+        void load().then(listener).catch((error: unknown) => {
+          const message = error instanceof Error ? error.message : String(error);
+          if (!message.includes('Extension context invalidated') && !message.includes('message port closed')) throw error;
+        });
       });
     },
   };

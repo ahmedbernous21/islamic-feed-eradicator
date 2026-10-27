@@ -15,6 +15,14 @@ export type RegionDefinition = {
   placement: Placement;
   /** Element that should contain the reminder. Falls back to the hidden node's parent. */
   mountSelectors?: string[];
+  /**
+   * Hide the contents of the feed column and float the reminder over that column.
+   * The reminder is not inserted into the site's own tree, which those sites would
+   * otherwise delete on every update.
+   */
+  replaceColumn?: boolean;
+  /** Walk up from the feed to the column inside the first mount selector. */
+  anchor?: 'feed-column';
 };
 
 export type SiteDefinition = {

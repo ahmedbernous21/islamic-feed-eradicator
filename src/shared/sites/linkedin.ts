@@ -12,6 +12,7 @@ const site: SiteDefinition = {
       defaultEnabled: true,
       paths: ['/', '/feed'],
       placement: 'primary',
+      replaceColumn: true,
       mountSelectors: ['.scaffold-layout__main', 'main'],
       selectors: [
         '.scaffold-finite-scroll',

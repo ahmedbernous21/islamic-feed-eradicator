@@ -21,8 +21,11 @@ describe('reminder dataset', () => {
       }
       if (reminder.category === 'hadith') {
         expect(reminder.arabic).toMatch(arabic);
+        expect(reminder.collection).toBe('Sahih al-Bukhari');
         expect(reminder.arabicFull).toContain(reminder.arabic.replace(/\s+/g, ' ').slice(0, 12));
-        expect(reminder.collection.length).toBeGreaterThan(3);
+        const plain = reminder.arabic.replace(/[\u064B-\u0652\u0670\u0640]/g, '');
+        expect(plain.length).toBeGreaterThan(30);
+        expect(plain.length).toBeLessThan(320);
         expect(reminder.reference.length).toBeGreaterThan(3);
         expect(reminder.authenticityBasis.length).toBeGreaterThan(10);
       }

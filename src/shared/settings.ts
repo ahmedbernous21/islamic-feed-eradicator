@@ -15,6 +15,12 @@ export type PersonalNote = {
   createdAt: number;
 };
 
+export type ReminderCursor = {
+  reminderId: string | null;
+  lastPath: string | null;
+  lastAdvancedAt: number;
+};
+
 export type Settings = {
   version: 1;
   globalEnabled: boolean;
@@ -36,11 +42,9 @@ export type Settings = {
   sites: Record<SiteId, SiteSettings>;
   favorites: string[];
   personalNotes: PersonalNote[];
-  cursor: {
-    reminderId: string | null;
-    lastPath: string | null;
-    lastAdvancedAt: number;
-  };
+  /** Preview cursor for the popup and options page. Each site stores its own in `cursors`. */
+  cursor: ReminderCursor;
+  cursors: Partial<Record<SiteId, ReminderCursor>>;
 };
 
 const THEMES: Theme[] = ['light', 'dark', 'system'];
@@ -68,6 +72,7 @@ export function defaultSettings(): Settings {
     favorites: [],
     personalNotes: [],
     cursor: { reminderId: null, lastPath: null, lastAdvancedAt: 0 },
+    cursors: {},
   };
 }
 
@@ -120,11 +125,13 @@ export function normalizeSettings(input: unknown): Settings {
     }
   }
 
-  const cursor = { ...defaults.cursor };
-  if (isRecord(input.cursor)) {
-    cursor.reminderId = typeof input.cursor.reminderId === 'string' ? input.cursor.reminderId : null;
-    cursor.lastPath = typeof input.cursor.lastPath === 'string' ? input.cursor.lastPath : null;
-    cursor.lastAdvancedAt = typeof input.cursor.lastAdvancedAt === 'number' ? input.cursor.lastAdvancedAt : 0;
+  const cursor = normalizeCursor(input.cursor, defaults.cursor);
+  const cursors: Settings['cursors'] = {};
+  if (isRecord(input.cursors)) {
+    for (const site of SITES) {
+      const stored = input.cursors[site.id];
+      if (isRecord(stored)) cursors[site.id] = normalizeCursor(stored, defaults.cursor);
+    }
   }
 
   const favorites = Array.isArray(input.favorites)
@@ -159,6 +166,16 @@ export function normalizeSettings(input: unknown): Settings {
     favorites,
     personalNotes,
     cursor,
+    cursors,
+  };
+}
+
+function normalizeCursor(value: unknown, fallback: ReminderCursor): ReminderCursor {
+  if (!isRecord(value)) return { ...fallback };
+  return {
+    reminderId: typeof value.reminderId === 'string' ? value.reminderId : null,
+    lastPath: typeof value.lastPath === 'string' ? value.lastPath : null,
+    lastAdvancedAt: typeof value.lastAdvancedAt === 'number' ? value.lastAdvancedAt : 0,
   };
 }
 

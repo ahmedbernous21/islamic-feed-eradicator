@@ -12,7 +12,12 @@ const site: SiteDefinition = {
       defaultEnabled: true,
       paths: ['/'],
       placement: 'primary',
-      mountSelectors: ['ytd-browse', '#primary', 'ytd-two-column-browse-results-renderer'],
+      replaceColumn: true,
+      mountSelectors: [
+        'ytd-browse[page-subtype="home"] #primary',
+        'ytd-two-column-browse-results-renderer #primary',
+        'ytd-browse #primary',
+      ],
       selectors: [
         'ytd-browse[page-subtype="home"] ytd-rich-grid-renderer',
         'ytd-browse[page-subtype="home"] ytd-rich-section-renderer',
@@ -90,7 +95,8 @@ const site: SiteDefinition = {
       defaultEnabled: false,
       paths: ['/feed/subscriptions'],
       placement: 'primary',
-      mountSelectors: ['ytd-browse'],
+      replaceColumn: true,
+      mountSelectors: ['ytd-browse[page-subtype="subscriptions"] #primary', 'ytd-browse #primary'],
       selectors: ['ytd-browse[page-subtype="subscriptions"] ytd-rich-grid-renderer', 'ytd-browse[page-subtype="subscriptions"] ytd-section-list-renderer'],
     },
   ],

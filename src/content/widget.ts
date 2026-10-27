@@ -18,8 +18,8 @@ export type ReminderActions = {
   onRandom: () => void;
   onToggleFavorite: () => void;
   onToggleTranslation: () => void;
-  onSnooze: () => void;
-  snoozeLabel: string;
+  onSnooze?: () => void;
+  snoozeLabel?: string;
 };
 
 function keepMarksWithWords(text: string): string {
@@ -29,9 +29,13 @@ function keepMarksWithWords(text: string): string {
 function fontCss(): string {
   const runtime = globalThis.chrome?.runtime;
   if (!runtime?.getURL) return '';
-  const regular = runtime.getURL('fonts/amiri-arabic-400.woff2');
-  const bold = runtime.getURL('fonts/amiri-arabic-700.woff2');
-  return `@font-face{font-family:"Amiri";src:url("${regular}") format("woff2");font-weight:400;font-display:swap;}@font-face{font-family:"Amiri";src:url("${bold}") format("woff2");font-weight:700;font-display:swap;}`;
+  try {
+    const regular = runtime.getURL('fonts/amiri-arabic-400.woff2');
+    const bold = runtime.getURL('fonts/amiri-arabic-700.woff2');
+    return `@font-face{font-family:"Amiri";src:url("${regular}") format("woff2");font-weight:400;font-display:swap;}@font-face{font-family:"Amiri";src:url("${bold}") format("woff2");font-weight:700;font-display:swap;}`;
+  } catch {
+    return '';
+  }
 }
 
 function mountRoot(host: HTMLElement): ParentNode {
@@ -116,6 +120,7 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
 
     const source = doc.createElement('p');
     source.className = 'ife-source';
+    source.dir = 'ltr';
     source.textContent = citation(reminder);
     card.append(source);
 
@@ -141,7 +146,7 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
       const details = doc.createElement('details');
       details.className = 'ife-details';
       const summary = doc.createElement('summary');
-      summary.textContent = 'Full narration';
+      summary.textContent = 'Full entry';
       const full = doc.createElement('p');
       full.className = 'ife-full';
       full.lang = 'ar';
@@ -164,23 +169,10 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
       'aria-pressed': view.favorite ? 'true' : 'false',
     }),
     button(doc, view.showTranslation ? 'Hide translation' : 'Show translation', actions.onToggleTranslation),
-    button(doc, actions.snoozeLabel, actions.onSnooze),
   );
+  if (actions.onSnooze && actions.snoozeLabel) {
+    actionsRow.append(button(doc, actions.snoozeLabel, actions.onSnooze));
+  }
   card.append(rule, actionsRow);
   root.append(style, card);
-}
-
-export function renderSnooze(host: HTMLElement, theme: Theme, label: string, onResume: () => void): void {
-  const doc = host.ownerDocument;
-  const root = mountRoot(host);
-  root.replaceChildren();
-  const style = doc.createElement('style');
-  style.textContent = `${fontCss()}\n${widgetCss}`;
-  const pill = doc.createElement('div');
-  pill.className = 'ife-pill';
-  pill.dataset.theme = theme;
-  const text = doc.createElement('p');
-  text.textContent = label;
-  pill.append(text, button(doc, 'Resume reminders', onResume));
-  root.append(style, pill);
 }

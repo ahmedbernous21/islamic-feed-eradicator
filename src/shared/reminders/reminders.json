@@ -2,7 +2,7 @@
   "meta": {
     "translation": "English fields are concise renderings of the meaning prepared for this extension. They are not a published translation. Compare a printed mushaf or hadith edition.",
     "quranText": "Uthmani text from the Quran.com content API, version 4, field text_uthmani, fetched for the verse keys in each entry.",
-    "hadithText": "Arabic hadith text from the public-domain hadith-api dataset by fawazahmed0, editions ara-bukhari and ara-muslim."
+    "hadithText": "Arabic hadith text from the public-domain hadith-api dataset by fawazahmed0, edition ara-bukhari. Each card shows the whole short report. The chain of narrators is kept in arabicFull."
   },
   "reminders": [
     {
@@ -227,16 +227,28 @@
       "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
     },
     {
-      "id": "hadith-bukhari-1",
+      "id": "hadith-bukhari-54",
       "category": "hadith",
       "collection": "Sahih al-Bukhari",
-      "reference": "Hadith 1",
+      "reference": "Hadith 54",
       "authenticity": "Sahih",
       "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
-      "arabic": "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى دُنْيَا يُصِيبُهَا أَوْ إِلَى امْرَأَةٍ يَنْكِحُهَا، فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ",
-      "arabicFull": "حَدَّثَنَا الْحُمَيْدِيُّ عَبْدُ اللَّهِ بْنُ الزُّبَيْرِ ، قَالَ : حَدَّثَنَا سُفْيَانُ ، قَالَ : حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ الْأَنْصَارِيُّ ، قَالَ : أَخْبَرَنِي مُحَمَّدُ بْنُ إِبْرَاهِيمَ التَّيْمِيُّ ، أَنَّهُ سَمِعَ عَلْقَمَةَ بْنَ وَقَّاصٍ اللَّيْثِيَّ ، يَقُولُ : سَمِعْتُ عُمَرَ بْنَ الْخَطَّابِ رَضِيَ اللَّهُ عَنْهُ عَلَى الْمِنْبَرِ، قَالَ : سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، يَقُولُ : \" إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى دُنْيَا يُصِيبُهَا أَوْ إِلَى امْرَأَةٍ يَنْكِحُهَا، فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ",
-      "translation": "Actions are only by intentions, and each person has only what they intended. Whoever emigrated for some worldly gain, or to marry a woman, their emigration is only for what they emigrated for.",
-      "note": "Arabic follows hadith-api, Sahih al-Bukhari 1. Many printed copies also contain a clause, before the worldly example, that emigration for Allah and His Messenger is for Allah and His Messenger. Compare a printed edition."
+      "arabic": "الأَعْمَالُ بِالنِّيَّةِ، وَلِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا، أَوِ امْرَأَةٍ يَتَزَوَّجُهَا، فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ.",
+      "arabicFull": "حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ، قَالَ أَخْبَرَنَا مَالِكٌ، عَنْ يَحْيَى بْنِ سَعِيدٍ، عَنْ مُحَمَّدِ بْنِ إِبْرَاهِيمَ، عَنْ عَلْقَمَةَ بْنِ وَقَّاصٍ، عَنْ عُمَرَ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ \"‏ الأَعْمَالُ بِالنِّيَّةِ، وَلِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا، أَوِ امْرَأَةٍ يَتَزَوَّجُهَا، فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ ‏\"‏‏.‏",
+      "translation": "Actions are by intention, and each person has what they intended. Whoever emigrated for Allah and His Messenger, their emigration is for Allah and His Messenger. Whoever emigrated for some worldly gain, or to marry a woman, their emigration is for what they emigrated for.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 54, which is the whole report in that entry. Hadith 1 in the same dataset stops before the clause about emigration for Allah and His Messenger, so that shorter entry is not used. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-8",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 8",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "بُنِيَ الإِسْلاَمُ عَلَى خَمْسٍ شَهَادَةِ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، وَإِقَامِ الصَّلاَةِ، وَإِيتَاءِ الزَّكَاةِ، وَالْحَجِّ، وَصَوْمِ رَمَضَانَ.",
+      "arabicFull": "حَدَّثَنَا عُبَيْدُ اللَّهِ بْنُ مُوسَى، قَالَ أَخْبَرَنَا حَنْظَلَةُ بْنُ أَبِي سُفْيَانَ، عَنْ عِكْرِمَةَ بْنِ خَالِدٍ، عَنِ ابْنِ عُمَرَ ـ رضى الله عنهما ـ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ \"‏ بُنِيَ الإِسْلاَمُ عَلَى خَمْسٍ شَهَادَةِ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، وَإِقَامِ الصَّلاَةِ، وَإِيتَاءِ الزَّكَاةِ، وَالْحَجِّ، وَصَوْمِ رَمَضَانَ ‏\"‏‏.‏",
+      "translation": "Islam is built on five: testifying that there is no god but Allah and that Muhammad is the Messenger of Allah, establishing the prayer, paying zakat, Hajj, and the fast of Ramadan.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 8. The card shows that whole report. The chain of narrators is under Full entry."
     },
     {
       "id": "hadith-bukhari-10",
@@ -245,10 +257,10 @@
       "reference": "Hadith 10",
       "authenticity": "Sahih",
       "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
-      "arabic": "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ، وَالْمُهَاجِرُ مَنْ هَجَرَ مَا نَهَى اللَّهُ عَنْهُ",
+      "arabic": "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ، وَالْمُهَاجِرُ مَنْ هَجَرَ مَا نَهَى اللَّهُ عَنْهُ.",
       "arabicFull": "حَدَّثَنَا آدَمُ بْنُ أَبِي إِيَاسٍ، قَالَ حَدَّثَنَا شُعْبَةُ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي السَّفَرِ، وَإِسْمَاعِيلَ، عَنِ الشَّعْبِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو ـ رضى الله عنهما ـ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ، وَالْمُهَاجِرُ مَنْ هَجَرَ مَا نَهَى اللَّهُ عَنْهُ ‏\"‏‏.‏ قَالَ أَبُو عَبْدِ اللَّهِ وَقَالَ أَبُو مُعَاوِيَةَ حَدَّثَنَا دَاوُدُ عَنْ عَامِرٍ قَالَ سَمِعْتُ عَبْدَ اللَّهِ عَنِ النَّبِيِّ صلى الله عليه وسلم‏.‏ وَقَالَ عَبْدُ الأَعْلَى عَنْ دَاوُدَ عَنْ عَامِرٍ عَنْ عَبْدِ اللَّهِ عَنِ النَّبِيِّ صلى الله عليه وسلم‏.‏",
       "translation": "The Muslim is the one from whose tongue and hand other Muslims are safe, and the emigrant is the one who leaves what Allah has forbidden.",
-      "note": "Arabic follows hadith-api, Sahih al-Bukhari 10. The full narration includes the chain and a short note from the compiler."
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 10. The card shows the whole report. The edition adds other routes of transmission after it; those stay under Full entry."
     },
     {
       "id": "hadith-bukhari-13",
@@ -257,10 +269,22 @@
       "reference": "Hadith 13",
       "authenticity": "Sahih",
       "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
-      "arabic": "لا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
+      "arabic": "لا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ.",
       "arabicFull": "حَدَّثَنَا مُسَدَّدٌ، قَالَ حَدَّثَنَا يَحْيَى، عَنْ شُعْبَةَ، عَنْ قَتَادَةَ، عَنْ أَنَسٍ ـ رضى الله عنه ـ عَنِ النَّبِيِّ صلى الله عليه وسلم‏.‏ وَعَنْ حُسَيْنٍ الْمُعَلِّمِ، قَالَ حَدَّثَنَا قَتَادَةُ، عَنْ أَنَسٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ لا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ ‏\"‏‏.‏",
-      "translation": "None of you truly believes until they love for their brother what they love for themselves.",
-      "note": "Arabic follows hadith-api, Sahih al-Bukhari 13. Sahih Muslim records a wording that says \"his brother, or his neighbor.\""
+      "translation": "None of you believes until they love for their brother what they love for themselves.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 13. Sahih Muslim records a wording that says \"his brother, or his neighbor.\" The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-15",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 15",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "لاَ يُؤْمِنُ أَحَدُكُمْ حَتَّى أَكُونَ أَحَبَّ إِلَيْهِ مِنْ وَالِدِهِ وَوَلَدِهِ وَالنَّاسِ أَجْمَعِينَ.",
+      "arabicFull": "حَدَّثَنَا يَعْقُوبُ بْنُ إِبْرَاهِيمَ، قَالَ حَدَّثَنَا ابْنُ عُلَيَّةَ، عَنْ عَبْدِ الْعَزِيزِ بْنِ صُهَيْبٍ، عَنْ أَنَسٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم ح وَحَدَّثَنَا آدَمُ، قَالَ حَدَّثَنَا شُعْبَةُ، عَنْ قَتَادَةَ، عَنْ أَنَسٍ، قَالَ قَالَ النَّبِيُّ صلى الله عليه وسلم ‏ \"‏ لاَ يُؤْمِنُ أَحَدُكُمْ حَتَّى أَكُونَ أَحَبَّ إِلَيْهِ مِنْ وَالِدِهِ وَوَلَدِهِ وَالنَّاسِ أَجْمَعِينَ ‏\"‏‏.‏",
+      "translation": "None of you believes until I am more beloved to them than their parent, their child, and all people.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 15. The card shows that whole report. The chain of narrators is under Full entry."
     },
     {
       "id": "hadith-bukhari-69",
@@ -269,22 +293,82 @@
       "reference": "Hadith 69",
       "authenticity": "Sahih",
       "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
-      "arabic": "يَسِّرُوا وَلاَ تُعَسِّرُوا، وَبَشِّرُوا وَلاَ تُنَفِّرُوا",
+      "arabic": "يَسِّرُوا وَلاَ تُعَسِّرُوا، وَبَشِّرُوا وَلاَ تُنَفِّرُوا.",
       "arabicFull": "حَدَّثَنَا مُحَمَّدُ بْنُ بَشَّارٍ، قَالَ حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ، قَالَ حَدَّثَنَا شُعْبَةُ، قَالَ حَدَّثَنِي أَبُو التَّيَّاحِ، عَنْ أَنَسٍ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ يَسِّرُوا وَلاَ تُعَسِّرُوا، وَبَشِّرُوا وَلاَ تُنَفِّرُوا ‏\"‏‏.‏",
       "translation": "Make things easy and do not make them difficult. Give good news and do not drive people away.",
-      "note": "Arabic follows hadith-api, Sahih al-Bukhari 69."
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 69. The card shows that whole report. The chain of narrators is under Full entry."
     },
     {
-      "id": "hadith-bukhari-5027",
+      "id": "hadith-bukhari-109",
       "category": "hadith",
       "collection": "Sahih al-Bukhari",
-      "reference": "Hadith 5027",
+      "reference": "Hadith 109",
       "authenticity": "Sahih",
       "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
-      "arabic": "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
-      "arabicFull": "حَدَّثَنَا حَجَّاجُ بْنُ مِنْهَالٍ، حَدَّثَنَا شُعْبَةُ، قَالَ أَخْبَرَنِي عَلْقَمَةُ بْنُ مَرْثَدٍ، سَمِعْتُ سَعْدَ بْنَ عُبَيْدَةَ، عَنْ أَبِي عَبْدِ الرَّحْمَنِ السُّلَمِيِّ، عَنْ عُثْمَانَ ـ رضى الله عنه ـ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ ‏\"‏‏.‏ قَالَ وَأَقْرَأَ أَبُو عَبْدِ الرَّحْمَنِ فِي إِمْرَةِ عُثْمَانَ حَتَّى كَانَ الْحَجَّاجُ، قَالَ وَذَاكَ الَّذِي أَقْعَدَنِي مَقْعَدِي هَذَا‏.‏",
-      "translation": "The best of you are those who learn the Qur'an and teach it.",
-      "note": "Arabic follows hadith-api, Sahih al-Bukhari 5027. The report continues with a remark about Abu Abd al-Rahman al-Sulami."
+      "arabic": "مَنْ يَقُلْ عَلَىَّ مَا لَمْ أَقُلْ فَلْيَتَبَوَّأْ مَقْعَدَهُ مِنَ النَّارِ.",
+      "arabicFull": "حَدَّثَنَا مَكِّيُّ بْنُ إِبْرَاهِيمَ، قَالَ حَدَّثَنَا يَزِيدُ بْنُ أَبِي عُبَيْدٍ، عَنْ سَلَمَةَ، قَالَ سَمِعْتُ النَّبِيَّ صلى الله عليه وسلم يَقُولُ ‏ \"‏ مَنْ يَقُلْ عَلَىَّ مَا لَمْ أَقُلْ فَلْيَتَبَوَّأْ مَقْعَدَهُ مِنَ النَّارِ ‏\"‏‏.‏",
+      "translation": "Whoever attributes to me something I did not say, let them take their seat in the Fire.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 109. The card shows that whole report. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-1469",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 1469",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "أَنَّ نَاسًا مِنَ الأَنْصَارِ سَأَلُوا رَسُولَ اللَّهِ صلى الله عليه وسلم فَأَعْطَاهُمْ، ثُمَّ سَأَلُوهُ فَأَعْطَاهُمْ، حَتَّى نَفِدَ مَا عِنْدَهُ فَقَالَ مَا يَكُونُ عِنْدِي مِنْ خَيْرٍ فَلَنْ أَدَّخِرَهُ عَنْكُمْ، وَمَنْ يَسْتَعْفِفْ يُعِفَّهُ اللَّهُ، وَمَنْ يَسْتَغْنِ يُغْنِهِ اللَّهُ، وَمَنْ يَتَصَبَّرْ يُصَبِّرْهُ اللَّهُ، وَمَا أُعْطِيَ أَحَدٌ عَطَاءً خَيْرًا وَأَوْسَعَ مِنَ الصَّبْرِ.",
+      "arabicFull": "حَدَّثَنَا عَبْدُ اللَّهِ بْنُ يُوسُفَ، أَخْبَرَنَا مَالِكٌ، عَنِ ابْنِ شِهَابٍ، عَنْ عَطَاءِ بْنِ يَزِيدَ اللَّيْثِيِّ، عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ ـ رضى الله عنه ـ أَنَّ نَاسًا مِنَ الأَنْصَارِ سَأَلُوا رَسُولَ اللَّهِ صلى الله عليه وسلم فَأَعْطَاهُمْ، ثُمَّ سَأَلُوهُ فَأَعْطَاهُمْ، حَتَّى نَفِدَ مَا عِنْدَهُ فَقَالَ ‏ \"‏ مَا يَكُونُ عِنْدِي مِنْ خَيْرٍ فَلَنْ أَدَّخِرَهُ عَنْكُمْ، وَمَنْ يَسْتَعْفِفْ يُعِفَّهُ اللَّهُ، وَمَنْ يَسْتَغْنِ يُغْنِهِ اللَّهُ، وَمَنْ يَتَصَبَّرْ يُصَبِّرْهُ اللَّهُ، وَمَا أُعْطِيَ أَحَدٌ عَطَاءً خَيْرًا وَأَوْسَعَ مِنَ الصَّبْرِ ‏\"‏‏.‏",
+      "translation": "Some of the Ansar asked the Messenger of Allah, and he gave them. They asked again, and he gave them, until what he had was gone. He said: Whatever good I have, I will not hold it back from you. Whoever seeks to refrain, Allah grants them restraint. Whoever seeks to be without need, Allah enriches them. Whoever tries to be patient, Allah gives them patience. No one was given a gift better or wider than patience.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 1469. The card includes the occasion and the whole reply. The chain is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-1954",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 1954",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "إِذَا أَقْبَلَ اللَّيْلُ مِنْ هَا هُنَا، وَأَدْبَرَ النَّهَارُ مِنْ هَا هُنَا، وَغَرَبَتِ الشَّمْسُ، فَقَدْ أَفْطَرَ الصَّائِمُ.",
+      "arabicFull": "حَدَّثَنَا الْحُمَيْدِيُّ، حَدَّثَنَا سُفْيَانُ، حَدَّثَنَا هِشَامُ بْنُ عُرْوَةَ، قَالَ سَمِعْتُ أَبِي يَقُولُ، سَمِعْتُ عَاصِمَ بْنَ عُمَرَ بْنِ الْخَطَّابِ، عَنْ أَبِيهِ ـ رضى الله عنه ـ قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ \"‏ إِذَا أَقْبَلَ اللَّيْلُ مِنْ هَا هُنَا، وَأَدْبَرَ النَّهَارُ مِنْ هَا هُنَا، وَغَرَبَتِ الشَّمْسُ، فَقَدْ أَفْطَرَ الصَّائِمُ ‏\"‏‏.‏",
+      "translation": "When night comes on from here, day turns away from here, and the sun has set, the fasting person has broken the fast.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 1954. The card shows that whole report. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-2408",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 2408",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "إِنَّ اللَّهَ حَرَّمَ عَلَيْكُمْ عُقُوقَ الأُمَّهَاتِ، وَوَأْدَ الْبَنَاتِ، وَمَنَعَ وَهَاتِ، وَكَرِهَ لَكُمْ قِيلَ وَقَالَ، وَكَثْرَةَ السُّؤَالِ، وَإِضَاعَةَ الْمَالِ.",
+      "arabicFull": "حَدَّثَنَا عُثْمَانُ، حَدَّثَنَا جَرِيرٌ، عَنْ مَنْصُورٍ، عَنِ الشَّعْبِيِّ، عَنْ وَرَّادٍ، مَوْلَى الْمُغِيرَةِ بْنِ شُعْبَةَ عَنِ الْمُغِيرَةِ بْنِ شُعْبَةَ، قَالَ قَالَ النَّبِيُّ صلى الله عليه وسلم ‏ \"‏ إِنَّ اللَّهَ حَرَّمَ عَلَيْكُمْ عُقُوقَ الأُمَّهَاتِ، وَوَأْدَ الْبَنَاتِ، وَمَنَعَ وَهَاتِ، وَكَرِهَ لَكُمْ قِيلَ وَقَالَ، وَكَثْرَةَ السُّؤَالِ، وَإِضَاعَةَ الْمَالِ ‏\"‏‏.‏",
+      "translation": "Allah has forbidden you disobedience to mothers, burying daughters alive, and withholding and demanding. He dislikes for you idle talk, asking too much, and wasting wealth.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 2408. The card shows that whole report. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-3303",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 3303",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "إِذَا سَمِعْتُمْ صِيَاحَ الدِّيَكَةِ فَاسْأَلُوا اللَّهَ مِنْ فَضْلِهِ، فَإِنَّهَا رَأَتْ مَلَكًا، وَإِذَا سَمِعْتُمْ نَهِيقَ الْحِمَارِ فَتَعَوَّذُوا بِاللَّهِ مِنَ الشَّيْطَانِ، فَإِنَّهُ رَأَى شَيْطَانًا.",
+      "arabicFull": "حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا اللَّيْثُ، عَنْ جَعْفَرِ بْنِ رَبِيعَةَ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ ـ رضى الله عنه ـ أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ \"‏ إِذَا سَمِعْتُمْ صِيَاحَ الدِّيَكَةِ فَاسْأَلُوا اللَّهَ مِنْ فَضْلِهِ، فَإِنَّهَا رَأَتْ مَلَكًا، وَإِذَا سَمِعْتُمْ نَهِيقَ الْحِمَارِ فَتَعَوَّذُوا بِاللَّهِ مِنَ الشَّيْطَانِ، فَإِنَّهُ رَأَى شَيْطَانًا ‏\"‏‏.‏",
+      "translation": "When you hear a rooster crow, ask Allah of His bounty, for it has seen an angel. When you hear a donkey bray, seek refuge in Allah from Satan, for it has seen a devil.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 3303. The card shows that whole report. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-3783",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 3783",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "الأَنْصَارُ لاَ يُحِبُّهُمْ إِلاَّ مُؤْمِنٌ، وَلاَ يُبْغِضُهُمْ إِلاَّ مُنَافِقٌ، فَمَنْ أَحَبَّهُمْ أَحَبَّهُ اللَّهُ، وَمَنْ أَبْغَضَهُمْ أَبْغَضَهُ اللَّهُ.",
+      "arabicFull": "حَدَّثَنَا حَجَّاجُ بْنُ مِنْهَالٍ، حَدَّثَنَا شُعْبَةُ، قَالَ أَخْبَرَنِي عَدِيُّ بْنُ ثَابِتٍ، قَالَ سَمِعْتُ الْبَرَاءَ ـ رضى الله عنه ـ قَالَ سَمِعْتُ النَّبِيَّ صلى الله عليه وسلم أَوْ قَالَ قَالَ النَّبِيُّ صلى الله عليه وسلم ‏ \"‏ الأَنْصَارُ لاَ يُحِبُّهُمْ إِلاَّ مُؤْمِنٌ، وَلاَ يُبْغِضُهُمْ إِلاَّ مُنَافِقٌ، فَمَنْ أَحَبَّهُمْ أَحَبَّهُ اللَّهُ، وَمَنْ أَبْغَضَهُمْ أَبْغَضَهُ اللَّهُ ‏\"‏‏.‏",
+      "translation": "Only a believer loves the Ansar, and only a hypocrite hates them. Whoever loves them, Allah loves them, and whoever hates them, Allah hates them.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 3783. The card shows that whole report. The chain of narrators is under Full entry."
     },
     {
       "id": "hadith-bukhari-5143",
@@ -293,10 +377,10 @@
       "reference": "Hadith 5143",
       "authenticity": "Sahih",
       "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
-      "arabic": "إِيَّاكُمْ وَالظَّنَّ، فَإِنَّ الظَّنَّ أَكْذَبُ الْحَدِيثِ، وَلاَ تَجَسَّسُوا، وَلاَ تَحَسَّسُوا، وَلاَ تَبَاغَضُوا، وَكُونُوا إِخْوَانًا",
+      "arabic": "إِيَّاكُمْ وَالظَّنَّ، فَإِنَّ الظَّنَّ أَكْذَبُ الْحَدِيثِ، وَلاَ تَجَسَّسُوا، وَلاَ تَحَسَّسُوا، وَلاَ تَبَاغَضُوا، وَكُونُوا إِخْوَانًا. وَلَا يَخْطُبُ الرَّجُلُ عَلَى خِطْبَةِ أَخِيهِ حَتَّى يَنْكِحَ أَوْ يَتْرُكَ",
       "arabicFull": "حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ، حَدَّثَنَا اللَّيْثُ، عَنْ جَعْفَرِ بْنِ رَبِيعَةَ، عَنِ الأَعْرَجِ، قَالَ قَالَ أَبُو هُرَيْرَةَ يَأْثُرُ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ إِيَّاكُمْ وَالظَّنَّ، فَإِنَّ الظَّنَّ أَكْذَبُ الْحَدِيثِ، وَلاَ تَجَسَّسُوا، وَلاَ تَحَسَّسُوا، وَلاَ تَبَاغَضُوا، وَكُونُوا إِخْوَانًا ‏\"‏‏.‏ وَلَا يَخْطُبُ الرَّجُلُ عَلَى خِطْبَةِ أَخِيهِ حَتَّى يَنْكِحَ أَوْ يَتْرُكَ",
-      "translation": "Beware of suspicion, for suspicion is the most false kind of talk. Do not spy, do not probe, do not turn away from one another, and be brothers.",
-      "note": "Arabic follows hadith-api, Sahih al-Bukhari 5143. The entry also continues with a prohibition of proposing marriage over a brother's proposal."
+      "translation": "Beware of suspicion, for suspicion is the most false kind of talk. Do not spy, do not probe, do not turn away from one another, and be brothers. A man does not propose over his brother's proposal until that brother marries or gives it up.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 5143. The same entry continues, after the quoted words, with the sentence about proposing over a brother's proposal. Both are shown. The chain is under Full entry."
     },
     {
       "id": "hadith-bukhari-6018",
@@ -305,10 +389,22 @@
       "reference": "Hadith 6018",
       "authenticity": "Sahih",
       "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
-      "arabic": "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلاَ يُؤْذِ جَارَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيُكْرِمْ ضَيْفَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
+      "arabic": "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلاَ يُؤْذِ جَارَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيُكْرِمْ ضَيْفَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ.",
       "arabicFull": "حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، حَدَّثَنَا أَبُو الأَحْوَصِ، عَنْ أَبِي حَصِينٍ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ \"‏ مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلاَ يُؤْذِ جَارَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيُكْرِمْ ضَيْفَهُ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ ‏\"‏‏.‏",
-      "translation": "Whoever believes in Allah and the Last Day should not harm their neighbor. Whoever believes in Allah and the Last Day should honor their guest. Whoever believes in Allah and the Last Day should speak well or stay quiet.",
-      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6018."
+      "translation": "Whoever believes in Allah and the Last Day should not harm their neighbor. Whoever believes in Allah and the Last Day should honor their guest. Whoever believes in Allah and the Last Day should say what is good or stay quiet.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6018. The card shows that whole report. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-6052",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 6052",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "مَرَّ رَسُولُ اللَّهِ صلى الله عليه وسلم عَلَى قَبْرَيْنِ فَقَالَ إِنَّهُمَا لَيُعَذَّبَانِ، وَمَا يُعَذَّبَانِ فِي كَبِيرٍ، أَمَّا هَذَا فَكَانَ لاَ يَسْتَتِرُ مِنْ بَوْلِهِ، وَأَمَّا هَذَا فَكَانَ يَمْشِي بِالنَّمِيمَةِ. ثُمَّ دَعَا بِعَسِيبٍ رَطْبٍ، فَشَقَّهُ بِاثْنَيْنِ، فَغَرَسَ عَلَى هَذَا وَاحِدًا وَعَلَى هَذَا وَاحِدًا ثُمَّ قَالَ لَعَلَّهُ يُخَفَّفُ عَنْهُمَا، مَا لَمْ يَيْبَسَا.",
+      "arabicFull": "حَدَّثَنَا يَحْيَى، حَدَّثَنَا وَكِيعٌ، عَنِ الأَعْمَشِ، قَالَ سَمِعْتُ مُجَاهِدًا، يُحَدِّثُ عَنْ طَاوُسٍ، عَنِ ابْنِ عَبَّاسٍ ـ رضى الله عنهما ـ قَالَ مَرَّ رَسُولُ اللَّهِ صلى الله عليه وسلم عَلَى قَبْرَيْنِ فَقَالَ ‏\"‏ إِنَّهُمَا لَيُعَذَّبَانِ، وَمَا يُعَذَّبَانِ فِي كَبِيرٍ، أَمَّا هَذَا فَكَانَ لاَ يَسْتَتِرُ مِنْ بَوْلِهِ، وَأَمَّا هَذَا فَكَانَ يَمْشِي بِالنَّمِيمَةِ ‏\"‏‏.‏ ثُمَّ دَعَا بِعَسِيبٍ رَطْبٍ، فَشَقَّهُ بِاثْنَيْنِ، فَغَرَسَ عَلَى هَذَا وَاحِدًا وَعَلَى هَذَا وَاحِدًا ثُمَّ قَالَ ‏\"‏ لَعَلَّهُ يُخَفَّفُ عَنْهُمَا، مَا لَمْ يَيْبَسَا ‏\"‏‏.‏",
+      "translation": "The Messenger of Allah passed two graves and said: These two are being punished, and they are not being punished for something large. This one did not guard himself from his urine, and this one used to spread gossip. He then called for a fresh palm stalk, split it in two, and planted one piece on each grave. Then he said: Perhaps it will be lightened for them for as long as these have not dried.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6052. The card includes both statements and what he did between them. The chain is under Full entry."
     },
     {
       "id": "hadith-bukhari-6114",
@@ -317,10 +413,22 @@
       "reference": "Hadith 6114",
       "authenticity": "Sahih",
       "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
-      "arabic": "لَيْسَ الشَّدِيدُ بِالصُّرَعَةِ، إِنَّمَا الشَّدِيدُ الَّذِي يَمْلِكُ نَفْسَهُ عِنْدَ الْغَضَبِ",
+      "arabic": "لَيْسَ الشَّدِيدُ بِالصُّرَعَةِ، إِنَّمَا الشَّدِيدُ الَّذِي يَمْلِكُ نَفْسَهُ عِنْدَ الْغَضَبِ.",
       "arabicFull": "حَدَّثَنَا عَبْدُ اللَّهِ بْنُ يُوسُفَ، أَخْبَرَنَا مَالِكٌ، عَنِ ابْنِ شِهَابٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ أَبِي هُرَيْرَةَ ـ رضى الله عنه ـ أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ \"‏ لَيْسَ الشَّدِيدُ بِالصُّرَعَةِ، إِنَّمَا الشَّدِيدُ الَّذِي يَمْلِكُ نَفْسَهُ عِنْدَ الْغَضَبِ ‏\"‏‏.‏",
-      "translation": "The strong person is not the one who throws people down. The strong person is the one who controls themself when angry.",
-      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6114."
+      "translation": "The strong person is not the one who throws people down. The strong person is the one who controls himself when angry.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6114. The card shows that whole report. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-6224",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 6224",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "إِذَا عَطَسَ أَحَدُكُمْ فَلْيَقُلِ الْحَمْدُ لِلَّهِ. وَلْيَقُلْ لَهُ أَخُوهُ أَوْ صَاحِبُهُ يَرْحَمُكَ اللَّهُ. فَإِذَا قَالَ لَهُ يَرْحَمُكَ اللَّهُ. فَلْيَقُلْ يَهْدِيكُمُ اللَّهُ وَيُصْلِحُ بَالَكُمْ.",
+      "arabicFull": "حَدَّثَنَا مَالِكُ بْنُ إِسْمَاعِيلَ، حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ أَبِي سَلَمَةَ، أَخْبَرَنَا عَبْدُ اللَّهِ بْنُ دِينَارٍ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ ـ رضى الله عنه ـ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ إِذَا عَطَسَ أَحَدُكُمْ فَلْيَقُلِ الْحَمْدُ لِلَّهِ‏.‏ وَلْيَقُلْ لَهُ أَخُوهُ أَوْ صَاحِبُهُ يَرْحَمُكَ اللَّهُ‏.‏ فَإِذَا قَالَ لَهُ يَرْحَمُكَ اللَّهُ‏.‏ فَلْيَقُلْ يَهْدِيكُمُ اللَّهُ وَيُصْلِحُ بَالَكُمْ ‏\"‏‏.‏",
+      "translation": "When one of you sneezes, let them say \"Praise belongs to Allah,\" and let their brother or companion say \"May Allah have mercy on you.\" When that is said to them, let them say \"May Allah guide you and set your affairs right.\"",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6224. The card shows that whole report. The chain of narrators is under Full entry."
     },
     {
       "id": "hadith-bukhari-6465",
@@ -329,46 +437,22 @@
       "reference": "Hadith 6465",
       "authenticity": "Sahih",
       "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
-      "arabic": "أَدْوَمُهَا وَإِنْ قَلَّ",
+      "arabic": "سُئِلَ النَّبِيُّ صلى الله عليه وسلم أَىُّ الأَعْمَالِ أَحَبُّ إِلَى اللَّهِ قَالَ أَدْوَمُهَا وَإِنْ قَلَّ. وَقَالَ اكْلَفُوا مِنَ الأَعْمَالِ مَا تُطِيقُونَ.",
       "arabicFull": "حَدَّثَنِي مُحَمَّدُ بْنُ عَرْعَرَةَ، حَدَّثَنَا شُعْبَةُ، عَنْ سَعْدِ بْنِ إِبْرَاهِيمَ، عَنْ أَبِي سَلَمَةَ، عَنْ عَائِشَةَ ـ رضى الله عنها ـ أَنَّهَا قَالَتْ سُئِلَ النَّبِيُّ صلى الله عليه وسلم أَىُّ الأَعْمَالِ أَحَبُّ إِلَى اللَّهِ قَالَ ‏\"‏ أَدْوَمُهَا وَإِنْ قَلَّ ‏\"‏‏.‏ وَقَالَ ‏\"‏ اكْلَفُوا مِنَ الأَعْمَالِ مَا تُطِيقُونَ ‏\"‏‏.‏",
-      "translation": "Aishah said the Prophet, peace be upon him, was asked which deeds are most beloved to Allah. He said, \"The most consistent of them, even if they are few.\" He also said, \"Take on the deeds you can sustain.\"",
-      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6465. The short Arabic line is the answer; the full entry includes the question and the second statement."
+      "translation": "The Prophet, peace be upon him, was asked which deeds are most beloved to Allah. He said: The most consistent of them, even if few. And he said: Take on the deeds you can keep up.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6465. The card includes the question and both statements. The chain is under Full entry."
     },
     {
-      "id": "hadith-bukhari-7405",
+      "id": "hadith-bukhari-6474",
       "category": "hadith",
       "collection": "Sahih al-Bukhari",
-      "reference": "Hadith 7405, hadith qudsi",
+      "reference": "Hadith 6474",
       "authenticity": "Sahih",
       "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
-      "arabic": "أَنَا عِنْدَ ظَنِّ عَبْدِي بِي، وَأَنَا مَعَهُ إِذَا ذَكَرَنِي، فَإِنْ ذَكَرَنِي فِي نَفْسِهِ ذَكَرْتُهُ فِي نَفْسِي، وَإِنْ ذَكَرَنِي فِي مَلأٍ ذَكَرْتُهُ فِي مَلأٍ خَيْرٍ مِنْهُمْ، وَإِنْ تَقَرَّبَ إِلَىَّ بِشِبْرٍ تَقَرَّبْتُ إِلَيْهِ ذِرَاعًا، وَإِنْ تَقَرَّبَ إِلَىَّ ذِرَاعًا تَقَرَّبْتُ إِلَيْهِ بَاعًا، وَإِنْ أَتَانِي يَمْشِي أَتَيْتُهُ هَرْوَلَةً",
-      "arabicFull": "حَدَّثَنَا عُمَرُ بْنُ حَفْصٍ، حَدَّثَنَا أَبِي، حَدَّثَنَا الأَعْمَشُ، سَمِعْتُ أَبَا صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ ـ رضى الله عنه ـ قَالَ قَالَ النَّبِيُّ صلى الله عليه وسلم ‏ \"‏ يَقُولُ اللَّهُ تَعَالَى أَنَا عِنْدَ ظَنِّ عَبْدِي بِي، وَأَنَا مَعَهُ إِذَا ذَكَرَنِي، فَإِنْ ذَكَرَنِي فِي نَفْسِهِ ذَكَرْتُهُ فِي نَفْسِي، وَإِنْ ذَكَرَنِي فِي مَلأٍ ذَكَرْتُهُ فِي مَلأٍ خَيْرٍ مِنْهُمْ، وَإِنْ تَقَرَّبَ إِلَىَّ بِشِبْرٍ تَقَرَّبْتُ إِلَيْهِ ذِرَاعًا، وَإِنْ تَقَرَّبَ إِلَىَّ ذِرَاعًا تَقَرَّبْتُ إِلَيْهِ بَاعًا، وَإِنْ أَتَانِي يَمْشِي أَتَيْتُهُ هَرْوَلَةً ‏\"‏‏.‏",
-      "translation": "Allah says: I am as My servant thinks of Me, and I am with them when they remember Me. If they remember Me in themselves, I remember them in Myself. If they remember Me in a gathering, I remember them in a better gathering. If they draw near to Me by a handspan, I draw near to them by an arm's length. If they draw near to Me by an arm's length, I draw near to them by a fathom. If they come to Me walking, I come to them running.",
-      "note": "Arabic follows hadith-api, Sahih al-Bukhari 7405. This is a hadith qudsi: the Prophet, peace be upon him, reported Allah's words."
-    },
-    {
-      "id": "hadith-muslim-6543",
-      "category": "hadith",
-      "collection": "Sahih Muslim",
-      "reference": "Hadith-api number 6543; Book 45, Hadith 42",
-      "authenticity": "Sahih",
-      "authenticityBasis": "Included in Sahih Muslim. That inclusion is the grading used here.",
-      "arabic": "إِنَّ اللَّهَ لاَ يَنْظُرُ إِلَى صُوَرِكُمْ وَأَمْوَالِكُمْ وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ وَأَعْمَالِكُمْ",
-      "arabicFull": "حَدَّثَنَا عَمْرٌو النَّاقِدُ، حَدَّثَنَا كَثِيرُ بْنُ هِشَامٍ، حَدَّثَنَا جَعْفَرُ بْنُ بُرْقَانَ، عَنْ يَزِيدَ بْنِ، الأَصَمِّ عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ \"‏ إِنَّ اللَّهَ لاَ يَنْظُرُ إِلَى صُوَرِكُمْ وَأَمْوَالِكُمْ وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ وَأَعْمَالِكُمْ ‏\"‏ ‏.‏",
-      "translation": "Allah does not look at your forms or your wealth. He looks at your hearts and your deeds.",
-      "note": "Arabic follows hadith-api, Sahih Muslim number 6543, in-book reference Book 45, Hadith 42. Other editions, including some websites, use a different global number for this report. A nearby narration says \"bodies and forms\" and mentions the heart."
-    },
-    {
-      "id": "hadith-muslim-6578",
-      "category": "hadith",
-      "collection": "Sahih Muslim",
-      "reference": "Hadith-api number 6578; Book 45, Hadith 76",
-      "authenticity": "Sahih",
-      "authenticityBasis": "Included in Sahih Muslim. That inclusion is the grading used here.",
-      "arabic": "الْمُسْلِمُ أَخُو الْمُسْلِمِ لاَ يَظْلِمُهُ وَلاَ يُسْلِمُهُ مَنْ كَانَ فِي حَاجَةِ أَخِيهِ كَانَ اللَّهُ فِي حَاجَتِهِ وَمَنْ فَرَّجَ عَنْ مُسْلِمٍ كُرْبَةً فَرَّجَ اللَّهُ عَنْهُ بِهَا كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ وَمَنْ سَتَرَ مُسْلِمًا سَتَرَهُ اللَّهُ يَوْمَ الْقِيَامَةِ",
-      "arabicFull": "حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، حَدَّثَنَا لَيْثٌ، عَنْ عُقَيْلٍ، عَنِ الزُّهْرِيِّ، عَنْ سَالِمٍ، عَنْ أَبِيهِ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم قَالَ ‏ \"‏ الْمُسْلِمُ أَخُو الْمُسْلِمِ لاَ يَظْلِمُهُ وَلاَ يُسْلِمُهُ مَنْ كَانَ فِي حَاجَةِ أَخِيهِ كَانَ اللَّهُ فِي حَاجَتِهِ وَمَنْ فَرَّجَ عَنْ مُسْلِمٍ كُرْبَةً فَرَّجَ اللَّهُ عَنْهُ بِهَا كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ وَمَنْ سَتَرَ مُسْلِمًا سَتَرَهُ اللَّهُ يَوْمَ الْقِيَامَةِ ‏\"‏ ‏.‏",
-      "translation": "A Muslim is the brother of a Muslim. They do not wrong them or abandon them. Whoever meets a brother's need, Allah meets their need. Whoever relieves a Muslim of a distress, Allah relieves them of a distress among the distresses of the Day of Resurrection. Whoever covers a Muslim, Allah covers them on the Day of Resurrection.",
-      "note": "Arabic follows hadith-api, Sahih Muslim number 6578, in-book reference Book 45, Hadith 76. Other editions may number this report differently."
+      "arabic": "مَنْ يَضْمَنْ لِي مَا بَيْنَ لَحْيَيْهِ وَمَا بَيْنَ رِجْلَيْهِ أَضْمَنْ لَهُ الْجَنَّةَ.",
+      "arabicFull": "حَدَّثَنَا مُحَمَّدُ بْنُ أَبِي بَكْرٍ الْمُقَدَّمِيُّ، حَدَّثَنَا عُمَرُ بْنُ عَلِيٍّ، سَمِعَ أَبَا حَازِمٍ، عَنْ سَهْلِ بْنِ سَعْدٍ، عَنْ رَسُولِ اللَّهِ صلى الله عليه وسلم قَالَ ‏ \"‏ مَنْ يَضْمَنْ لِي مَا بَيْنَ لَحْيَيْهِ وَمَا بَيْنَ رِجْلَيْهِ أَضْمَنْ لَهُ الْجَنَّةَ ‏\"‏‏.‏",
+      "translation": "Whoever guarantees me what is between their jaws and what is between their legs, I guarantee them the Garden.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6474. The card shows that whole report. The chain of narrators is under Full entry."
     },
     {
       "id": "scholar-abu-hurayrah-heart",

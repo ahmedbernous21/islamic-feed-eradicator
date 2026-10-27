@@ -12,12 +12,10 @@ const site: SiteDefinition = {
       defaultEnabled: true,
       paths: ['/', '/home.php'],
       placement: 'primary',
+      replaceColumn: true,
+      anchor: 'feed-column',
       mountSelectors: ['[role="main"]'],
-      selectors: [
-        '[role="main"] [role="feed"]',
-        '[data-pagelet="FeedUnit"]',
-        'div.x1hc1fzr.x1unhpq9.x6o7n8i',
-      ],
+      selectors: ['[role="main"] [role="feed"]', '[role="main"] [data-pagelet="FeedUnit"]'],
     },
     {
       id: 'stories',
@@ -26,7 +24,7 @@ const site: SiteDefinition = {
       defaultEnabled: true,
       paths: ['/', '/home.php'],
       placement: 'none',
-      selectors: ['[data-pagelet="Stories"]', '[aria-label="Stories"]', 'div.x193iq5w.xgmub6v.x1ceravr.x1v0nzow'],
+      selectors: ['[role="main"] [data-pagelet="Stories"]', '[role="main"] [aria-label="Stories"]'],
     },
     {
       id: 'groups-feed',
@@ -35,6 +33,8 @@ const site: SiteDefinition = {
       defaultEnabled: false,
       paths: ['/groups/feed', '/groups/feed/*'],
       placement: 'primary',
+      replaceColumn: true,
+      anchor: 'feed-column',
       mountSelectors: ['[role="main"]'],
       selectors: ['[role="main"] [role="feed"]'],
     },

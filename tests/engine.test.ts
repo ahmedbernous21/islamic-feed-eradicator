@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { advanceCursor, collectReminders, moveCursor, nextId, previousId, randomId } from '../src/shared/reminders/engine';
+import { advanceCursor, citation, collectReminders, moveCursor, nextId, previousId, randomId } from '../src/shared/reminders/engine';
 import { defaultSettings } from '../src/shared/settings';
 
 describe('reminder engine', () => {
@@ -12,13 +12,35 @@ describe('reminder engine', () => {
     expect(previousId(list, list[0].id)).toBe(list[list.length - 1].id);
   });
 
+  it('keeps a Qur’an verse number in left-to-right order beside the Arabic name', () => {
+    const settings = defaultSettings();
+    settings.categories = { quran: true, hadith: false, scholar: false, personal: false };
+    const opening = collectReminders(settings)[0];
+    const label = citation(opening);
+    expect(label).toContain('1:1–7');
+    expect(label).toContain('\u2066');
+    expect(label.indexOf('\u2066')).toBeLessThan(label.indexOf('1:1–7'));
+  });
+
   it('picks a different reminder at random when more than one exists', () => {
     const settings = defaultSettings();
     const list = collectReminders(settings);
     expect(randomId(list, list[0].id, () => 0)).not.toBe(list[0].id);
   });
 
-  it('advances when a feed page changes and not on the first view', () => {
+  it('keeps a separate reminder on each site', () => {
+    const youtube = advanceCursor(defaultSettings(), 'www.youtube.com/', 1_000, true, true, 'youtube');
+    const facebook = advanceCursor(youtube.settings, 'www.facebook.com/', 2_000, true, true, 'facebook');
+    expect(facebook.settings.cursors.facebook?.reminderId).toBeTruthy();
+    expect(facebook.settings.cursors.facebook?.reminderId).not.toBe(facebook.settings.cursors.youtube?.reminderId);
+    const youtubeAgain = advanceCursor(facebook.settings, 'www.youtube.com/', 3_000, true, false, 'youtube');
+    expect(youtubeAgain.changed).toBe(false);
+    expect(youtubeAgain.settings.cursors.youtube?.reminderId).toBe(youtube.settings.cursors.youtube?.reminderId);
+    expect(youtubeAgain.settings.cursors.facebook?.reminderId).toBe(facebook.settings.cursors.facebook?.reminderId);
+    expect(youtubeAgain.settings.cursors.facebook?.lastPath).toBe('www.facebook.com/');
+  });
+
+  it('advances on every page load after the first view, including a refresh', () => {
     const settings = defaultSettings();
     const first = advanceCursor(settings, 'www.youtube.com/', 1_000, true);
     expect(first.changed).toBe(true);
@@ -26,6 +48,8 @@ describe('reminder engine', () => {
     expect(second.settings.cursor.reminderId).toBe(first.settings.cursor.reminderId);
     const third = advanceCursor(second.settings, 'www.youtube.com/', 3_000, true);
     expect(third.settings.cursor.reminderId).not.toBe(first.settings.cursor.reminderId);
+    const refreshed = advanceCursor(third.settings, 'www.youtube.com/', 4_000, true);
+    expect(refreshed.settings.cursor.reminderId).not.toBe(third.settings.cursor.reminderId);
   });
 
   it('rotates on the interval only while a reminder is visible', () => {

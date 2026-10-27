@@ -79,7 +79,14 @@ export function App() {
         </select>
       </div>
       <div className="popup-actions">
-        <button type="button" onClick={() => void store.update((current) => moveCursor(current, 'next', host ?? 'popup', Date.now()))}>
+        <button
+          type="button"
+          onClick={() =>
+            void store.update((current) =>
+              site ? moveCursor(current, 'next', host ?? site.id, Date.now(), undefined, site.id) : moveCursor(current, 'next', 'popup', Date.now()),
+            )
+          }
+        >
           Next reminder
         </button>
         <button type="button" onClick={() => void store.update((current) => ({ ...current, showTranslation: !current.showTranslation }))}>
