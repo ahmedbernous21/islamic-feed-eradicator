@@ -13,6 +13,9 @@ describe('paths', () => {
     expect(pathMatches('/shorts/abc', ['/shorts/*'])).toBe(true);
     expect(pathMatches('/shorts', ['/shorts/*'])).toBe(true);
     expect(pathMatches('/feed/subscriptions', '*')).toBe(true);
+    expect(pathMatches('/feed/foryou', ['/', '/feed', '/feed/foryou', '/feed/network'])).toBe(true);
+    expect(pathMatches('/feed/network/', ['/', '/feed', '/feed/foryou', '/feed/network'])).toBe(true);
+    expect(pathMatches('/feed/update/urn:li:activity:1', ['/', '/feed', '/feed/foryou', '/feed/network'])).toBe(false);
   });
 
   it('matches hosts exactly', () => {

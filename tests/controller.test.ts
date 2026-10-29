@@ -121,7 +121,7 @@ describe('feed controller', () => {
       sites: [
         {
           ...site,
-          regions: [{ ...site.regions[0], replaceColumn: true, mountSelectors: ['ytd-browse[page-subtype="home"] #primary'] }],
+          regions: [{ ...site.regions[0], replaceColumn: true, overlay: true, mountSelectors: ['ytd-browse[page-subtype="home"] #primary'] }],
         },
       ],
       windowTarget: window,
@@ -182,16 +182,47 @@ describe('feed controller', () => {
     });
     await controller.ready;
     const host = document.getElementById('ife-reminder-host');
-    expect(host?.parentElement).toBe(document.body);
-    expect(host?.style.width).toBe('620px');
-    expect(host?.style.left).toBe('360px');
-    const cardBottom = Number.parseFloat(host?.style.top ?? '0') + Number.parseFloat(host?.style.maxHeight ?? '0');
-    expect(cardBottom).toBeGreaterThan(740);
+    expect(host?.parentElement).toBe(column);
+    expect(host?.classList.contains('ife-overlay')).toBe(false);
+    expect(column?.firstElementChild).toBe(host);
     expect(document.getElementById('chat')?.textContent).toBe('Chat');
     expect(column?.getAttribute('data-ife-column')).toBe('');
     expect(document.getElementById('rail')?.getAttribute('data-ife-column')).toBeNull();
     expect(document.getElementById('composer')?.textContent).toBe('What is on your mind');
-    expect(column?.contains(host)).toBe(false);
+    expect(column?.contains(host)).toBe(true);
+    controller.stop();
+  });
+
+  it('turns on for LinkedIn For you and sits before the feed', async () => {
+    const { document, window } = parseHTML(
+      '<!doctype html><html><body><main><div id="layout"><div componentkey="container-update-list_mainFeed" id="feed"><div class="posts">A post</div></div></div></main></body></html>',
+    );
+    const location = {
+      hostname: 'www.linkedin.com',
+      pathname: '/feed/foryou',
+      href: 'https://www.linkedin.com/feed/foryou/',
+    } as Location;
+    const history = { pushState() {}, replaceState() {} } as unknown as History;
+    const controller = startController({
+      document,
+      location,
+      history,
+      store: createMemoryStore(defaultSettings()),
+      windowTarget: window,
+      now: () => 1_000,
+    });
+    await controller.ready;
+    const host = document.getElementById('ife-reminder-host');
+    const feed = document.getElementById('feed');
+    expect(host?.nextElementSibling).toBe(feed);
+    expect(host?.classList.contains('ife-overlay')).toBe(false);
+    expect(feed?.textContent).toBe('A post');
+    expect((host?.shadowRoot ?? host)?.querySelector('.ife-card')).toBeTruthy();
+    host?.remove();
+    await controller.refresh();
+    const restored = document.getElementById('ife-reminder-host');
+    expect(restored?.nextElementSibling).toBe(feed);
+    expect((restored?.shadowRoot ?? restored)?.querySelector('.ife-card')).toBeTruthy();
     controller.stop();
   });
 

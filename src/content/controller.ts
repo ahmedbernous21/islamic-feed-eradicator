@@ -28,6 +28,11 @@ function query(doc: Document, selector: string): Element | null {
   }
 }
 
+function hostHasCard(host: HTMLElement | null): boolean {
+  if (!host?.isConnected) return false;
+  return Boolean((host.shadowRoot ?? host).querySelector('.ife-card'));
+}
+
 function isStaleContext(error: unknown): boolean {
   const message = error instanceof Error ? error.message : String(error);
   return message.includes('Extension context invalidated') || message.includes('message port closed');
@@ -293,7 +298,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       applied = signature;
       return;
     }
-    wantsColumn = Boolean(placement.replaceColumn);
+    wantsColumn = Boolean(placement.replaceColumn || placement.insert === 'before');
 
     const mount = findMount(options.document, placement);
     if (!mount) {
@@ -307,7 +312,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       host = options.document.createElement('div');
       host.id = 'ife-reminder-host';
     }
-    if (placement.replaceColumn) {
+    if (placement.replaceColumn && placement.overlay) {
       const current = options.document.querySelector('[data-ife-column]');
       if (current && current !== mount) clearColumn(options.document);
       markColumn(mount as HTMLElement);
@@ -317,6 +322,17 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       }
       placeOverlay(host, mount, site.id);
       watchColumn(mount);
+    } else if (placement.replaceColumn) {
+      const current = options.document.querySelector('[data-ife-column]');
+      if (current && current !== mount) clearColumn(options.document);
+      markColumn(mount as HTMLElement);
+      host.classList.remove('ife-overlay', 'ife-pending');
+      host.style.left = '';
+      host.style.top = '';
+      host.style.width = '';
+      host.style.maxHeight = '';
+      if (host.parentElement !== mount) mount.prepend(host);
+      watchColumn(null);
     } else {
       clearColumn(options.document);
       watchColumn(null);
@@ -325,9 +341,13 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       host.style.top = '';
       host.style.width = '';
       host.style.maxHeight = '';
-      if (host.parentElement !== mount) mount.prepend(host);
+      if (placement.insert === 'before') {
+        if (host.nextElementSibling !== mount) mount.before(host);
+      } else if (host.parentElement !== mount) {
+        mount.prepend(host);
+      }
     }
-    if (applied === signature && host.isConnected) return;
+    if (applied === signature && hostHasCard(host)) return;
     const path = pathKey;
     renderReminder(
       host,
@@ -359,6 +379,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       },
     );
     applied = signature;
+    watchHost(host);
   };
 
   const schedule = () => {
@@ -404,7 +425,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       frame = 0;
       const host = options.document.getElementById('ife-reminder-host');
       const column = options.document.querySelector('[data-ife-column]');
-      if (host && column) placeOverlay(host, column, activeSiteId);
+      if (host?.classList.contains('ife-overlay') && column) placeOverlay(host, column, activeSiteId);
     });
   };
   options.document.addEventListener('scroll', reposition, true);
@@ -433,20 +454,33 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     runRefresh();
   });
 
-  const retryDelays = [400, 1200, 2500, 5000];
+  let hostObserver: MutationObserver | null = null;
+  function watchHost(host: HTMLElement): void {
+    hostObserver?.disconnect();
+    const parent = host.parentElement;
+    if (!parent || typeof MutationObserver === 'undefined') return;
+    hostObserver = new MutationObserver(() => {
+      if (stopped || host.isConnected) return;
+      applied = '';
+      runRefresh();
+    });
+    hostObserver.observe(parent, { childList: true });
+  }
+
+  const retryDelays = [100, 300, 800, 1600, 3200, 6000];
   const retryTimers: Array<ReturnType<typeof setTimeout>> = [];
   const watchTimer = globalThis.setInterval(() => {
-    if (stopped || !wantsColumn) return;
-    const host = options.document.getElementById('ife-reminder-host');
-    const column = options.document.querySelector('[data-ife-column]');
-    const placed = host?.classList.contains('ife-overlay') && Number.parseFloat(host.style.width) >= 160;
-    if (host?.isConnected && column && placed) {
-      const path = `${options.location.pathname}${options.location.search}`;
-      if (path === lastPath) return;
-      lastPath = path;
+    if (stopped) return;
+    scheduleIfMoved();
+    if (!wantsColumn) return;
+    const host = options.document.getElementById('ife-reminder-host') as HTMLElement | null;
+    if (hostHasCard(host) && host?.classList.contains('ife-overlay') && Number.parseFloat(host.style.width) < 160) {
+      runRefresh();
+      return;
     }
+    if (hostHasCard(host)) return;
     runRefresh();
-  }, 2000);
+  }, 400);
   (watchTimer as { unref?: () => void }).unref?.();
 
   const ready = whenBody(options.document)
@@ -472,6 +506,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       cancelTimer(wakeTimer);
       for (const timer of retryTimers) cancelTimer(timer);
       globalThis.clearInterval(watchTimer);
+      hostObserver?.disconnect();
       watchColumn(null);
       if (frame && typeof cancelAnimationFrame === 'function') cancelAnimationFrame(frame);
       options.document.removeEventListener('scroll', reposition, true);

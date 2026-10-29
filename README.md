@@ -75,7 +75,7 @@ Keyboard, when the reminder card is focused: Right arrow next, Left arrow previo
 - Facebook, LinkedIn, and Instagram change obfuscated class names often. The adapters prefer roles and stable containers (`[role="feed"]`, `.scaffold-finite-scroll`, `main article`) and keep a few extra selectors as fallbacks. If a feed slips through, the region is not "fully supported" until the selector is updated and retested on a logged-in session.
 - YouTube home, checked logged out in October 2026, uses `ytd-browse[page-subtype="home"]` and `ytd-rich-grid-renderer`. The Shorts guide link is `/shorts/`. A signed-in recommendation grid and the watch-page sidebar were not opened here, so confirm those on your account.
 - The subscriptions page, comments, live chat, and suggestions beside a YouTube video are optional and off by default.
-- If LinkedIn draws the post composer inside `.scaffold-finite-scroll`, that composer is hidden with the feed. The left navigation, jobs, and messaging are not.
+- LinkedIn home is `/feed/foryou` and `/feed/network`, not only `/feed`. The reminder is inserted before the post list. Jobs, messaging, search, and profiles are not targeted.
 - Instagram stories markup is especially unstable. Direct messages are not targeted. Explore is off by default so search is not blocked by accident.
 - Mobile hosts such as `m.youtube.com` and `m.facebook.com` are not included.
 - Hiding uses a stylesheet (`display: none`). Removing the stylesheet, or turning a region off, shows the original nodes again. The extension does not delete them.

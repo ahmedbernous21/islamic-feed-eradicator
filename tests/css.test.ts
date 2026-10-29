@@ -8,6 +8,7 @@ describe('page css', () => {
     ]);
     expect(css).toContain('html.ife-r-youtube-home-feed ytd-rich-grid-renderer{display:none !important;}');
     expect(css).not.toContain('color:red');
-    expect(css).toContain('#ife-reminder-host.ife-overlay{position:fixed;z-index:0;pointer-events:none;');
+    expect(css).toContain('#ife-reminder-host.ife-overlay{position:fixed;z-index:2019;pointer-events:none;');
+    expect(css).toContain('[data-ife-column]>:not(#ife-reminder-host){display:none !important;}');
   });
 });

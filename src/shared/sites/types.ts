@@ -16,11 +16,14 @@ export type RegionDefinition = {
   /** Element that should contain the reminder. Falls back to the hidden node's parent. */
   mountSelectors?: string[];
   /**
-   * Hide the contents of the feed column and float the reminder over that column.
-   * The reminder is not inserted into the site's own tree, which those sites would
-   * otherwise delete on every update.
+   * Hide the other contents of the feed column and show the reminder there.
+   * The reminder is placed in the column, so the site's own menus and chats stay above it.
    */
   replaceColumn?: boolean;
+  /** Pin the reminder over the column. YouTube's grid removes an in-column node. */
+  overlay?: boolean;
+  /** Place the reminder as a sibling before the feed, the way LinkedIn keeps its composer. */
+  insert?: 'before';
   /** Walk up from the feed to the column inside the first mount selector. */
   anchor?: 'feed-column';
 };

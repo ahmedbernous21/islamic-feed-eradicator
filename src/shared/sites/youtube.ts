@@ -13,6 +13,7 @@ const site: SiteDefinition = {
       paths: ['/'],
       placement: 'primary',
       replaceColumn: true,
+      overlay: true,
       mountSelectors: [
         'ytd-browse[page-subtype="home"] #primary',
         'ytd-two-column-browse-results-renderer #primary',
@@ -96,6 +97,7 @@ const site: SiteDefinition = {
       paths: ['/feed/subscriptions'],
       placement: 'primary',
       replaceColumn: true,
+      overlay: true,
       mountSelectors: ['ytd-browse[page-subtype="subscriptions"] #primary', 'ytd-browse #primary'],
       selectors: ['ytd-browse[page-subtype="subscriptions"] ytd-rich-grid-renderer', 'ytd-browse[page-subtype="subscriptions"] ytd-section-list-renderer'],
     },
