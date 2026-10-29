@@ -32,6 +32,7 @@ describe('reminder dataset', () => {
       if (reminder.category === 'scholar') {
         expect(reminder.arabic).toMatch(arabic);
         expect(reminder.source.length).toBeGreaterThan(8);
+        expect(reminder.scholarArabic).toMatch(arabic);
         expect(reminder.verification).toBe('source_checked');
         expect(reminder.verificationNote.length).toBeGreaterThan(20);
       }

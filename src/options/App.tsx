@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { renderReminder } from '../content/widget';
-import { collectReminders, libraryMeta, moveCursor, reminderById, toggleFavorite } from '../shared/reminders/engine';
+import { buildReportUrl } from '../shared/community/submission';
+import { citation, collectReminders, libraryMeta, moveCursor, reminderById, toggleFavorite } from '../shared/reminders/engine';
 import { defaultSettings, isSnoozing, normalizeSettings, type RotationMode, type Settings, type Theme } from '../shared/settings';
 import { SITES } from '../shared/sites';
 import type { SiteId } from '../shared/sites/types';
@@ -33,6 +34,10 @@ function Preview({ settings, onUpdate }: { settings: Settings; onUpdate: (mutato
           if (reminder) onUpdate((current) => toggleFavorite(current, reminder.id));
         },
         onToggleTranslation: () => onUpdate((current) => ({ ...current, showTranslation: !current.showTranslation })),
+        onReport: (note) => {
+          if (!reminder || reminder.category === 'personal') return;
+          window.open(buildReportUrl(reminder.id, citation(reminder), note), '_blank', 'noopener');
+        },
       },
     );
   }, [onUpdate, reminder, settings.favorites, settings.showTranslation, settings.theme]);

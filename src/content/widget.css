@@ -44,6 +44,7 @@
 }
 
 .ife-card {
+  pointer-events: auto;
   box-sizing: border-box;
   width: min(42rem, calc(100% - 2rem));
   min-width: 0;
@@ -93,6 +94,17 @@
   line-height: 1.9;
 }
 
+.ife-arabic-source {
+  margin: 0.2rem 0 0;
+  color: var(--gold);
+  font-family: "Amiri", "Noto Naskh Arabic", "Scheherazade New", "Traditional Arabic", serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.7;
+  text-align: right;
+  direction: rtl;
+}
+
 .ife-translation {
   margin: 0.9rem 0 0;
   color: var(--ink);
@@ -132,6 +144,7 @@
 }
 
 .ife-actions button,
+.ife-actions select,
 .ife-pill button {
   appearance: none;
   border: 1px solid var(--line);
@@ -178,6 +191,38 @@
   font-size: 1.15rem;
   line-height: 1.9;
   color: var(--ink);
+}
+
+.ife-report {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.8rem;
+}
+
+.ife-report[hidden] {
+  display: none;
+}
+
+.ife-report-label,
+.ife-report-hint {
+  margin: 0;
+  color: var(--muted);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.ife-report-text {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 5.5rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper-2);
+  color: var(--ink);
+  font: 400 0.95rem/1.45 "Iowan Old Style", Palatino, Georgia, serif;
+  resize: vertical;
 }
 
 .ife-empty {

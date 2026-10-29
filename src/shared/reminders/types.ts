@@ -29,6 +29,7 @@ export type ScholarReminder = {
   id: string;
   category: 'scholar';
   scholar: string;
+  scholarArabic: string;
   arabic: string;
   translation: string;
   source: string;

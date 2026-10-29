@@ -185,7 +185,8 @@ describe('feed controller', () => {
     expect(host?.parentElement).toBe(document.body);
     expect(host?.style.width).toBe('620px');
     expect(host?.style.left).toBe('360px');
-    expect(Number.parseFloat(host?.style.top ?? '0') + Number.parseFloat(host?.style.maxHeight ?? '0')).toBeLessThanOrEqual(732);
+    const cardBottom = Number.parseFloat(host?.style.top ?? '0') + Number.parseFloat(host?.style.maxHeight ?? '0');
+    expect(cardBottom).toBeGreaterThan(740);
     expect(document.getElementById('chat')?.textContent).toBe('Chat');
     expect(column?.getAttribute('data-ife-column')).toBe('');
     expect(document.getElementById('rail')?.getAttribute('data-ife-column')).toBeNull();

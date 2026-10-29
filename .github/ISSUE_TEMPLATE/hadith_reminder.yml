@@ -1,114 +1,22 @@
 name: Suggest a hadith
-description: Propose a hadith for the reminder library. This issue is public.
+description: Propose a hadith by its name or number. This issue is public.
 labels: ["content:hadith", "moderation"]
 body:
   - type: markdown
     attributes:
       value: |
-        This issue is publicly visible. A submitted link is not authoritative by itself. Prefer Dorar.net (الدرر السنية) when you add an explanation, and name the scholar if the page does. A difficult or easily misunderstood hadith needs that explanation link before it can be approved. Do not invent a grade. The hadith will not appear in the extension until a reviewed pull request publishes it.
+        This issue is publicly visible. Name the collection or give the number. Do not include an email address.
   - type: input
     id: collection
     attributes:
-      label: Collection
+      label: Name
       placeholder: Sahih al-Bukhari
     validations:
       required: true
   - type: input
     id: reference
     attributes:
-      label: Hadith reference or number
-      description: Use the numbering system of the source you link.
+      label: Number
+      placeholder: "6114"
     validations:
       required: true
-  - type: textarea
-    id: arabic
-    attributes:
-      label: Exact Arabic text
-      description: Required when you have it. If you do not, say so in the source notes.
-  - type: input
-    id: grading
-    attributes:
-      label: Grade
-      description: Leave blank if you do not have a grade from a named authority.
-  - type: input
-    id: grading_authority
-    attributes:
-      label: Scholar or institution responsible for the grade
-  - type: textarea
-    id: translation
-    attributes:
-      label: Translation
-  - type: input
-    id: translation_language
-    attributes:
-      label: Translation language
-  - type: input
-    id: translation_source
-    attributes:
-      label: Translator or translation source
-  - type: dropdown
-    id: translation_kind
-    attributes:
-      label: Is the translation literal or interpretive?
-      options:
-        - Not specified
-        - Literal
-        - Interpretive
-  - type: textarea
-    id: context
-    attributes:
-      label: Context and explanation
-      description: What the report is about, the circumstances, and how it should be understood.
-    validations:
-      required: true
-  - type: textarea
-    id: qualifications
-    attributes:
-      label: Qualifications or limits
-  - type: textarea
-    id: commonly_misunderstood
-    attributes:
-      label: Is this commonly misunderstood out of context?
-  - type: dropdown
-    id: needs_explanation
-    attributes:
-      label: Does this hadith need a scholarly explanation before it can be shown?
-      description: Choose Yes for difficult wording, unfamiliar terms, or a report people often take out of context.
-      options:
-        - "No"
-        - "Yes"
-    validations:
-      required: true
-  - type: input
-    id: explanation_url
-    attributes:
-      label: Scholarly explanation link
-      description: Prefer Dorar.net. Required before approval when the answer above is Yes.
-      placeholder: https://dorar.net/
-  - type: textarea
-    id: benefit
-    attributes:
-      label: Why this would be a beneficial reminder
-    validations:
-      required: true
-  - type: textarea
-    id: sources
-    attributes:
-      label: Source references
-    validations:
-      required: true
-  - type: input
-    id: hadith_url
-    attributes:
-      label: Link to the hadith record
-    validations:
-      required: true
-  - type: textarea
-    id: links
-    attributes:
-      label: Other supporting links
-  - type: input
-    id: submitter
-    attributes:
-      label: Name or public alias
-      description: Optional. This will be public.

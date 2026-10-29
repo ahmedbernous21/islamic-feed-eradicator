@@ -5,6 +5,7 @@ import scholarTemplate from '../.github/ISSUE_TEMPLATE/scholar_reminder.yml?raw'
 import {
   GITHUB_WEB,
   buildIssueUrl,
+  buildReportUrl,
   emptySuggestion,
   formErrors,
   issueFields,
@@ -24,7 +25,7 @@ function ready(category: ReviewRecord['category']): ReviewRecord {
     verificationSource: 'Reviewer compared the wording with the linked record on 26 October 2026.',
     reviewerNotes: 'Wording matched. Context is the submitter’s summary of that source, not a new grading.',
     correctsReminderId: '',
-    translation: '',
+    translation: category === 'scholar' ? 'A concise meaning of the quotation.' : '',
     quranSourceUrl: 'https://quran.com/2/186',
     surah: 'Al-Baqarah',
     verses: '2:186',
@@ -43,12 +44,20 @@ function ready(category: ReviewRecord['category']): ReviewRecord {
 }
 
 describe('suggestion forms', () => {
-  it('asks for the fields a Qur’an issue needs', () => {
+  it('asks only for a verse name or number', () => {
     const errors = formErrors(emptySuggestion('quran'));
-    expect(errors.join(' ')).toMatch(/surah/i);
-    expect(errors.join(' ')).toMatch(/verse/i);
-    expect(errors.join(' ')).toMatch(/Arabic/i);
-    expect(errors.join(' ')).toMatch(/circumstances/i);
+    expect(errors.join(' ')).toMatch(/verse|surah/i);
+    expect(errors.join(' ')).not.toMatch(/Arabic|link/i);
+  });
+
+  it('asks a scholar suggestion for the meaning', () => {
+    const errors = formErrors(emptySuggestion('scholar'));
+    expect(errors.join(' ')).toMatch(/meaning/i);
+    const named = emptySuggestion('scholar');
+    named.scholar = 'Ibn al-Qayyim';
+    expect(formErrors(named).join(' ')).toMatch(/meaning/i);
+    named.translation = 'Gather your heart when you recite.';
+    expect(formErrors(named)).toEqual([]);
   });
 
   it('does not accept a hadith grade with no one responsible for it', () => {
@@ -76,11 +85,22 @@ describe('suggestion forms', () => {
 
   it('falls back when the prefilled link would be too long', () => {
     const suggestion = ready('scholar');
-    suggestion.context = 'context '.repeat(2000);
+    suggestion.translation = 'meaning '.repeat(2000);
     const issue = buildIssueUrl(suggestion);
     expect(issue.overflow).toBe(true);
     expect(issue.url).toBe(`${GITHUB_WEB}/issues/new?template=scholar_reminder.yml`);
     expect(issue.body.length).toBeGreaterThan(1000);
+  });
+});
+
+describe('reminder report', () => {
+  it('opens a public GitHub issue for that saying', () => {
+    const url = new URL(buildReportUrl('quran-3-173', 'Al Imran 3:173', 'The English line is wrong'));
+    expect(url.origin + url.pathname).toBe(`${GITHUB_WEB}/issues/new`);
+    expect(url.searchParams.get('template')).toBe('report.yml');
+    expect(url.searchParams.get('reminder_id')).toBe('quran-3-173');
+    expect(url.searchParams.get('problem')).toContain('The English line is wrong');
+    expect(url.searchParams.get('problem')).toContain('Al Imran 3:173');
   });
 });
 

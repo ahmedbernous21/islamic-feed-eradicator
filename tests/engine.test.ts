@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { advanceCursor, citation, collectReminders, moveCursor, nextId, previousId, randomId } from '../src/shared/reminders/engine';
+import { advanceCursor, arabicCitation, citation, collectReminders, moveCursor, nextId, previousId, randomId } from '../src/shared/reminders/engine';
 import { defaultSettings } from '../src/shared/settings';
 
 describe('reminder engine', () => {
@@ -20,6 +20,16 @@ describe('reminder engine', () => {
     expect(label).toContain('1:1–7');
     expect(label).toContain('\u2066');
     expect(label.indexOf('\u2066')).toBeLessThan(label.indexOf('1:1–7'));
+    expect(arabicCitation(opening)).toBe('سورة الفاتحة ١–٧');
+  });
+
+  it('names the collection and the scholar in Arabic under the saying', () => {
+    const settings = defaultSettings();
+    const list = collectReminders(settings);
+    const hadith = list.find((item) => item.id === 'hadith-bukhari-54');
+    const scholar = list.find((item) => item.id === 'scholar-abu-hurayrah-heart');
+    expect(hadith && arabicCitation(hadith)).toBe('صحيح البخاري ٥٤');
+    expect(scholar && arabicCitation(scholar)).toBe('أبو هريرة');
   });
 
   it('picks a different reminder at random when more than one exists', () => {

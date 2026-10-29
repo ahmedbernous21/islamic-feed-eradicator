@@ -82,11 +82,11 @@ Keyboard, when the reminder card is focused: Right arrow next, Left arrow previo
 - There is a short moment after navigation before settings are read and the feed is hidden.
 - Personal notes are local text. They are labeled **Personal note** and are not given a religious source.
 - No browsing history is collected, and reminder text is not fetched from a server at runtime.
-- Community suggestions are GitHub issues. They are not in the installed library until a reviewed pull request publishes them.
+- Community suggestions and card reports are GitHub issues. They are not in the installed library until a reviewed pull request publishes them.
 
 ## Privacy
 
-Settings, favorites, and personal notes stay in `chrome.storage.local` on this device. The extension does not have `history` or `tabs` permissions, does not send reminder text or page contents to a server, and does not embed a GitHub token. Opening **Suggest a Reminder** sends you to a public GitHub issue form in the browser. Anything typed into that form is visible to anyone who can see the repository's issues.
+Settings, favorites, and personal notes stay in `chrome.storage.local` on this device. The extension does not have `history` or `tabs` permissions, does not send reminder text or page contents to a server, and does not embed a GitHub token. Opening **Suggest a Reminder** or **Report** on a card sends you to a public GitHub issue form in the browser. A report includes the reminder id, its citation, and the note you type. Anything typed into that form is visible to anyone who can see the repository's issues.
 
 The public privacy policy is at [ahmedbernous21.github.io/islamic-feed-eradicator/privacy.html](https://ahmedbernous21.github.io/islamic-feed-eradicator/privacy.html). The content policy is at [policy.html](https://ahmedbernous21.github.io/islamic-feed-eradicator/policy.html).
 

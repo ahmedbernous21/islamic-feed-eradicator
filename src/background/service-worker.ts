@@ -17,6 +17,21 @@ chrome.runtime.onStartup.addListener(() => {
   void syncBadge();
 });
 
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  if (message?.type !== 'ife-open-settings') return;
+  const page = chrome.runtime.getURL('src/options/index.html');
+  const opened = chrome.runtime.openOptionsPage?.();
+  const fallback = () => chrome.tabs.create({ url: page });
+  if (opened && typeof opened.then === 'function') {
+    void opened.then(() => sendResponse({ ok: true })).catch(() => {
+      void fallback().then(() => sendResponse({ ok: true }));
+    });
+  } else {
+    void fallback().then(() => sendResponse({ ok: true }));
+  }
+  return true;
+});
+
 store.subscribe(() => {
   void syncBadge();
 });

@@ -1,4 +1,5 @@
-import { advanceCursor, collectReminders, moveCursor, reminderById, toggleFavorite } from '../shared/reminders/engine';
+import { buildReportUrl } from '../shared/community/submission';
+import { advanceCursor, citation, collectReminders, moveCursor, reminderById, toggleFavorite } from '../shared/reminders/engine';
 import { hostMatches, pathMatches } from '../shared/paths';
 import { isSnoozing, type Settings } from '../shared/settings';
 import type { SettingsStore } from '../shared/storage';
@@ -100,8 +101,7 @@ function findFeedColumn(root: Element): Element | null {
   return null;
 }
 
-const HEADER_SELECTORS = ['#masthead-container', '#masthead', 'ytd-masthead', 'tp-yt-app-header', '[role="banner"]', 'header.global-nav', 'header'];
-const FACEBOOK_CHAT_SELECTORS = ['[data-pagelet="ChatTab"]', '[data-pagelet="MWChatTabHeader"]', '[aria-label="Chat"]', '[aria-label="Chats"]', '[aria-label="Messenger"]'];
+const HEADER_SELECTORS = ['#masthead-container', '#masthead', 'ytd-masthead', 'tp-yt-app-header', '#global-nav', 'header.global-nav', '[role="banner"]', 'header'];
 
 /** Bottom edge of any fixed or sticky header so the card never slides under it. */
 function headerBottom(doc: Document): number {
@@ -155,49 +155,6 @@ function markColumn(column: HTMLElement): void {
   column.setAttribute('data-ife-column', '');
 }
 
-function considerChatBox(
-  box: DOMRect,
-  left: number,
-  right: number,
-  viewport: number,
-  limits: { bottom: number; clipRight: number },
-): void {
-  if (box.width < 48 || box.height < 24 || box.bottom < viewport - 4) return;
-  if (box.right < left + 16 || box.left > right - 16) return;
-  if (box.height <= 120) {
-    limits.bottom = Math.min(limits.bottom, box.top - 8);
-    return;
-  }
-  if (box.left > left + 200) limits.clipRight = Math.min(limits.clipRight, box.left - 12);
-}
-
-/** Keeps the card above Facebook's bottom chat dock, and to the left of an open chat. */
-function facebookChatLimit(doc: Document, left: number, width: number, viewport: number): { bottom: number; width: number } {
-  const right = left + width;
-  const limits = { bottom: viewport - 88, clipRight: right };
-  for (const selector of FACEBOOK_CHAT_SELECTORS) {
-    let nodes: NodeListOf<Element>;
-    try {
-      nodes = doc.querySelectorAll(selector);
-    } catch {
-      continue;
-    }
-    for (const element of nodes) considerChatBox(element.getBoundingClientRect(), left, right, viewport, limits);
-  }
-  const view = doc.defaultView;
-  if (view && typeof view.getComputedStyle === 'function' && typeof doc.elementsFromPoint === 'function') {
-    for (const x of [left + width / 2, right - 24]) {
-      for (const element of doc.elementsFromPoint(x, viewport - 12)) {
-        if (element.id === 'ife-reminder-host') continue;
-        const position = view.getComputedStyle(element).position;
-        if (position !== 'fixed' && position !== 'sticky') continue;
-        considerChatBox(element.getBoundingClientRect(), left, right, viewport, limits);
-      }
-    }
-  }
-  return { bottom: limits.bottom, width: Math.min(width, Math.max(200, limits.clipRight - left)) };
-}
-
 function placeOverlay(host: HTMLElement, column: Element, siteId: string): void {
   host.classList.add('ife-overlay');
   const rect = columnBox(column);
@@ -211,13 +168,8 @@ function placeOverlay(host: HTMLElement, column: Element, siteId: string): void 
   const headerGap = siteId === 'youtube' ? 48 : 12;
   const minimumTop = siteId === 'youtube' ? 104 : 12;
   const top = Math.max(rect.top, headerBottom(doc) + headerGap, minimumTop);
-  let bottom = Math.min(rect.bottom, viewport - 16);
-  let width = rect.width;
-  if (siteId === 'facebook') {
-    const chat = facebookChatLimit(doc, rect.left, width, viewport);
-    bottom = Math.min(bottom, chat.bottom);
-    width = chat.width;
-  }
+  const bottom = Math.min(rect.bottom, viewport - 16);
+  const width = rect.width;
   host.style.left = `${Math.round(rect.left)}px`;
   host.style.top = `${Math.round(top)}px`;
   host.style.width = `${Math.round(width)}px`;
@@ -399,6 +351,11 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
         },
         onToggleTranslation: () =>
           guard(options.store.update((current) => ({ ...current, showTranslation: !current.showTranslation }))),
+        onReport: (note) => {
+          if (!reminder || reminder.category === 'personal') return;
+          globalThis.open(buildReportUrl(reminder.id, citation(reminder), note), '_blank', 'noopener');
+        },
+        onOpenSettings: () => guard(Promise.resolve(globalThis.chrome?.runtime?.sendMessage({ type: 'ife-open-settings' }))),
       },
     );
     applied = signature;

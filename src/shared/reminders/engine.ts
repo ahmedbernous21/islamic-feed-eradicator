@@ -178,6 +178,14 @@ export function toggleFavorite(settings: Settings, id: string): Settings {
   return { ...settings, favorites };
 }
 
+const COLLECTION_ARABIC: Record<string, string> = {
+  'Sahih al-Bukhari': 'صحيح البخاري',
+};
+
+function arabicDigits(value: string): string {
+  return value.replace(/\d/g, (digit) => '٠١٢٣٤٥٦٧٨٩'[Number(digit)]);
+}
+
 export function citation(reminder: Reminder): string {
   if (reminder.category === 'quran') {
     const arabicName = `\u2068${reminder.surah.arabic}\u2069`;
@@ -187,6 +195,21 @@ export function citation(reminder: Reminder): string {
   if (reminder.category === 'hadith') return `${reminder.collection}, ${reminder.reference}`;
   if (reminder.category === 'scholar') return `${reminder.scholar} — ${reminder.source}`;
   return 'Personal note';
+}
+
+export function arabicCitation(reminder: Reminder): string {
+  if (reminder.category === 'quran') {
+    const ayah = reminder.verses.split(':')[1] ?? '';
+    return `سورة ${reminder.surah.arabic}${ayah ? ` ${arabicDigits(ayah)}` : ''}`;
+  }
+  if (reminder.category === 'hadith') {
+    const name = COLLECTION_ARABIC[reminder.collection];
+    if (!name) return '';
+    const number = reminder.reference.replace(/[^\d]/g, '');
+    return number ? `${name} ${arabicDigits(number)}` : name;
+  }
+  if (reminder.category === 'scholar') return reminder.scholarArabic;
+  return '';
 }
 
 export function categoryLabel(reminder: Reminder): string {

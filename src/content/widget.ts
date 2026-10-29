@@ -1,6 +1,6 @@
 import widgetCss from './widget.css?inline';
 import type { Reminder } from '../shared/reminders/types';
-import { categoryLabel, citation } from '../shared/reminders/engine';
+import { arabicCitation, categoryLabel, citation } from '../shared/reminders/engine';
 import type { Theme } from '../shared/settings';
 
 export type ReminderView = {
@@ -18,6 +18,8 @@ export type ReminderActions = {
   onRandom: () => void;
   onToggleFavorite: () => void;
   onToggleTranslation: () => void;
+  onReport?: (note: string) => void;
+  onOpenSettings?: () => void;
   onSnooze?: () => void;
   snoozeLabel?: string;
 };
@@ -108,6 +110,15 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
       arabic.dir = 'rtl';
       arabic.textContent = keepMarksWithWords(reminder.arabic);
       card.append(kicker, arabic);
+      const arabicSourceText = arabicCitation(reminder);
+      if (arabicSourceText) {
+        const arabicSource = doc.createElement('p');
+        arabicSource.className = 'ife-arabic-source';
+        arabicSource.lang = 'ar';
+        arabicSource.dir = 'rtl';
+        arabicSource.textContent = arabicSourceText;
+        card.append(arabicSource);
+      }
       if (view.showTranslation) {
         const translation = doc.createElement('p');
         translation.className = 'ife-translation';
@@ -118,11 +129,13 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
       }
     }
 
-    const source = doc.createElement('p');
-    source.className = 'ife-source';
-    source.dir = 'ltr';
-    source.textContent = citation(reminder);
-    card.append(source);
+    if (view.showTranslation && reminder.category !== 'personal') {
+      const source = doc.createElement('p');
+      source.className = 'ife-source';
+      source.dir = 'ltr';
+      source.textContent = citation(reminder);
+      card.append(source);
+    }
 
     if (reminder.category === 'hadith') {
       const grade = doc.createElement('p');
@@ -136,7 +149,7 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
       status.textContent = reminder.verificationNote;
       card.append(status);
     }
-    if (reminder.category !== 'personal' && reminder.category !== 'scholar' && reminder.note) {
+    if (view.showTranslation && reminder.category !== 'personal' && reminder.category !== 'scholar' && reminder.note) {
       const note = doc.createElement('p');
       note.className = 'ife-note';
       note.textContent = reminder.note;
@@ -170,9 +183,54 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
     }),
     button(doc, view.showTranslation ? 'Hide translation' : 'Show translation', actions.onToggleTranslation),
   );
+  const reportPanel = reminder && reminder.category !== 'personal' && actions.onReport ? reportForm(doc, actions.onReport) : null;
+  if (reportPanel) actionsRow.append(reportPanel.open);
+  if (actions.onOpenSettings) actionsRow.append(button(doc, 'Settings', actions.onOpenSettings));
   if (actions.onSnooze && actions.snoozeLabel) {
     actionsRow.append(button(doc, actions.snoozeLabel, actions.onSnooze));
   }
   card.append(rule, actionsRow);
+  if (reportPanel) card.append(reportPanel.panel);
   root.append(style, card);
+}
+
+function reportForm(doc: Document, onReport: (note: string) => void): { open: HTMLButtonElement; panel: HTMLFormElement } {
+  const panel = doc.createElement('form');
+  panel.className = 'ife-report';
+  panel.hidden = true;
+  const label = doc.createElement('p');
+  label.className = 'ife-report-label';
+  label.textContent = 'What is wrong with this saying?';
+  const field = doc.createElement('textarea');
+  field.className = 'ife-report-text';
+  field.required = true;
+  field.maxLength = 2000;
+  field.placeholder = 'The mistake, in a sentence or two';
+  const hint = doc.createElement('p');
+  hint.className = 'ife-report-hint';
+  hint.textContent = 'Submit opens a public GitHub issue with this note. That is where the report arrives.';
+  const row = doc.createElement('div');
+  row.className = 'ife-actions';
+  const submit = doc.createElement('button');
+  submit.type = 'submit';
+  submit.textContent = 'Submit';
+  const cancel = button(doc, 'Cancel', () => {
+    panel.hidden = true;
+    field.value = '';
+  });
+  row.append(submit, cancel);
+  panel.append(label, field, hint, row);
+  panel.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const note = field.value.trim();
+    if (!note) return;
+    onReport(note);
+    field.value = '';
+    panel.hidden = true;
+  });
+  const open = button(doc, 'Report', () => {
+    panel.hidden = false;
+    field.focus();
+  });
+  return { open, panel };
 }

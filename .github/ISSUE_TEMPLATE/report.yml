@@ -1,0 +1,20 @@
+name: Report a reminder
+description: A short note from the reminder card about one saying.
+labels: ["correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public. Do not include a phone number, address, or other private contact detail.
+  - type: input
+    id: reminder_id
+    attributes:
+      label: Reminder
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong?
+    validations:
+      required: true

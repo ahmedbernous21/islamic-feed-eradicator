@@ -112,52 +112,15 @@ function requireText(errors: string[], value: string, message: string): void {
   if (!filled(value)) errors.push(message);
 }
 
-function requireUrl(errors: string[], value: string, message: string): void {
-  if (!isHttpUrl(value)) errors.push(message);
-}
-
-function translationErrors(suggestion: ReminderSuggestion, errors: string[]): void {
-  if (!filled(suggestion.translation)) return;
-  requireText(errors, suggestion.translationLanguage, 'Name the language of the translation.');
-  requireText(
-    errors,
-    suggestion.translationSource,
-    'Name the translator or the translation you are using. Do not leave a translation unattributed.',
-  );
-  if (!['literal', 'interpretive', 'unspecified'].includes(suggestion.translationKind)) {
-    errors.push('Say whether the translation is literal, interpretive, or not yet specified.');
-  }
-}
-
 export function formErrors(suggestion: ReminderSuggestion): string[] {
   const errors: string[] = [];
-  requireText(errors, suggestion.context, 'Explain what the text means and the circumstances around it.');
-  requireText(errors, suggestion.benefit, 'Explain why this would be beneficial as a reminder.');
-  requireText(errors, suggestion.sources, 'Give the source references used to check this wording.');
-  translationErrors(suggestion, errors);
 
   if (suggestion.category === 'quran') {
-    requireText(errors, suggestion.surah, 'Name the surah.');
-    requireText(errors, suggestion.verses, 'Give the verse number or range.');
-    requireText(errors, suggestion.arabic, 'Give the exact Arabic text of the verse.');
-    requireUrl(
-      errors,
-      suggestion.quranSourceUrl,
-      'Link to a reliable Qur’an source so the wording can be checked.',
-    );
-    if (filled(suggestion.asbab)) {
-      requireText(
-        errors,
-        suggestion.sources,
-        'A reason for revelation needs the reliable report it comes from. Leave it blank when you do not have one.',
-      );
-    }
+    requireText(errors, suggestion.verses || suggestion.surah, 'Name the surah or give the verse number.');
   }
 
   if (suggestion.category === 'hadith') {
-    requireText(errors, suggestion.collection, 'Name the hadith collection.');
-    requireText(errors, suggestion.reference, 'Give the hadith number or other reference used by that source.');
-    requireUrl(errors, suggestion.hadithUrl, 'Link to the hadith record.');
+    requireText(errors, suggestion.collection || suggestion.reference, 'Name the collection or give the number.');
     if (filled(suggestion.grading) && !filled(suggestion.gradingAuthority)) {
       errors.push('Name the scholar or institution responsible for this grade, or leave the grade blank.');
     }
@@ -169,14 +132,8 @@ export function formErrors(suggestion: ReminderSuggestion): string[] {
   }
 
   if (suggestion.category === 'scholar') {
-    requireText(errors, suggestion.scholar, 'Give the scholar’s full name.');
-    requireText(errors, suggestion.arabic, 'Give the exact quotation in its original language.');
-    if (!filled(suggestion.book) && !filled(suggestion.sourceUrl) && !isHttpUrl(suggestion.links)) {
-      errors.push('Give a book location or a bibliographic link so the quotation can be traced.');
-    }
-    if (filled(suggestion.sourceUrl) && !isHttpUrl(suggestion.sourceUrl)) {
-      errors.push('The source link must be an http(s) URL.');
-    }
+    requireText(errors, suggestion.scholar, 'Name the scholar.');
+    requireText(errors, suggestion.translation, 'Give the meaning of the quotation.');
   }
 
   return errors;
@@ -222,12 +179,6 @@ export function explanationHostWarning(url: string): string | null {
   return 'This explanation site is not Dorar.net or one of the reference sites listed in the content policy. Reviewers still have to identify the author. A submitted link is not authoritative by itself.';
 }
 
-const TRANSLATION_KIND_LABEL: Record<TranslationKind, string> = {
-  literal: 'Literal',
-  interpretive: 'Interpretive',
-  unspecified: 'Not specified',
-};
-
 export function normalizeReviewRecord(value: unknown): ReviewRecord | null {
   if (!value || typeof value !== 'object') return null;
   const raw = value as Record<string, unknown>;
@@ -260,42 +211,21 @@ export function normalizeReviewRecord(value: unknown): ReviewRecord | null {
 }
 
 export function issueFields(suggestion: ReminderSuggestion): Record<string, string> {
-  const fields: Record<string, string> = {
-    arabic: suggestion.arabic,
-    translation: suggestion.translation,
-    translation_language: suggestion.translationLanguage,
-    translation_source: suggestion.translationSource,
-    translation_kind: TRANSLATION_KIND_LABEL[suggestion.translationKind],
-    context: suggestion.context,
-    qualifications: suggestion.qualifications,
-    commonly_misunderstood: suggestion.commonlyMisunderstood,
-    benefit: suggestion.benefit,
-    sources: suggestion.sources,
-    links: suggestion.links,
-    submitter: suggestion.submitter,
-  };
   if (suggestion.category === 'quran') {
-    fields.surah = suggestion.surah;
-    fields.verses = suggestion.verses;
-    fields.asbab = suggestion.asbab;
-    fields.quran_source_url = suggestion.quranSourceUrl;
+    return { surah: suggestion.surah, verses: suggestion.verses };
   }
   if (suggestion.category === 'hadith') {
-    fields.collection = suggestion.collection;
-    fields.reference = suggestion.reference;
-    fields.grading = suggestion.grading;
-    fields.grading_authority = suggestion.gradingAuthority;
-    fields.hadith_url = suggestion.hadithUrl;
-    fields.needs_explanation = suggestion.needsExplanation ? 'Yes' : 'No';
-    fields.explanation_url = suggestion.explanationUrl;
+    return {
+      collection: suggestion.collection,
+      reference: suggestion.reference.trim() || suggestion.collection,
+    };
   }
-  if (suggestion.category === 'scholar') {
-    fields.scholar = suggestion.scholar;
-    fields.book = suggestion.book;
-    fields.location = suggestion.location;
-    fields.source_url = suggestion.sourceUrl;
-  }
-  return fields;
+  return {
+    scholar: suggestion.scholar,
+    book: suggestion.book,
+    translation: suggestion.translation,
+    source_url: suggestion.sourceUrl,
+  };
 }
 
 export function issueTitle(suggestion: ReminderSuggestion): string {
@@ -319,6 +249,16 @@ export function suggestionMarkdown(suggestion: ReminderSuggestion): string {
     lines.push(`**${key}**`, '', value.trim(), '');
   }
   return lines.join('\n');
+}
+
+export function buildReportUrl(reminderId: string, citationLabel: string, note: string): string {
+  const problem = [`Reminder: ${reminderId}`, citationLabel, '', note.trim()].filter((line) => line !== undefined).join('\n').slice(0, 3500);
+  const params = new URLSearchParams();
+  params.set('template', 'report.yml');
+  params.set('title', `Report: ${reminderId}`.slice(0, 120));
+  params.set('reminder_id', reminderId);
+  params.set('problem', problem);
+  return `${GITHUB_WEB}/issues/new?${params.toString()}`;
 }
 
 export function buildIssueUrl(suggestion: ReminderSuggestion): { url: string; overflow: boolean; body: string } {
