@@ -35,6 +35,17 @@ const site: SiteDefinition = {
       selectors: ['div:has(> div > a[href="/explore/people/"])', 'a[href="/explore/people/"]'],
     },
     {
+      id: 'reels',
+      title: 'Reels',
+      description: 'Replaces the Reels viewer. Direct messages, search, and profiles stay available.',
+      defaultEnabled: true,
+      paths: ['/reels', '/reels/*', '/reel', '/reel/*'],
+      placement: 'primary',
+      replaceColumn: true,
+      mountSelectors: ['main[role="main"]', 'main'],
+      selectors: ['main video', 'main [role="presentation"]'],
+    },
+    {
       id: 'explore',
       title: 'Explore grid',
       description: 'Hides the Explore recommendation grid. Off by default because Instagram also uses Explore for search.',

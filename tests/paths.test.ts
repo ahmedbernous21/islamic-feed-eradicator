@@ -16,6 +16,12 @@ describe('paths', () => {
     expect(pathMatches('/feed/foryou', ['/', '/feed', '/feed/foryou', '/feed/network'])).toBe(true);
     expect(pathMatches('/feed/network/', ['/', '/feed', '/feed/foryou', '/feed/network'])).toBe(true);
     expect(pathMatches('/feed/update/urn:li:activity:1', ['/', '/feed', '/feed/foryou', '/feed/network'])).toBe(false);
+    expect(pathMatches('/reel/123', ['/reel', '/reel/*', '/reels'])).toBe(true);
+    expect(pathMatches('/reels', ['/reel', '/reel/*', '/reels'])).toBe(true);
+    expect(pathMatches('/reels/', ['/reel', '/reel/*', '/reels'])).toBe(true);
+    expect(pathMatches('/reels/create', ['/reel', '/reel/*', '/reels'])).toBe(false);
+    expect(pathMatches('/reel/abc', ['/reels', '/reels/*', '/reel', '/reel/*'])).toBe(true);
+    expect(pathMatches('/reels/abc', ['/reels', '/reels/*', '/reel', '/reel/*'])).toBe(true);
   });
 
   it('matches hosts exactly', () => {

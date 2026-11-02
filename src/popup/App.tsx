@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { findSite } from '../shared/sites';
 import { moveCursor } from '../shared/reminders/engine';
-import type { Theme } from '../shared/settings';
+import { ThemePicker } from '../ui/ThemePicker';
 import { useSettings } from '../ui/useSettings';
 
 function currentHost(): Promise<string | null> {
@@ -30,7 +30,6 @@ export function App() {
   if (!settings) return <main><p>Loading settings…</p></main>;
 
   const site = host ? findSite(host) : null;
-  const themes: Theme[] = ['system', 'light', 'dark'];
 
   return (
     <main>
@@ -66,17 +65,10 @@ export function App() {
       )}
       <div className="row">
         <span>Theme</span>
-        <select
-          aria-label="Theme"
+        <ThemePicker
           value={settings.theme}
-          onChange={(event) => void store.update((current) => ({ ...current, theme: event.target.value as Theme }))}
-        >
-          {themes.map((theme) => (
-            <option key={theme} value={theme}>
-              {theme}
-            </option>
-          ))}
-        </select>
+          onChange={(theme) => void store.update((current) => ({ ...current, theme }))}
+        />
       </div>
       <div className="popup-actions">
         <button

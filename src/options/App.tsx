@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { renderReminder } from '../content/widget';
 import { buildReportUrl } from '../shared/community/submission';
 import { citation, collectReminders, libraryMeta, moveCursor, reminderById, toggleFavorite } from '../shared/reminders/engine';
-import { defaultSettings, isSnoozing, normalizeSettings, type RotationMode, type Settings, type Theme } from '../shared/settings';
+import { clearSnooze, defaultSettings, isSnoozing, normalizeSettings, resolveCardTheme, snoozeButtonLabel, startSnooze, type RotationMode, type Settings } from '../shared/settings';
+import { SnoozePicker } from '../ui/SnoozePicker';
+import { ThemePicker } from '../ui/ThemePicker';
 import { SITES } from '../shared/sites';
 import type { SiteId } from '../shared/sites/types';
 import { useSettings } from '../ui/useSettings';
@@ -21,7 +23,7 @@ function Preview({ settings, onUpdate }: { settings: Settings; onUpdate: (mutato
       {
         reminder,
         showTranslation: settings.showTranslation,
-        theme: settings.theme,
+        theme: resolveCardTheme(settings.theme, document),
         favorite: reminder ? settings.favorites.includes(reminder.id) : false,
         compact: false,
         emptyMessage: 'Nothing to show with the current filters.',
@@ -38,9 +40,13 @@ function Preview({ settings, onUpdate }: { settings: Settings; onUpdate: (mutato
           if (!reminder || reminder.category === 'personal') return;
           window.open(buildReportUrl(reminder.id, citation(reminder), note), '_blank', 'noopener');
         },
+        onOpenSettings: () => document.getElementById('general')?.scrollIntoView({ behavior: 'smooth' }),
+        onSnooze: () =>
+          onUpdate((current) => (isSnoozing(current) ? clearSnooze(current) : startSnooze(current, current.snoozeMinutes))),
+        snoozeLabel: isSnoozing(settings) ? 'Resume reminders' : snoozeButtonLabel(settings.snoozeMinutes),
       },
     );
-  }, [onUpdate, reminder, settings.favorites, settings.showTranslation, settings.theme]);
+  }, [onUpdate, reminder, settings.favorites, settings.showTranslation, settings.theme, settings.snoozeMinutes, settings.snoozeUntil]);
 
   return <div className="preview" ref={ref} />;
 }
@@ -77,7 +83,7 @@ export function App() {
           <Preview settings={settings} onUpdate={update} />
         </section>
 
-        <section className="panel">
+        <section className="panel" id="general">
           <h2>General</h2>
           <label className="choice">
             <input
@@ -104,16 +110,24 @@ export function App() {
             <span>Show favorites only</span>
           </label>
           <div className="row">
-            <label htmlFor="theme">Theme</label>
-            <select
-              id="theme"
-              value={settings.theme}
-              onChange={(event) => update((current) => ({ ...current, theme: event.target.value as Theme }))}
-            >
-              <option value="system">System</option>
-              <option value="light">Light</option>
-              <option value="dark">Dark</option>
-            </select>
+            <span id="theme">Theme</span>
+            <ThemePicker value={settings.theme} onChange={(theme) => update((current) => ({ ...current, theme }))} />
+          </div>
+          <div className="row">
+            <span>
+              Snooze
+              <small>
+                {isSnoozing(settings)
+                  ? 'The original feed is visible. Reminders return when this ends.'
+                  : 'Show the original feed for a while.'}
+              </small>
+            </span>
+            <SnoozePicker
+              minutes={settings.snoozeMinutes}
+              snoozing={isSnoozing(settings)}
+              onSnooze={(minutes) => update((current) => startSnooze(current, minutes))}
+              onResume={() => update(clearSnooze)}
+            />
           </div>
           <div className="row">
             <label htmlFor="rotation">Reminder rotation</label>
@@ -147,32 +161,6 @@ export function App() {
                 }))
               }
             />
-          </div>
-          <div className="row">
-            <label htmlFor="snooze">Show the feed for (minutes)</label>
-            <input
-              id="snooze"
-              type="number"
-              min={1}
-              max={180}
-              value={settings.snoozeMinutes}
-              onChange={(event) => update((current) => ({ ...current, snoozeMinutes: Number(event.target.value) }))}
-            />
-          </div>
-          <div className="row">
-            <span>{isSnoozing(settings) ? 'The feed is visible right now.' : 'Show the original feed for a while.'}</span>
-            <button
-              type="button"
-              onClick={() =>
-                update((current) =>
-                  isSnoozing(current)
-                    ? { ...current, snoozeUntil: null }
-                    : { ...current, snoozeUntil: Date.now() + current.snoozeMinutes * 60_000 },
-                )
-              }
-            >
-              {isSnoozing(settings) ? 'Resume reminders' : `Show feed for ${settings.snoozeMinutes} min`}
-            </button>
           </div>
         </section>
 

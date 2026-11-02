@@ -64,9 +64,11 @@ describe('feed controller', () => {
     expect(document.getElementById('ife-style')?.textContent).toContain('.posts');
     expect(document.querySelector('.posts')?.textContent).toBe('A video');
     expect(document.getElementById('ife-reminder-host')).toBeTruthy();
-    const arabic = document.getElementById('ife-reminder-host')?.shadowRoot?.querySelector('.ife-arabic')
-      ?? document.getElementById('ife-reminder-host')?.querySelector('.ife-arabic');
+    const host = document.getElementById('ife-reminder-host');
+    const arabic = host?.shadowRoot?.querySelector('.ife-arabic') ?? host?.querySelector('.ife-arabic');
     expect(arabic?.textContent?.length).toBeGreaterThan(5);
+    const labels = [...(host?.shadowRoot ?? host)?.querySelectorAll('button') ?? []].map((button) => button.textContent);
+    expect(labels).toContain('Show feed for 10 min');
 
     await store.update((current) => ({ ...current, globalEnabled: false }));
     await controller.refresh();
@@ -96,6 +98,28 @@ describe('feed controller', () => {
     expect(document.querySelector('.posts')?.textContent).toBe('A video');
     expect(document.documentElement.className).not.toContain('ife-r-');
     await store.update((current) => ({ ...current, snoozeUntil: null }));
+    await controller.refresh();
+    expect(document.getElementById('ife-reminder-host')).toBeTruthy();
+    controller.stop();
+  });
+
+  it('puts the reminder back after a search page', async () => {
+    const { document, window, location, history } = page('/');
+    const controller = startController({
+      document,
+      location,
+      history,
+      store: createMemoryStore(defaultSettings()),
+      sites: [site],
+      windowTarget: window,
+      now: () => 1_000,
+    });
+    await controller.ready;
+    expect(document.getElementById('ife-reminder-host')).toBeTruthy();
+    location.pathname = '/results';
+    await controller.refresh();
+    expect(document.getElementById('ife-reminder-host')).toBeNull();
+    location.pathname = '/';
     await controller.refresh();
     expect(document.getElementById('ife-reminder-host')).toBeTruthy();
     controller.stop();
@@ -254,6 +278,88 @@ describe('feed controller', () => {
     expect(after.cursors.facebook?.reminderId).toBe('facebook-reminder');
     expect(after.cursors.facebook?.lastPath).toBe('www.facebook.com/');
     controller.stop();
+  });
+
+  it('puts the Facebook reminder on the live home column after search', async () => {
+    const { document, window } = parseHTML(
+      '<!doctype html><html><body><div role="main" id="stale" hidden><div role="feed">search hits</div></div><div role="main" id="home"><div id="column"><div role="feed"><div class="posts">A post</div></div></div></div></body></html>',
+    );
+    stubBox(document.getElementById('stale'), 10, 0);
+    stubBox(document.getElementById('home'), 900, 200);
+    const column = stubBox(document.getElementById('column'), 620, 360);
+    const location = {
+      hostname: 'www.facebook.com',
+      pathname: '/search/top',
+      href: 'https://www.facebook.com/search/top',
+    } as Location;
+    const history = { pushState() {}, replaceState() {} } as unknown as History;
+    const controller = startController({
+      document,
+      location,
+      history,
+      store: createMemoryStore(defaultSettings()),
+      windowTarget: window,
+      now: () => 1_000,
+    });
+    await controller.ready;
+    expect(document.getElementById('ife-reminder-host')).toBeNull();
+    location.pathname = '/';
+    location.href = 'https://www.facebook.com/';
+    await controller.refresh();
+    const host = document.getElementById('ife-reminder-host');
+    expect(host?.parentElement).toBe(column);
+    expect(document.getElementById('stale')?.contains(host)).toBe(false);
+    expect((host?.shadowRoot ?? host)?.querySelector('.ife-card')).toBeTruthy();
+    controller.stop();
+  });
+
+  it('replaces Facebook Reels and Instagram Reels with the reminder', async () => {
+    const { document, window } = parseHTML(
+      '<!doctype html><html><body><div role="navigation">Nav</div><div role="main" id="main"><video></video><div>A reel</div></div></body></html>',
+    );
+    stubBox(document.getElementById('main'), 480, 200);
+    const location = {
+      hostname: 'www.facebook.com',
+      pathname: '/reel/123',
+      href: 'https://www.facebook.com/reel/123',
+    } as Location;
+    const history = { pushState() {}, replaceState() {} } as unknown as History;
+    const facebook = startController({
+      document,
+      location,
+      history,
+      store: createMemoryStore(defaultSettings()),
+      windowTarget: window,
+      now: () => 1_000,
+    });
+    await facebook.ready;
+    const facebookHost = document.getElementById('ife-reminder-host');
+    expect(facebookHost?.parentElement).toBe(document.getElementById('main'));
+    expect((facebookHost?.shadowRoot ?? facebookHost)?.querySelector('.ife-card')).toBeTruthy();
+    facebook.stop();
+
+    const instagramPage = parseHTML(
+      '<!doctype html><html><body><nav>Nav</nav><main id="main" role="main"><video></video><div>A reel</div></main></body></html>',
+    );
+    stubBox(instagramPage.document.getElementById('main'), 420, 80);
+    const instagramLocation = {
+      hostname: 'www.instagram.com',
+      pathname: '/reels',
+      href: 'https://www.instagram.com/reels/',
+    } as Location;
+    const instagram = startController({
+      document: instagramPage.document,
+      location: instagramLocation,
+      history,
+      store: createMemoryStore(defaultSettings()),
+      windowTarget: instagramPage.window,
+      now: () => 1_000,
+    });
+    await instagram.ready;
+    const instagramHost = instagramPage.document.getElementById('ife-reminder-host');
+    expect(instagramHost?.parentElement).toBe(instagramPage.document.getElementById('main'));
+    expect((instagramHost?.shadowRoot ?? instagramHost)?.querySelector('.ife-card')).toBeTruthy();
+    instagram.stop();
   });
 
   it('leaves the home feed alone on a watch URL', async () => {

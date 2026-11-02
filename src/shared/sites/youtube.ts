@@ -17,7 +17,6 @@ const site: SiteDefinition = {
       mountSelectors: [
         'ytd-browse[page-subtype="home"] #primary',
         'ytd-two-column-browse-results-renderer #primary',
-        'ytd-browse #primary',
       ],
       selectors: [
         'ytd-browse[page-subtype="home"] ytd-rich-grid-renderer',

@@ -50,6 +50,13 @@ export type Settings = {
 const THEMES: Theme[] = ['light', 'dark', 'system'];
 const ROTATIONS: RotationMode[] = ['manual', 'visit', 'interval'];
 
+export const SNOOZE_PRESETS: { minutes: number; label: string }[] = [
+  { minutes: 10, label: '10 min' },
+  { minutes: 20, label: '20 min' },
+  { minutes: 60, label: '1 hour' },
+  { minutes: 120, label: '2 hours' },
+];
+
 export function defaultSettings(): Settings {
   const sites = {} as Record<SiteId, SiteSettings>;
   for (const site of SITES) {
@@ -181,4 +188,70 @@ function normalizeCursor(value: unknown, fallback: ReminderCursor): ReminderCurs
 
 export function isSnoozing(settings: Settings, now = Date.now()): boolean {
   return typeof settings.snoozeUntil === 'number' && settings.snoozeUntil > now;
+}
+
+export function startSnooze(settings: Settings, minutes: number, now = Date.now()): Settings {
+  const snoozeMinutes = clamp(minutes, 1, 180, settings.snoozeMinutes);
+  return { ...settings, snoozeMinutes, snoozeUntil: now + snoozeMinutes * 60_000 };
+}
+
+export function clearSnooze(settings: Settings): Settings {
+  return { ...settings, snoozeUntil: null };
+}
+
+export function snoozeButtonLabel(minutes: number): string {
+  if (minutes % 60 === 0) {
+    const hours = minutes / 60;
+    return hours === 1 ? 'Show feed for 1 hour' : `Show feed for ${hours} hours`;
+  }
+  return `Show feed for ${minutes} min`;
+}
+
+function luminance(color: string): number | null {
+  const match = color.match(/rgba?\((\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,\s/]+([\d.]+))?/);
+  if (!match) return null;
+  const alpha = match[4] === undefined ? 1 : Number(match[4]);
+  if (alpha < 0.2) return null;
+  return (0.2126 * Number(match[1]) + 0.7152 * Number(match[2]) + 0.0722 * Number(match[3])) / 255;
+}
+
+function looksDark(value: string): boolean {
+  return /\bdark\b/i.test(value) && !/\blight\b/i.test(value);
+}
+
+function looksLight(value: string): boolean {
+  return /\blight\b/i.test(value) && !/\bdark\b/i.test(value);
+}
+
+/** Light or dark for the reminder card. System follows the page, then the computer. */
+export function resolveCardTheme(theme: Theme, doc?: Document | null): 'light' | 'dark' {
+  if (theme === 'light' || theme === 'dark') return theme;
+  const view = doc?.defaultView;
+  if (doc && view && typeof view.getComputedStyle === 'function') {
+    try {
+      const root = view.getComputedStyle(doc.documentElement);
+      if (looksDark(root.colorScheme)) return 'dark';
+      if (looksLight(root.colorScheme)) return 'light';
+      const hints = [
+        doc.documentElement.getAttribute('class') ?? '',
+        doc.documentElement.getAttribute('data-theme') ?? '',
+        doc.documentElement.getAttribute('color') ?? '',
+        doc.body?.getAttribute('class') ?? '',
+        doc.documentElement.hasAttribute('dark') ? 'dark' : '',
+      ].join(' ');
+      if (looksDark(hints)) return 'dark';
+      if (looksLight(hints)) return 'light';
+      const bg =
+        luminance(view.getComputedStyle(doc.body ?? doc.documentElement).backgroundColor) ??
+        luminance(root.backgroundColor);
+      if (bg !== null) {
+        if (bg < 0.45) return 'dark';
+        if (bg > 0.55) return 'light';
+      }
+    } catch {
+      // linkedom and some host pages omit computed styles.
+    }
+  }
+  if (typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+  return 'light';
 }

@@ -22,7 +22,7 @@ export function buildPageCss(regions: { className: string; selectors: string[] }
   for (const region of regions) {
     const selectors = region.selectors.filter(assertSafeSelector);
     if (!selectors.length) continue;
-    const scoped = selectors.map((selector) => `html.${region.className} ${selector}`).join(',');
+    const scoped = selectors.map((selector) => `html.${region.className} ${selector}:not(#ife-reminder-host)`).join(',');
     lines.push(`${scoped}{display:none !important;}`);
   }
   return lines.join('\n');

@@ -1,7 +1,7 @@
 import { buildReportUrl } from '../shared/community/submission';
 import { advanceCursor, citation, collectReminders, moveCursor, reminderById, toggleFavorite } from '../shared/reminders/engine';
 import { hostMatches, pathMatches } from '../shared/paths';
-import { isSnoozing, type Settings } from '../shared/settings';
+import { isSnoozing, resolveCardTheme, snoozeButtonLabel, startSnooze, type Settings } from '../shared/settings';
 import type { SettingsStore } from '../shared/storage';
 import { buildPageCss, regionClass } from '../shared/sites/css';
 import { SITES } from '../shared/sites';
@@ -88,12 +88,59 @@ function clearColumn(doc: Document): void {
 
 const FEED_ANCHORS = [
   '[role="feed"]',
+  '[data-pagelet="Feed"]',
   '[data-pagelet="FeedUnit"]',
   '[data-pagelet^="FeedUnit"]',
+  '[aria-label="News Feed"]',
   '[data-pagelet="Stories"]',
   '[role="article"]',
   '[aria-posinset]',
 ];
+
+function queryAll(doc: ParentNode, selector: string): Element[] {
+  try {
+    return [...doc.querySelectorAll(selector)];
+  } catch {
+    return [];
+  }
+}
+
+function area(element: Element): number {
+  const rect = element.getBoundingClientRect();
+  return Math.max(0, rect.width) * Math.max(0, rect.height);
+}
+
+function isUnmeasured(element: Element): boolean {
+  const rect = element.getBoundingClientRect();
+  return rect.width === 0 && rect.height === 0 && rect.top === 0 && rect.left === 0;
+}
+
+function isUsableMount(element: Element): boolean {
+  if (!element.isConnected) return false;
+  let node: Element | null = element;
+  while (node) {
+    if ((node as HTMLElement).hidden || node.getAttribute('aria-hidden') === 'true') return false;
+    try {
+      const style = node.ownerDocument.defaultView?.getComputedStyle?.(node);
+      if (style && (style.display === 'none' || style.visibility === 'hidden')) return false;
+    } catch {
+      // linkedom may omit computed style.
+    }
+    node = node.parentElement;
+  }
+  if (isUnmeasured(element)) return true;
+  const rect = element.getBoundingClientRect();
+  return rect.width >= 80 && rect.height >= 40;
+}
+
+function pickMount(candidates: Element[]): Element | null {
+  const unique = [...new Set(candidates)];
+  const usable = unique.filter(isUsableMount);
+  if (usable.length) {
+    return [...usable].sort((left, right) => area(right) - area(left))[0] ?? null;
+  }
+  return unique.find((item) => item.isConnected) ?? null;
+}
 
 function findFeedColumn(root: Element): Element | null {
   for (const selector of FEED_ANCHORS) {
@@ -125,22 +172,28 @@ function headerBottom(doc: Document): number {
 }
 
 function findMount(doc: Document, region: RegionDefinition): Element | null {
+  const fromMount: Element[] = [];
   for (const selector of region.mountSelectors ?? []) {
-    const found = query(doc, selector);
-    if (!found) continue;
-    if (region.anchor === 'feed-column') {
-      const column = findFeedColumn(found);
-      if (column) return column;
-      continue;
+    for (const found of queryAll(doc, selector)) {
+      if (region.anchor === 'feed-column') {
+        const column = findFeedColumn(found);
+        if (column) fromMount.push(column);
+      } else {
+        fromMount.push(found);
+      }
     }
-    return found;
   }
-  if (region.anchor === 'feed-column') return null;
+  const picked = pickMount(fromMount);
+  if (picked && isUsableMount(picked)) return picked;
+  const fromFeed: Element[] = [];
   for (const selector of region.selectors) {
-    const found = query(doc, selector);
-    if (found?.parentElement) return found.parentElement;
+    for (const found of queryAll(doc, selector)) {
+      if (found.parentElement) fromFeed.push(found.parentElement);
+    }
   }
-  return null;
+  const fallback = pickMount(fromFeed);
+  if (fallback && isUsableMount(fallback)) return fallback;
+  return picked ?? fallback;
 }
 
 function columnBox(column: Element): { left: number; top: number; bottom: number; width: number } {
@@ -266,14 +319,16 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
         selectors: region.selectors,
       })),
     );
+    const cardTheme = resolveCardTheme(settings.theme, options.document);
     const signature = JSON.stringify({
       css,
       id: reminder?.id ?? null,
-      theme: settings.theme,
+      theme: cardTheme,
       showTranslation: settings.showTranslation,
       favorite: reminder ? settings.favorites.includes(reminder.id) : false,
       compact: placement?.placement === 'compact',
       path: options.location.pathname,
+      snoozeMinutes: settings.snoozeMinutes,
     });
 
     let style = options.document.getElementById('ife-style') as HTMLStyleElement | null;
@@ -354,7 +409,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       {
         reminder,
         showTranslation: settings.showTranslation,
-        theme: settings.theme,
+        theme: cardTheme,
         favorite: reminder ? settings.favorites.includes(reminder.id) : false,
         compact: placement.placement === 'compact',
         emptyMessage: settings.favoritesOnly
@@ -376,6 +431,8 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
           globalThis.open(buildReportUrl(reminder.id, citation(reminder), note), '_blank', 'noopener');
         },
         onOpenSettings: () => guard(Promise.resolve(globalThis.chrome?.runtime?.sendMessage({ type: 'ife-open-settings' }))),
+        onSnooze: () => guard(options.store.update((current) => startSnooze(current, current.snoozeMinutes, now()))),
+        snoozeLabel: snoozeButtonLabel(settings.snoozeMinutes),
       },
     );
     applied = signature;
@@ -388,17 +445,27 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
   };
 
   let lastPath = `${options.location.pathname}${options.location.search}`;
+  const currentPath = () => `${options.location.pathname}${options.location.search}`;
   const scheduleIfMoved = () => {
-    const next = `${options.location.pathname}${options.location.search}`;
+    const next = currentPath();
     if (next === lastPath) return;
     lastPath = next;
+    applied = '';
+    schedule();
+  };
+  const onNavigate = () => {
+    lastPath = currentPath();
+    applied = '';
     schedule();
   };
 
-  const onPop = () => scheduleIfMoved();
-  const onYouTube = () => scheduleIfMoved();
+  const onPop = () => onNavigate();
+  const onYouTube = () => onNavigate();
+  const onPageShow = () => onNavigate();
   target.addEventListener('popstate', onPop);
   target.addEventListener('yt-navigate-finish', onYouTube);
+  target.addEventListener('yt-page-data-updated', onYouTube);
+  target.addEventListener('pageshow', onPageShow);
   const push = options.history.pushState?.bind(options.history);
   const replace = options.history.replaceState?.bind(options.history);
   try {
@@ -472,13 +539,13 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
   const watchTimer = globalThis.setInterval(() => {
     if (stopped) return;
     scheduleIfMoved();
-    if (!wantsColumn) return;
     const host = options.document.getElementById('ife-reminder-host') as HTMLElement | null;
     if (hostHasCard(host) && host?.classList.contains('ife-overlay') && Number.parseFloat(host.style.width) < 160) {
       runRefresh();
       return;
     }
-    if (hostHasCard(host)) return;
+    const mountParent = host?.parentElement;
+    if (hostHasCard(host) && mountParent && isUsableMount(mountParent)) return;
     runRefresh();
   }, 400);
   (watchTimer as { unref?: () => void }).unref?.();
@@ -513,6 +580,8 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       target.removeEventListener('resize', reposition);
       target.removeEventListener('popstate', onPop);
       target.removeEventListener('yt-navigate-finish', onYouTube);
+      target.removeEventListener('yt-page-data-updated', onYouTube);
+      target.removeEventListener('pageshow', onPageShow);
       try {
         if (push) options.history.pushState = push;
         if (replace) options.history.replaceState = replace;

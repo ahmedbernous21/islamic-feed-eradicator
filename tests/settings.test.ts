@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { defaultSettings, normalizeSettings } from '../src/shared/settings';
+import { clearSnooze, defaultSettings, isSnoozing, normalizeSettings, resolveCardTheme, snoozeButtonLabel, startSnooze } from '../src/shared/settings';
 import { SITES } from '../src/shared/sites';
 
 describe('settings', () => {
@@ -27,7 +27,33 @@ describe('settings', () => {
     expect(settings.sites.youtube.regions['watch-suggestions']).toBe(false);
     expect(settings.sites.youtube.regions.comments).toBe(false);
     expect(settings.sites.facebook.regions['groups-feed']).toBe(false);
+    expect(settings.sites.facebook.regions.reels).toBe(true);
+    expect(settings.sites.instagram.regions.reels).toBe(true);
     expect(settings.sites.instagram.regions.explore).toBe(false);
     for (const site of SITES) expect(settings.sites[site.id].enabled).toBe(true);
+  });
+
+  it('keeps an explicit theme and reads a dark page as dark', () => {
+    expect(resolveCardTheme('light')).toBe('light');
+    expect(resolveCardTheme('dark')).toBe('dark');
+    const darkPage = {
+      defaultView: {
+        getComputedStyle: () => ({ colorScheme: 'dark', backgroundColor: 'rgb(24, 24, 24)' }),
+      },
+      documentElement: {},
+      body: {},
+    } as unknown as Document;
+    expect(resolveCardTheme('system', darkPage)).toBe('dark');
+  });
+
+  it('starts and clears a snooze from the preset durations', () => {
+    const now = 1_000_000;
+    const snoozed = startSnooze(defaultSettings(), 60, now);
+    expect(snoozed.snoozeMinutes).toBe(60);
+    expect(snoozed.snoozeUntil).toBe(now + 60 * 60_000);
+    expect(isSnoozing(snoozed, now)).toBe(true);
+    expect(isSnoozing(clearSnooze(snoozed), now)).toBe(false);
+    expect(snoozeButtonLabel(10)).toBe('Show feed for 10 min');
+    expect(snoozeButtonLabel(60)).toBe('Show feed for 1 hour');
   });
 });
