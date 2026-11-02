@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { findSite } from '../shared/sites';
 import { moveCursor } from '../shared/reminders/engine';
+import { track } from '../shared/telemetry';
 import { ThemePicker } from '../ui/ThemePicker';
 import { useSettings } from '../ui/useSettings';
 
@@ -73,11 +74,12 @@ export function App() {
       <div className="popup-actions">
         <button
           type="button"
-          onClick={() =>
+          onClick={() => {
+            track({ name: 'action', action: 'next' });
             void store.update((current) =>
               site ? moveCursor(current, 'next', host ?? site.id, Date.now(), undefined, site.id) : moveCursor(current, 'next', 'popup', Date.now()),
-            )
-          }
+            );
+          }}
         >
           Next reminder
         </button>

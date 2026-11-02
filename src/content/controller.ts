@@ -2,10 +2,11 @@ import { buildReportUrl } from '../shared/community/submission';
 import { advanceCursor, citation, collectReminders, moveCursor, reminderById, toggleFavorite } from '../shared/reminders/engine';
 import { hostMatches, pathMatches } from '../shared/paths';
 import { isSnoozing, resolveCardTheme, snoozeButtonLabel, startSnooze, type Settings } from '../shared/settings';
+import { track } from '../shared/telemetry';
 import type { SettingsStore } from '../shared/storage';
 import { buildPageCss, regionClass } from '../shared/sites/css';
 import { SITES } from '../shared/sites';
-import type { RegionDefinition, SiteDefinition } from '../shared/sites/types';
+import type { RegionDefinition, SiteDefinition, SiteId } from '../shared/sites/types';
 import { renderReminder } from './widget';
 
 export type ControllerOptions = {
@@ -256,8 +257,39 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
   let wakeTimer: ReturnType<typeof setTimeout> | 0 = 0;
   let applied = '';
   let renderedPath: string | null = null;
+  let visibleSince = 0;
+  let visibleSite: SiteId | null = null;
   const scheduleTimer = (callback: () => void, delay: number) => globalThis.setTimeout(callback, delay);
   const cancelTimer = (timer: ReturnType<typeof setTimeout> | 0) => globalThis.clearTimeout(timer);
+
+  const flushVisible = (resume: boolean) => {
+    if (!visibleSince || !visibleSite) {
+      if (!resume) {
+        visibleSince = 0;
+        visibleSite = null;
+      }
+      return;
+    }
+    const ms = now() - visibleSince;
+    const siteId = visibleSite;
+    if (resume) visibleSince = now();
+    else {
+      visibleSince = 0;
+      visibleSite = null;
+    }
+    if (ms >= 1000) track({ name: 'visible', site: siteId, ms });
+  };
+
+  const startVisible = (siteId: SiteId) => {
+    if (options.document.visibilityState === 'hidden') {
+      flushVisible(false);
+      return;
+    }
+    if (visibleSite === siteId && visibleSince) return;
+    flushVisible(false);
+    visibleSite = siteId;
+    visibleSince = now();
+  };
 
   const refresh = async () => {
     // Another tab can write to storage before this page has a body. The ready
@@ -270,6 +302,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     if (!site || !loaded.globalEnabled || !loaded.sites[site.id]?.enabled) {
       applied = '';
       wantsColumn = false;
+      flushVisible(false);
       clearMarks(options.document);
       return;
     }
@@ -277,6 +310,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     if (isSnoozing(loaded, now())) {
       applied = '';
       wantsColumn = false;
+      flushVisible(false);
       clearMarks(options.document);
       cancelTimer(wakeTimer);
       wakeTimer = scheduleTimer(() => guard(refresh()), Math.max(1000, (loaded.snoozeUntil ?? now()) - now() + 50));
@@ -348,6 +382,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
 
     if (!placement) {
       wantsColumn = false;
+      flushVisible(false);
       options.document.getElementById('ife-reminder-host')?.remove();
       clearColumn(options.document);
       applied = signature;
@@ -357,6 +392,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
 
     const mount = findMount(options.document, placement);
     if (!mount) {
+      flushVisible(false);
       options.document.getElementById('ife-reminder-host')?.remove();
       clearColumn(options.document);
       applied = '';
@@ -417,11 +453,21 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
           : 'No reminders match the categories you have enabled. Turn a category back on in the extension settings.',
       },
       {
-        onPrevious: () => guard(options.store.update((current) => moveCursor(current, 'previous', path, now(), undefined, site.id))),
-        onNext: () => guard(options.store.update((current) => moveCursor(current, 'next', path, now(), undefined, site.id))),
-        onRandom: () => guard(options.store.update((current) => moveCursor(current, 'random', path, now(), undefined, site.id))),
+        onPrevious: () => {
+          track({ name: 'action', action: 'previous' });
+          guard(options.store.update((current) => moveCursor(current, 'previous', path, now(), undefined, site.id)));
+        },
+        onNext: () => {
+          track({ name: 'action', action: 'next' });
+          guard(options.store.update((current) => moveCursor(current, 'next', path, now(), undefined, site.id)));
+        },
+        onRandom: () => {
+          track({ name: 'action', action: 'random' });
+          guard(options.store.update((current) => moveCursor(current, 'random', path, now(), undefined, site.id)));
+        },
         onToggleFavorite: () => {
           if (!reminder) return;
+          track({ name: 'action', action: 'favorite' });
           guard(options.store.update((current) => toggleFavorite(current, reminder.id)));
         },
         onToggleTranslation: () =>
@@ -431,12 +477,16 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
           globalThis.open(buildReportUrl(reminder.id, citation(reminder), note), '_blank', 'noopener');
         },
         onOpenSettings: () => guard(Promise.resolve(globalThis.chrome?.runtime?.sendMessage({ type: 'ife-open-settings' }))),
-        onSnooze: () => guard(options.store.update((current) => startSnooze(current, current.snoozeMinutes, now()))),
+        onSnooze: () => {
+          track({ name: 'action', action: 'snooze' });
+          guard(options.store.update((current) => startSnooze(current, current.snoozeMinutes, now())));
+        },
         snoozeLabel: snoozeButtonLabel(settings.snoozeMinutes),
       },
     );
     applied = signature;
     watchHost(host);
+    startVisible(site.id);
   };
 
   const schedule = () => {
@@ -497,6 +547,17 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
   };
   options.document.addEventListener('scroll', reposition, true);
   target.addEventListener('resize', reposition);
+  const onVisibility = () => {
+    if (options.document.visibilityState === 'hidden') flushVisible(false);
+    else if (hostHasCard(options.document.getElementById('ife-reminder-host') as HTMLElement | null) && activeSiteId) {
+      startVisible(activeSiteId as SiteId);
+    }
+  };
+  options.document.addEventListener('visibilitychange', onVisibility);
+  const visibleTimer = globalThis.setInterval(() => {
+    if (visibleSince && visibleSite) flushVisible(true);
+  }, 30_000);
+  (visibleTimer as { unref?: () => void }).unref?.();
 
   // The feed column changes size while the site finishes loading. Follow it so
   // the card never sits at a stale position or width.
@@ -573,10 +634,13 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       cancelTimer(wakeTimer);
       for (const timer of retryTimers) cancelTimer(timer);
       globalThis.clearInterval(watchTimer);
+      globalThis.clearInterval(visibleTimer);
+      flushVisible(false);
       hostObserver?.disconnect();
       watchColumn(null);
       if (frame && typeof cancelAnimationFrame === 'function') cancelAnimationFrame(frame);
       options.document.removeEventListener('scroll', reposition, true);
+      options.document.removeEventListener('visibilitychange', onVisibility);
       target.removeEventListener('resize', reposition);
       target.removeEventListener('popstate', onPop);
       target.removeEventListener('yt-navigate-finish', onYouTube);

@@ -39,6 +39,8 @@ export type Settings = {
   };
   snoozeMinutes: number;
   snoozeUntil: number | null;
+  /** Anonymous usage counts. No URLs or reminder text. */
+  telemetry: boolean;
   sites: Record<SiteId, SiteSettings>;
   favorites: string[];
   personalNotes: PersonalNote[];
@@ -75,6 +77,7 @@ export function defaultSettings(): Settings {
     rotation: { mode: 'visit', intervalMinutes: 30 },
     snoozeMinutes: 10,
     snoozeUntil: null,
+    telemetry: true,
     sites,
     favorites: [],
     personalNotes: [],
@@ -169,6 +172,7 @@ export function normalizeSettings(input: unknown): Settings {
     rotation,
     snoozeMinutes: typeof input.snoozeMinutes === 'number' ? clamp(input.snoozeMinutes, 1, 180, defaults.snoozeMinutes) : defaults.snoozeMinutes,
     snoozeUntil: typeof input.snoozeUntil === 'number' ? input.snoozeUntil : null,
+    telemetry: typeof input.telemetry === 'boolean' ? input.telemetry : defaults.telemetry,
     sites,
     favorites,
     personalNotes,

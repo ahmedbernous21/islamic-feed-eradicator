@@ -109,6 +109,19 @@ export function App() {
             />
             <span>Show favorites only</span>
           </label>
+          <label className="choice">
+            <input
+              type="checkbox"
+              checked={settings.telemetry}
+              onChange={() => update((current) => ({ ...current, telemetry: !current.telemetry }))}
+            />
+            <span>
+              Share anonymous usage
+              <small>
+                Counts installs, Next, disable, and minutes the reminder is on screen. No URLs, accounts, or reminder text.
+              </small>
+            </span>
+          </label>
           <div className="row">
             <span id="theme">Theme</span>
             <ThemePicker value={settings.theme} onChange={(theme) => update((current) => ({ ...current, theme }))} />
