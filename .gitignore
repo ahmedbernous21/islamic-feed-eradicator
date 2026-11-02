@@ -9,3 +9,4 @@ dist/
 credentials.json
 *.secret
 .vercel
+metrics/

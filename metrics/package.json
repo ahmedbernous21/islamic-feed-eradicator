@@ -1,8 +1,0 @@
-{
-  "name": "ife-metrics",
-  "private": true,
-  "type": "module",
-  "dependencies": {
-    "@vercel/blob": "^2.0.0"
-  }
-}
