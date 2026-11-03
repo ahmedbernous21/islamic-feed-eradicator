@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { findSite } from '../shared/sites';
 import { moveCursor } from '../shared/reminders/engine';
+import { clearSnooze, isSnoozing, snoozeRemainingLabel } from '../shared/settings';
 import { track } from '../shared/telemetry';
 import { ThemePicker } from '../ui/ThemePicker';
 import { useSettings } from '../ui/useSettings';
@@ -31,11 +32,21 @@ export function App() {
   if (!settings) return <main><p>Loading settings…</p></main>;
 
   const site = host ? findSite(host) : null;
+  const snoozing = isSnoozing(settings);
+  const snoozeLeft = snoozeRemainingLabel(settings);
 
   return (
     <main>
       <h1>Islamic Feed</h1>
       <p className="muted">A reminder in place of the feed. The rest of the site stays usable.</p>
+      {snoozing ? (
+        <p className="snooze-note">
+          The original feed is showing{snoozeLeft ? ` for ${snoozeLeft}` : ''}. Snooze is started from Settings, not the reminder card.
+          <button type="button" onClick={() => void store.update(clearSnooze)}>
+            Cancel snooze
+          </button>
+        </p>
+      ) : null}
       <label className="switch">
         <input
           type="checkbox"

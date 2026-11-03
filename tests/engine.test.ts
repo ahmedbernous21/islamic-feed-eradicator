@@ -1,5 +1,18 @@
 import { describe, expect, it } from 'vitest';
-import { advanceCursor, arabicCitation, citation, collectReminders, moveCursor, nextId, previousId, randomId } from '../src/shared/reminders/engine';
+import {
+  advanceCursor,
+  arabicCitation,
+  categoryLabel,
+  citation,
+  collectReminders,
+  drawNext,
+  hadithAttributionEnglish,
+  moveCursor,
+  nextId,
+  previousId,
+  prophetSaidArabic,
+  randomId,
+} from '../src/shared/reminders/engine';
 import { defaultSettings } from '../src/shared/settings';
 
 describe('reminder engine', () => {
@@ -32,10 +45,49 @@ describe('reminder engine', () => {
     expect(scholar && arabicCitation(scholar)).toBe('أبو هريرة');
   });
 
+  it('keeps hadith as the Prophet’s words and scholar quotations in their own category', () => {
+    const settings = defaultSettings();
+    const list = collectReminders(settings);
+    const hadith = list.find((item) => item.id === 'hadith-bukhari-54');
+    const scholar = list.find((item) => item.id === 'scholar-abu-hurayrah-heart');
+    if (!hadith || hadith.category !== 'hadith' || !scholar) throw new Error('missing reminders');
+    expect(categoryLabel(hadith)).toBe('Hadith');
+    expect(categoryLabel(scholar)).toBe('Scholar quotation');
+    expect(prophetSaidArabic()).toBe('قال رسول الله صلى الله عليه وسلم');
+    expect(hadithAttributionEnglish(hadith)).toMatch(/The Prophet/);
+    expect(hadithAttributionEnglish(hadith)).not.toContain('Narrated by');
+    expect(hadith.sourceUrl).toBe('https://sunnah.com/bukhari:54');
+  });
+
   it('picks a different reminder at random when more than one exists', () => {
     const settings = defaultSettings();
     const list = collectReminders(settings);
     expect(randomId(list, list[0].id, () => 0)).not.toBe(list[0].id);
+  });
+
+  it('draws reminders randomly without repeating until the pass is done', () => {
+    const settings = defaultSettings();
+    settings.categories = { quran: true, hadith: false, scholar: false, personal: false };
+    const list = collectReminders(settings);
+    expect(list.length).toBeGreaterThan(2);
+
+    let seenIds: string[] = [];
+    let current: string | null = null;
+    const shown = new Set<string>();
+    for (let i = 0; i < list.length; i += 1) {
+      const drawn = drawNext(list, current, seenIds, () => 0);
+      expect(drawn.id).toBeTruthy();
+      expect(shown.has(drawn.id!)).toBe(false);
+      shown.add(drawn.id!);
+      current = drawn.id;
+      seenIds = drawn.seenIds;
+    }
+    expect(shown.size).toBe(list.length);
+
+    const again = drawNext(list, current, seenIds, () => 0);
+    expect(again.id).toBeTruthy();
+    expect(again.id).not.toBe(current);
+    expect(again.seenIds).toEqual([again.id]);
   });
 
   it('keeps a separate reminder on each site', () => {
@@ -75,11 +127,10 @@ describe('reminder engine', () => {
 
   it('moves with next, previous, and random without losing the place', () => {
     const settings = defaultSettings();
-    const list = collectReminders(settings);
-    const fromStart = moveCursor(settings, 'next', 'options', 5);
-    expect(fromStart.cursor.reminderId).toBe(list[1].id);
-    const started = advanceCursor(settings, 'options', 10, true).settings;
-    const next = moveCursor(started, 'next', 'options', 20);
+    const started = advanceCursor(settings, 'options', 10, true, true, undefined, () => 0).settings;
+    const next = moveCursor(started, 'next', 'options', 20, () => 0);
+    expect(next.cursor.reminderId).toBeTruthy();
+    expect(next.cursor.reminderId).not.toBe(started.cursor.reminderId);
     const back = moveCursor(next, 'previous', 'options', 30);
     expect(back.cursor.reminderId).toBe(started.cursor.reminderId);
     const random = moveCursor(back, 'random', 'options', 40, () => 0.2);

@@ -1,6 +1,11 @@
 import widgetCss from './widget.css?inline';
 import type { Reminder } from '../shared/reminders/types';
-import { arabicCitation, categoryLabel, citation } from '../shared/reminders/engine';
+import {
+  arabicCitation,
+  categoryLabel,
+  citation,
+  hadithAttributionEnglish,
+} from '../shared/reminders/engine';
 import type { Theme } from '../shared/settings';
 
 export type ReminderView = {
@@ -15,13 +20,10 @@ export type ReminderView = {
 export type ReminderActions = {
   onPrevious: () => void;
   onNext: () => void;
-  onRandom: () => void;
   onToggleFavorite: () => void;
   onToggleTranslation: () => void;
   onReport?: (note: string) => void;
   onOpenSettings?: () => void;
-  onSnooze?: () => void;
-  snoozeLabel?: string;
 };
 
 function keepMarksWithWords(text: string): string {
@@ -54,7 +56,11 @@ function button(doc: Document, label: string, onClick: () => void, attrs: Record
   node.type = 'button';
   node.textContent = label;
   for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, value);
-  node.addEventListener('click', onClick);
+  node.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    onClick();
+  });
   return node;
 }
 
@@ -76,8 +82,6 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
     } else if (event.key === 'ArrowLeft') {
       event.preventDefault();
       actions.onPrevious();
-    } else if (event.key === 'r' || event.key === 'R') {
-      actions.onRandom();
     } else if (event.key === 'f' || event.key === 'F') {
       actions.onToggleFavorite();
     }
@@ -94,9 +98,7 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
     kicker.className = 'ife-kicker';
     const kind = doc.createElement('span');
     kind.textContent = categoryLabel(reminder);
-    const keys = doc.createElement('span');
-    keys.textContent = '← →  R  F';
-    kicker.append(kind, keys);
+    kicker.append(kind);
 
     if (reminder.category === 'personal') {
       const text = doc.createElement('p');
@@ -108,7 +110,7 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
       arabic.className = 'ife-arabic';
       arabic.lang = 'ar';
       arabic.dir = 'rtl';
-      arabic.textContent = keepMarksWithWords(reminder.arabic);
+      arabic.textContent = reminder.category === 'quran' ? keepMarksWithWords(reminder.arabic) : reminder.arabic;
       card.append(kicker, arabic);
       const arabicSourceText = arabicCitation(reminder);
       if (arabicSourceText) {
@@ -126,10 +128,31 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
         translation.dir = 'ltr';
         translation.textContent = reminder.translation;
         card.append(translation);
+        if (reminder.category === 'hadith') {
+          const said = doc.createElement('p');
+          said.className = 'ife-speaker-en';
+          said.lang = 'en';
+          said.dir = 'ltr';
+          said.textContent = hadithAttributionEnglish(reminder);
+          card.append(said);
+        }
       }
     }
 
-    if (view.showTranslation && reminder.category !== 'personal') {
+    if (reminder.category === 'hadith' && reminder.sourceUrl) {
+      const source = doc.createElement('p');
+      source.className = 'ife-source';
+      source.dir = 'ltr';
+      const link = doc.createElement('a');
+      link.className = 'ife-source-link';
+      link.href = reminder.sourceUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = citation(reminder);
+      link.addEventListener('click', (event) => event.stopPropagation());
+      source.append(link);
+      card.append(source);
+    } else if (view.showTranslation && reminder.category !== 'personal') {
       const source = doc.createElement('p');
       source.className = 'ife-source';
       source.dir = 'ltr';
@@ -164,7 +187,7 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
       full.className = 'ife-full';
       full.lang = 'ar';
       full.dir = 'rtl';
-      full.textContent = keepMarksWithWords(reminder.arabicFull);
+      full.textContent = reminder.arabicFull;
       details.append(summary, full);
       card.append(details);
     }
@@ -177,7 +200,6 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
   actionsRow.append(
     button(doc, 'Previous', actions.onPrevious),
     button(doc, 'Next', actions.onNext),
-    button(doc, 'Random', actions.onRandom),
     button(doc, view.favorite ? 'Favorited' : 'Favorite', actions.onToggleFavorite, {
       'aria-pressed': view.favorite ? 'true' : 'false',
     }),
@@ -186,9 +208,6 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
   const reportPanel = reminder && reminder.category !== 'personal' && actions.onReport ? reportForm(doc, actions.onReport) : null;
   if (reportPanel) actionsRow.append(reportPanel.open);
   if (actions.onOpenSettings) actionsRow.append(button(doc, 'Settings', actions.onOpenSettings));
-  if (actions.onSnooze && actions.snoozeLabel) {
-    actionsRow.append(button(doc, actions.snoozeLabel, actions.onSnooze));
-  }
   card.append(rule, actionsRow);
   if (reportPanel) card.append(reportPanel.panel);
   root.append(style, card);

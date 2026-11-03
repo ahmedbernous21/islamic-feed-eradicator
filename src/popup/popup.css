@@ -20,3 +20,19 @@ main {
   gap: 0.45rem;
   font-weight: 600;
 }
+
+.snooze-note {
+  margin: 0 0 0.85rem;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid var(--line, #e2d5c3);
+  border-radius: 12px;
+  background: var(--paper-2, #fffdf8);
+  color: var(--ink, #1d1a16);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.snooze-note button {
+  display: block;
+  margin-top: 0.55rem;
+}

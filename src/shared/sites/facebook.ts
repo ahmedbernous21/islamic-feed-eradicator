@@ -45,7 +45,11 @@ const site: SiteDefinition = {
       defaultEnabled: true,
       paths: ['/', '/home.php'],
       placement: 'none',
-      selectors: ['[role="main"] [data-pagelet="Stories"]', '[role="main"] [aria-label="Stories"]'],
+      selectors: [
+        '[role="main"] [data-pagelet="Stories"]',
+        '[role="main"] [aria-label="Stories"]',
+        '[aria-label="Stories"]',
+      ],
     },
     {
       id: 'groups-feed',

@@ -20,6 +20,9 @@ export type HadithReminder = {
   translation: string;
   collection: string;
   reference: string;
+  narrator: string;
+  narratorArabic: string;
+  sourceUrl: string;
   authenticity: string;
   authenticityBasis: string;
   note?: string;

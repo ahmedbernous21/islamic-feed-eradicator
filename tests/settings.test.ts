@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { clearSnooze, defaultSettings, isSnoozing, normalizeSettings, resolveCardTheme, snoozeButtonLabel, startSnooze } from '../src/shared/settings';
+import { clearSnooze, defaultSettings, isSnoozing, normalizeSettings, resolveCardTheme, snoozeButtonLabel, snoozeRemainingClock, snoozeRemainingLabel, startSnooze } from '../src/shared/settings';
 import { SITES } from '../src/shared/sites';
 
 describe('settings', () => {
@@ -55,5 +55,9 @@ describe('settings', () => {
     expect(isSnoozing(clearSnooze(snoozed), now)).toBe(false);
     expect(snoozeButtonLabel(10)).toBe('Show feed for 10 min');
     expect(snoozeButtonLabel(60)).toBe('Show feed for 1 hour');
+    expect(snoozeRemainingLabel(snoozed, now)).toBe('60 min');
+    expect(snoozeRemainingLabel(snoozed, now + 59 * 60_000)).toBe('1 min');
+    expect(snoozeRemainingClock(snoozed, now)).toBe('60:00');
+    expect(snoozeRemainingClock(snoozed, now + 90_000)).toBe('58:30');
   });
 });

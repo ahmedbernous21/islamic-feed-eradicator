@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Islamic Feed Eradicator",
   "short_name": "Islamic Feed",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Replace distracting social feeds with Qur'an, hadith, and sourced scholarly reminders.",
   "homepage_url": "https://ahmedbernous21.github.io/islamic-feed-eradicator/",
   "action": {

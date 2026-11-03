@@ -14,17 +14,12 @@ const site: SiteDefinition = {
       placement: 'primary',
       replaceColumn: true,
       overlay: true,
-      mountSelectors: [
-        'ytd-browse[page-subtype="home"] #primary',
-        'ytd-two-column-browse-results-renderer #primary',
-      ],
+      mountSelectors: ['ytd-browse[page-subtype="home"] #primary'],
       selectors: [
         'ytd-browse[page-subtype="home"] ytd-rich-grid-renderer',
         'ytd-browse[page-subtype="home"] ytd-rich-section-renderer',
         'ytd-browse[page-subtype="home"] ytd-rich-shelf-renderer',
         'ytd-browse[page-subtype="home"] ytd-reel-shelf-renderer',
-        'ytd-browse ytd-rich-grid-renderer',
-        'ytd-browse ytd-rich-section-renderer',
       ],
     },
     {
@@ -97,7 +92,7 @@ const site: SiteDefinition = {
       placement: 'primary',
       replaceColumn: true,
       overlay: true,
-      mountSelectors: ['ytd-browse[page-subtype="subscriptions"] #primary', 'ytd-browse #primary'],
+      mountSelectors: ['ytd-browse[page-subtype="subscriptions"] #primary'],
       selectors: ['ytd-browse[page-subtype="subscriptions"] ytd-rich-grid-renderer', 'ytd-browse[page-subtype="subscriptions"] ytd-section-list-renderer'],
     },
   ],

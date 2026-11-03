@@ -3,8 +3,6 @@ import type { ReminderCursor, Settings } from '../settings';
 import type { SiteId } from '../sites/types';
 import type { LibraryReminder, PersonalReminder, Reminder, ReminderLibrary } from './types';
 
-const SITE_ORDER: SiteId[] = ['youtube', 'facebook', 'linkedin', 'instagram'];
-
 const data = library as ReminderLibrary;
 
 export const libraryMeta = data.meta;
@@ -51,24 +49,55 @@ export function randomId(reminders: Reminder[], currentId: string | null, rng: (
   return pool[Math.min(pool.length - 1, Math.max(0, index))].id;
 }
 
+/**
+ * Pick the next reminder at random without repeating until every item in the
+ * current list has been shown, then start a fresh pass.
+ */
+export function drawNext(
+  reminders: Reminder[],
+  currentId: string | null,
+  seenIds: string[],
+  rng: () => number = Math.random,
+): { id: string | null; seenIds: string[] } {
+  if (!reminders.length) return { id: null, seenIds: [] };
+
+  const valid = new Set(reminders.map((reminder) => reminder.id));
+  let seen = seenIds.filter((id) => valid.has(id));
+  let pool = reminders.filter((reminder) => !seen.includes(reminder.id));
+
+  if (!pool.length) {
+    seen = [];
+    pool = reminders.filter((reminder) => reminder.id !== currentId);
+    if (!pool.length) pool = reminders;
+  }
+
+  const index = Math.min(pool.length - 1, Math.max(0, Math.floor(rng() * pool.length)));
+  const id = pool[index].id;
+  return { id, seenIds: [...seen, id] };
+}
+
 function emptyCursor(): ReminderCursor {
-  return { reminderId: null, lastPath: null, lastAdvancedAt: 0 };
+  return { reminderId: null, lastPath: null, lastAdvancedAt: 0, seenIds: [], history: [] };
 }
 
 /** First reminder for a site, skipping one already showing on another open site. */
-function openingId(reminders: Reminder[], siteId: string, settings: Settings): string {
+function openingId(
+  reminders: Reminder[],
+  siteId: string,
+  settings: Settings,
+  rng: () => number = Math.random,
+): { id: string; seenIds: string[] } {
   const used = new Set(
     Object.entries(settings.cursors)
       .filter(([key]) => key !== siteId)
       .map(([, cursor]) => cursor?.reminderId)
       .filter((id): id is string => Boolean(id)),
   );
-  const offset = Math.max(0, SITE_ORDER.indexOf(siteId as SiteId));
-  for (let step = 0; step < reminders.length; step += 1) {
-    const candidate = reminders[(offset + step) % reminders.length];
-    if (!used.has(candidate.id)) return candidate.id;
-  }
-  return reminders[offset % reminders.length].id;
+  const pool = reminders.filter((reminder) => !used.has(reminder.id));
+  const choices = pool.length ? pool : reminders;
+  const index = Math.min(choices.length - 1, Math.max(0, Math.floor(rng() * choices.length)));
+  const id = choices[index].id;
+  return { id, seenIds: [id] };
 }
 
 function withCursor(settings: Settings, siteId: string | undefined, cursor: ReminderCursor): Settings {
@@ -93,22 +122,37 @@ export function advanceCursor(
   visible: boolean,
   navigated = true,
   siteId?: string,
+  rng: () => number = Math.random,
 ): { settings: Settings; changed: boolean } {
   const reminders = collectReminders(settings);
-  const cursor = { ...(siteId ? settings.cursors[siteId as SiteId] ?? emptyCursor() : settings.cursor) };
+  const cursor = {
+    ...(siteId ? settings.cursors[siteId as SiteId] ?? emptyCursor() : settings.cursor),
+  };
+  cursor.seenIds = Array.isArray(cursor.seenIds) ? [...cursor.seenIds] : [];
+  cursor.history = Array.isArray(cursor.history) ? [...cursor.history] : [];
   let changed = false;
   let id = cursor.reminderId;
 
   if (!reminders.length) {
-    if (cursor.reminderId !== null) {
+    if (cursor.reminderId !== null || cursor.seenIds.length || cursor.history.length) {
       cursor.reminderId = null;
+      cursor.seenIds = [];
+      cursor.history = [];
       changed = true;
     }
     return { settings: withCursor(settings, siteId, cursor), changed };
   }
 
   if (visible && (!id || !reminders.some((reminder) => reminder.id === id))) {
-    id = siteId ? openingId(reminders, siteId, settings) : reminders[0].id;
+    if (siteId) {
+      const opening = openingId(reminders, siteId, settings, rng);
+      id = opening.id;
+      cursor.seenIds = opening.seenIds;
+    } else {
+      const drawn = drawNext(reminders, null, cursor.seenIds, rng);
+      id = drawn.id;
+      cursor.seenIds = drawn.seenIds;
+    }
     changed = true;
   }
 
@@ -116,7 +160,10 @@ export function advanceCursor(
     // Every page load counts, including a refresh of the same page. Only the
     // very first view keeps the opening reminder.
     if (visible && cursor.lastPath && id) {
-      id = nextId(reminders, id);
+      cursor.history = [...cursor.history, id].slice(-50);
+      const drawn = drawNext(reminders, id, cursor.seenIds, rng);
+      id = drawn.id;
+      cursor.seenIds = drawn.seenIds;
       changed = true;
     }
     if (cursor.lastPath !== path) {
@@ -131,7 +178,10 @@ export function advanceCursor(
       cursor.lastAdvancedAt = now;
       changed = true;
     } else if (now - cursor.lastAdvancedAt >= interval && id) {
-      id = nextId(reminders, id);
+      cursor.history = [...cursor.history, id].slice(-50);
+      const drawn = drawNext(reminders, id, cursor.seenIds, rng);
+      id = drawn.id;
+      cursor.seenIds = drawn.seenIds;
       cursor.lastAdvancedAt = now;
       changed = true;
     }
@@ -150,24 +200,62 @@ export function moveCursor(
   direction: 'next' | 'previous' | 'random',
   path: string,
   now: number,
-  rng?: () => number,
+  rng: () => number = Math.random,
   siteId?: string,
 ): Settings {
   const reminders = collectReminders(settings);
   const stored = siteId ? settings.cursors[siteId as SiteId] : settings.cursor;
-  const current =
-    reminderById(reminders, stored?.reminderId ?? null)?.id ??
-    (siteId && reminders.length ? openingId(reminders, siteId, settings) : reminders[0]?.id ?? null);
-  const id =
-    direction === 'next'
-      ? nextId(reminders, current)
-      : direction === 'previous'
-        ? previousId(reminders, current)
-        : randomId(reminders, current, rng);
+  const base = stored ? { ...stored } : emptyCursor();
+  base.seenIds = Array.isArray(base.seenIds) ? [...base.seenIds] : [];
+  base.history = Array.isArray(base.history) ? [...base.history] : [];
+
+  let current =
+    reminderById(reminders, base.reminderId)?.id ?? null;
+  if (!current && reminders.length) {
+    if (siteId) {
+      const opening = openingId(reminders, siteId, settings, rng);
+      current = opening.id;
+      base.seenIds = opening.seenIds;
+    } else {
+      current = reminders[0].id;
+      base.seenIds = [current];
+    }
+  }
+
+  if (direction === 'previous') {
+    while (base.history.length) {
+      const previous = base.history.pop()!;
+      if (previous !== current && reminders.some((reminder) => reminder.id === previous)) {
+        return withCursor(settings, siteId, {
+          reminderId: previous,
+          lastPath: path,
+          lastAdvancedAt: now,
+          seenIds: base.seenIds,
+          history: base.history,
+        });
+      }
+    }
+    return withCursor(settings, siteId, {
+      reminderId: current,
+      lastPath: path,
+      lastAdvancedAt: now,
+      seenIds: base.seenIds,
+      history: base.history,
+    });
+  }
+
+  if (current) base.history = [...base.history, current].slice(-50);
+  const drawn =
+    direction === 'random'
+      ? { id: randomId(reminders, current, rng), seenIds: base.seenIds }
+      : drawNext(reminders, current, base.seenIds, rng);
+
   return withCursor(settings, siteId, {
-    reminderId: id,
+    reminderId: drawn.id,
     lastPath: path,
     lastAdvancedAt: now,
+    seenIds: direction === 'random' && drawn.id ? [...base.seenIds.filter((id) => id !== drawn.id), drawn.id] : drawn.seenIds,
+    history: base.history,
   });
 }
 
@@ -180,6 +268,7 @@ export function toggleFavorite(settings: Settings, id: string): Settings {
 
 const COLLECTION_ARABIC: Record<string, string> = {
   'Sahih al-Bukhari': 'صحيح البخاري',
+  'Sahih Muslim': 'صحيح مسلم',
 };
 
 function arabicDigits(value: string): string {
@@ -195,6 +284,18 @@ export function citation(reminder: Reminder): string {
   if (reminder.category === 'hadith') return `${reminder.collection}, ${reminder.reference}`;
   if (reminder.category === 'scholar') return `${reminder.scholar} — ${reminder.source}`;
   return 'Personal note';
+}
+
+export function prophetSaidArabic(): string {
+  return 'قال رسول الله صلى الله عليه وسلم';
+}
+
+export function hadithAttributionEnglish(_reminder: Extract<Reminder, { category: 'hadith' }>): string {
+  return `The Prophet \uFDFA said.`;
+}
+
+export function hadithNarratorArabic(reminder: Extract<Reminder, { category: 'hadith' }>): string {
+  return `رواه ${reminder.narratorArabic}`;
 }
 
 export function arabicCitation(reminder: Reminder): string {
@@ -215,6 +316,6 @@ export function arabicCitation(reminder: Reminder): string {
 export function categoryLabel(reminder: Reminder): string {
   if (reminder.category === 'quran') return "Qur'an";
   if (reminder.category === 'hadith') return 'Hadith';
-  if (reminder.category === 'scholar') return 'Scholar';
+  if (reminder.category === 'scholar') return 'Scholar quotation';
   return 'Personal note';
 }

@@ -3,7 +3,7 @@ import { SITE_IDS, type SiteId } from './sites/types';
 export const TELEMETRY_ENDPOINT = 'https://ife-metrics.vercel.app/api/event';
 export const TELEMETRY_STORAGE_KEY = 'ife-telemetry';
 
-export const TELEMETRY_ACTIONS = ['next', 'previous', 'random', 'favorite', 'snooze'] as const;
+export const TELEMETRY_ACTIONS = ['next', 'previous', 'favorite', 'snooze'] as const;
 export type TelemetryAction = (typeof TELEMETRY_ACTIONS)[number];
 
 export type TelemetryEvent =

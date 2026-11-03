@@ -1,7 +1,7 @@
 import { buildReportUrl } from '../shared/community/submission';
 import { advanceCursor, citation, collectReminders, moveCursor, reminderById, toggleFavorite } from '../shared/reminders/engine';
 import { hostMatches, pathMatches } from '../shared/paths';
-import { isSnoozing, resolveCardTheme, snoozeButtonLabel, startSnooze, type Settings } from '../shared/settings';
+import { isSnoozing, resolveCardTheme, type Settings } from '../shared/settings';
 import { track } from '../shared/telemetry';
 import type { SettingsStore } from '../shared/storage';
 import { buildPageCss, regionClass } from '../shared/sites/css';
@@ -79,6 +79,16 @@ function reminderRegion(regions: RegionDefinition[]): RegionDefinition | null {
   return regions.find((region) => region.placement === 'primary') ?? regions.find((region) => region.placement === 'compact') ?? null;
 }
 
+function youtubeSearchOpen(doc: Document, pathname: string): boolean {
+  if (pathMatches(pathname, ['/results', '/results/*'])) return true;
+  const search = query(doc, 'ytd-search');
+  if (!search || isUnmeasured(search) || !isUsableMount(search)) return false;
+  const home =
+    query(doc, 'ytd-browse[page-subtype="home"] #primary') ?? query(doc, 'ytd-browse[page-subtype="home"]');
+  if (home && isUsableMount(home)) return false;
+  return true;
+}
+
 function clearColumn(doc: Document): void {
   for (const node of doc.querySelectorAll<HTMLElement>('[data-ife-column]')) {
     node.removeAttribute('data-ife-column');
@@ -120,7 +130,7 @@ function isUsableMount(element: Element): boolean {
   if (!element.isConnected) return false;
   let node: Element | null = element;
   while (node) {
-    if ((node as HTMLElement).hidden || node.getAttribute('aria-hidden') === 'true') return false;
+    if ((node as HTMLElement).hidden || node.hasAttribute('hidden')) return false;
     try {
       const style = node.ownerDocument.defaultView?.getComputedStyle?.(node);
       if (style && (style.display === 'none' || style.visibility === 'hidden')) return false;
@@ -137,10 +147,8 @@ function isUsableMount(element: Element): boolean {
 function pickMount(candidates: Element[]): Element | null {
   const unique = [...new Set(candidates)];
   const usable = unique.filter(isUsableMount);
-  if (usable.length) {
-    return [...usable].sort((left, right) => area(right) - area(left))[0] ?? null;
-  }
-  return unique.find((item) => item.isConnected) ?? null;
+  if (!usable.length) return null;
+  return [...usable].sort((left, right) => area(right) - area(left))[0] ?? null;
 }
 
 function findFeedColumn(root: Element): Element | null {
@@ -177,8 +185,7 @@ function findMount(doc: Document, region: RegionDefinition): Element | null {
   for (const selector of region.mountSelectors ?? []) {
     for (const found of queryAll(doc, selector)) {
       if (region.anchor === 'feed-column') {
-        const column = findFeedColumn(found);
-        if (column) fromMount.push(column);
+        fromMount.push(findFeedColumn(found) ?? found);
       } else {
         fromMount.push(found);
       }
@@ -194,7 +201,7 @@ function findMount(doc: Document, region: RegionDefinition): Element | null {
   }
   const fallback = pickMount(fromFeed);
   if (fallback && isUsableMount(fallback)) return fallback;
-  return picked ?? fallback;
+  return null;
 }
 
 function columnBox(column: Element): { left: number; top: number; bottom: number; width: number } {
@@ -207,21 +214,36 @@ function columnBox(column: Element): { left: number; top: number; bottom: number
   return { left: rect.left, top: rect.top, bottom: rect.bottom, width: rect.width };
 }
 
-function markColumn(column: HTMLElement): void {
-  const width = Math.round(columnBox(column).width);
-  if (width >= 160) column.style.minWidth = `${width}px`;
+function markColumn(column: HTMLElement, lockWidth = true): void {
+  if (lockWidth) {
+    const width = Math.round(columnBox(column).width);
+    if (width >= 160) column.style.minWidth = `${width}px`;
+  }
   column.style.minHeight = '70vh';
   column.setAttribute('data-ife-column', '');
 }
 
-function placeOverlay(host: HTMLElement, column: Element, siteId: string): void {
+/** How long the feed column must keep the same place and size before the card is shown. */
+const SETTLE_MS = 400;
+/** Show the card anyway if the site keeps changing the column for this long. */
+const SETTLE_MAX_MS = 2500;
+
+function boxKey(column: Element): string {
+  const box = columnBox(column);
+  return `${Math.round(box.left)}:${Math.round(box.top)}:${Math.round(box.width)}`;
+}
+
+function placeOverlay(host: HTMLElement, column: Element, siteId: string, reveal = true): void {
   host.classList.add('ife-overlay');
   const rect = columnBox(column);
   if (rect.width < 160) {
+    // The column can collapse for a frame while the site lays out. Keep a card
+    // that is already showing where it was instead of hiding it.
+    if (reveal && host.style.width && !host.classList.contains('ife-pending')) return;
     host.classList.add('ife-pending');
     return;
   }
-  host.classList.remove('ife-pending');
+  host.classList.toggle('ife-pending', !reveal);
   const doc = column.ownerDocument;
   const viewport = doc.defaultView?.innerHeight || 800;
   const headerGap = siteId === 'youtube' ? 48 : 12;
@@ -252,15 +274,40 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
   const target = options.windowTarget ?? window;
   let stopped = false;
   let wantsColumn = false;
+  let wantsHost = false;
   let activeSiteId = sites.find((item) => hostMatches(options.location.hostname, item.hosts))?.id ?? '';
   let refreshTimer: ReturnType<typeof setTimeout> | 0 = 0;
   let wakeTimer: ReturnType<typeof setTimeout> | 0 = 0;
   let applied = '';
   let renderedPath: string | null = null;
+  let keptHost: HTMLElement | null = null;
+  let settleMount: Element | null = null;
+  let settleBox = '';
+  let settleSince = 0;
+  let settleStartedAt = 0;
+  let settled = false;
+  let settlePath: string | null = null;
+  let settleTimer: ReturnType<typeof setTimeout> | 0 = 0;
   let visibleSince = 0;
   let visibleSite: SiteId | null = null;
+  let hostObserver: MutationObserver | null = null;
   const scheduleTimer = (callback: () => void, delay: number) => globalThis.setTimeout(callback, delay);
   const cancelTimer = (timer: ReturnType<typeof setTimeout> | 0) => globalThis.clearTimeout(timer);
+
+  function dropHost(): void {
+    wantsHost = false;
+    hostObserver?.disconnect();
+    hostObserver = null;
+    const host = (options.document.getElementById('ife-reminder-host') as HTMLElement | null) ?? keptHost;
+    host?.remove();
+    keptHost = null;
+  }
+
+  function overlayAllowedOnThisPage(): boolean {
+    const site = sites.find((item) => hostMatches(options.location.hostname, item.hosts));
+    if (!site) return false;
+    return site.regions.some((region) => Boolean(region.overlay) && pathMatches(options.location.pathname, region.paths));
+  }
 
   const flushVisible = (resume: boolean) => {
     if (!visibleSince || !visibleSite) {
@@ -303,22 +350,39 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       applied = '';
       wantsColumn = false;
       flushVisible(false);
+      dropHost();
       clearMarks(options.document);
       return;
     }
 
     if (isSnoozing(loaded, now())) {
+      const hadReminder = Boolean(options.document.getElementById('ife-reminder-host'));
       applied = '';
       wantsColumn = false;
       flushVisible(false);
+      dropHost();
       clearMarks(options.document);
       cancelTimer(wakeTimer);
       wakeTimer = scheduleTimer(() => guard(refresh()), Math.max(1000, (loaded.snoozeUntil ?? now()) - now() + 50));
+      // YouTube never lays out a grid that stayed display:none. Reload once so
+      // the real home feed is there for the rest of the snooze.
+      if (hadReminder && site.id === 'youtube' && typeof options.location.reload === 'function') {
+        options.location.reload();
+      }
       return;
     }
 
     const regions = activeRegions(site, loaded, options.location.pathname);
-    const placement = reminderRegion(regions);
+    let placement = reminderRegion(regions);
+    if (site.id === 'youtube' && youtubeSearchOpen(options.document, options.location.pathname)) {
+      placement = null;
+    }
+    const mount = placement ? findMount(options.document, placement) : null;
+    const cssRegions = !placement
+      ? regions.filter((region) => region.placement === 'none')
+      : mount || !placement.overlay
+        ? regions
+        : regions.filter((region) => region.placement === 'none');
     const navigated = renderedPath !== pathKey;
     renderedPath = pathKey;
     const decision = advanceCursor(loaded, pathKey, now(), Boolean(placement), navigated, site.id);
@@ -340,7 +404,13 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
           ...latest,
           cursors: {
             ...latest.cursors,
-            [site.id]: { reminderId: latest.cursor.reminderId, lastPath: pathKey, lastAdvancedAt: now() },
+            [site.id]: {
+              reminderId: latest.cursor.reminderId,
+              lastPath: pathKey,
+              lastAdvancedAt: now(),
+              seenIds: latest.cursor.seenIds ?? [],
+              history: latest.cursor.history ?? [],
+            },
           },
         };
       });
@@ -348,7 +418,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     const reminders = collectReminders(settings);
     const reminder = reminderById(reminders, settings.cursors[site.id]?.reminderId ?? null) ?? reminders[0] ?? null;
     const css = buildPageCss(
-      regions.map((region) => ({
+      cssRegions.map((region) => ({
         className: regionClass(site.id, region.id),
         selectors: region.selectors,
       })),
@@ -373,7 +443,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     }
     if (style.textContent !== css) style.textContent = css;
     const html = options.document.documentElement;
-    const desired = new Set(regions.map((region) => regionClass(site.id, region.id)));
+    const desired = new Set(cssRegions.map((region) => regionClass(site.id, region.id)));
     for (const className of [...html.classList]) {
       if (className.startsWith('ife-') && !desired.has(className)) html.classList.remove(className);
     }
@@ -383,40 +453,70 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     if (!placement) {
       wantsColumn = false;
       flushVisible(false);
-      options.document.getElementById('ife-reminder-host')?.remove();
+      dropHost();
       clearColumn(options.document);
       applied = signature;
       return;
     }
     wantsColumn = Boolean(placement.replaceColumn || placement.insert === 'before');
 
-    const mount = findMount(options.document, placement);
     if (!mount) {
       flushVisible(false);
-      options.document.getElementById('ife-reminder-host')?.remove();
+      dropHost();
       clearColumn(options.document);
       applied = '';
       return;
     }
-    let host = options.document.getElementById('ife-reminder-host') as HTMLElement | null;
+    wantsHost = true;
+    // Facebook may drop the card while it rebuilds the feed. Reuse the same
+    // element so it is moved back in place instead of drawn again.
+    let host = (options.document.getElementById('ife-reminder-host') as HTMLElement | null) ?? keptHost;
     if (!host) {
       host = options.document.createElement('div');
       host.id = 'ife-reminder-host';
     }
+    keptHost = host;
+    const settle = Boolean(placement.replaceColumn);
+    if (settle) {
+      const at = now();
+      if (settlePath !== pathKey) {
+        settlePath = pathKey;
+        settled = false;
+        settleMount = null;
+        settleBox = '';
+        settleStartedAt = at;
+      }
+      const box = boxKey(mount);
+      if (mount !== settleMount || box !== settleBox) {
+        settleMount = mount;
+        settleBox = box;
+        settleSince = at;
+      }
+      if (!settled && (at - settleSince >= SETTLE_MS || at - settleStartedAt >= SETTLE_MAX_MS)) settled = true;
+      if (!settled) {
+        cancelTimer(settleTimer);
+        settleTimer = scheduleTimer(() => {
+          settleTimer = 0;
+          runRefresh();
+        }, SETTLE_MS);
+      }
+    }
     if (placement.replaceColumn && placement.overlay) {
       const current = options.document.querySelector('[data-ife-column]');
       if (current && current !== mount) clearColumn(options.document);
-      markColumn(mount as HTMLElement);
+      markColumn(mount as HTMLElement, settled);
+      host.classList.remove('ife-settling');
       if (host.parentElement !== options.document.body) {
         host.classList.add('ife-overlay', 'ife-pending');
         options.document.body?.append(host);
       }
-      placeOverlay(host, mount, site.id);
+      placeOverlay(host, mount, site.id, settled);
       watchColumn(mount);
     } else if (placement.replaceColumn) {
       const current = options.document.querySelector('[data-ife-column]');
       if (current && current !== mount) clearColumn(options.document);
-      markColumn(mount as HTMLElement);
+      markColumn(mount as HTMLElement, !settle || settled);
+      host.classList.toggle('ife-settling', settle && !settled);
       host.classList.remove('ife-overlay', 'ife-pending');
       host.style.left = '';
       host.style.top = '';
@@ -427,7 +527,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     } else {
       clearColumn(options.document);
       watchColumn(null);
-      host.classList.remove('ife-overlay', 'ife-pending');
+      host.classList.remove('ife-overlay', 'ife-pending', 'ife-settling');
       host.style.left = '';
       host.style.top = '';
       host.style.width = '';
@@ -461,10 +561,6 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
           track({ name: 'action', action: 'next' });
           guard(options.store.update((current) => moveCursor(current, 'next', path, now(), undefined, site.id)));
         },
-        onRandom: () => {
-          track({ name: 'action', action: 'random' });
-          guard(options.store.update((current) => moveCursor(current, 'random', path, now(), undefined, site.id)));
-        },
         onToggleFavorite: () => {
           if (!reminder) return;
           track({ name: 'action', action: 'favorite' });
@@ -477,11 +573,6 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
           globalThis.open(buildReportUrl(reminder.id, citation(reminder), note), '_blank', 'noopener');
         },
         onOpenSettings: () => guard(Promise.resolve(globalThis.chrome?.runtime?.sendMessage({ type: 'ife-open-settings' }))),
-        onSnooze: () => {
-          track({ name: 'action', action: 'snooze' });
-          guard(options.store.update((current) => startSnooze(current, current.snoozeMinutes, now())));
-        },
-        snoozeLabel: snoozeButtonLabel(settings.snoozeMinutes),
       },
     );
     applied = signature;
@@ -503,9 +594,10 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     applied = '';
     schedule();
   };
+  // The path is part of the card signature, so a real page change redraws the
+  // card on its own. Load events that keep the same page only re-place it.
   const onNavigate = () => {
     lastPath = currentPath();
-    applied = '';
     schedule();
   };
 
@@ -516,6 +608,8 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
   target.addEventListener('yt-navigate-finish', onYouTube);
   target.addEventListener('yt-page-data-updated', onYouTube);
   target.addEventListener('pageshow', onPageShow);
+  options.document.addEventListener('yt-navigate-finish', onYouTube);
+  options.document.addEventListener('yt-page-data-updated', onYouTube);
   const push = options.history.pushState?.bind(options.history);
   const replace = options.history.replaceState?.bind(options.history);
   try {
@@ -542,7 +636,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       frame = 0;
       const host = options.document.getElementById('ife-reminder-host');
       const column = options.document.querySelector('[data-ife-column]');
-      if (host?.classList.contains('ife-overlay') && column) placeOverlay(host, column, activeSiteId);
+      if (host?.classList.contains('ife-overlay') && column) placeOverlay(host, column, activeSiteId, settled);
     });
   };
   options.document.addEventListener('scroll', reposition, true);
@@ -582,17 +676,22 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     runRefresh();
   });
 
-  let hostObserver: MutationObserver | null = null;
   function watchHost(host: HTMLElement): void {
     hostObserver?.disconnect();
-    const parent = host.parentElement;
-    if (!parent || typeof MutationObserver === 'undefined') return;
+    const body = options.document.body;
+    if (!body || typeof MutationObserver === 'undefined') return;
+    // Sites can drop the card along with a whole section of the page. Put it
+    // back straight away so it does not vanish until the next check.
     hostObserver = new MutationObserver(() => {
-      if (stopped || host.isConnected) return;
-      applied = '';
+      if (stopped || !wantsHost || host.isConnected) return;
+      if (host.classList.contains('ife-overlay')) {
+        options.document.body?.append(host);
+      } else {
+        options.document.querySelector('[data-ife-column]')?.prepend(host);
+      }
       runRefresh();
     });
-    hostObserver.observe(parent, { childList: true });
+    hostObserver.observe(body, { childList: true, subtree: true });
   }
 
   const retryDelays = [100, 300, 800, 1600, 3200, 6000];
@@ -601,8 +700,13 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     if (stopped) return;
     scheduleIfMoved();
     const host = options.document.getElementById('ife-reminder-host') as HTMLElement | null;
-    if (hostHasCard(host) && host?.classList.contains('ife-overlay') && Number.parseFloat(host.style.width) < 160) {
-      runRefresh();
+    if (hostHasCard(host) && host?.classList.contains('ife-overlay')) {
+      const overlayStale =
+        !overlayAllowedOnThisPage() ||
+        youtubeSearchOpen(options.document, options.location.pathname) ||
+        (watchedColumn !== null && !isUsableMount(watchedColumn)) ||
+        Number.parseFloat(host.style.width) < 160;
+      if (overlayStale) runRefresh();
       return;
     }
     const mountParent = host?.parentElement;
@@ -632,15 +736,18 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       unsubscribe();
       cancelTimer(refreshTimer);
       cancelTimer(wakeTimer);
+      cancelTimer(settleTimer);
       for (const timer of retryTimers) cancelTimer(timer);
       globalThis.clearInterval(watchTimer);
       globalThis.clearInterval(visibleTimer);
       flushVisible(false);
-      hostObserver?.disconnect();
+      dropHost();
       watchColumn(null);
       if (frame && typeof cancelAnimationFrame === 'function') cancelAnimationFrame(frame);
       options.document.removeEventListener('scroll', reposition, true);
       options.document.removeEventListener('visibilitychange', onVisibility);
+      options.document.removeEventListener('yt-navigate-finish', onYouTube);
+      options.document.removeEventListener('yt-page-data-updated', onYouTube);
       target.removeEventListener('resize', reposition);
       target.removeEventListener('popstate', onPop);
       target.removeEventListener('yt-navigate-finish', onYouTube);

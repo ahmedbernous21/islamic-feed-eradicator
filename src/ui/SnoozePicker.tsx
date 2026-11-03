@@ -25,7 +25,7 @@ export function SnoozePicker({
       ))}
       {snoozing ? (
         <button type="button" onClick={onResume}>
-          Resume
+          Cancel snooze
         </button>
       ) : null}
     </div>

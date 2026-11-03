@@ -87,3 +87,17 @@ textarea, input[type='number'], input[type='text'], input[type='url'], select {
 .suggest ul {
   padding-left: 1.2rem;
 }
+
+.snooze-controls {
+  display: grid;
+  justify-items: end;
+  gap: 0.45rem;
+}
+
+.snooze-clock {
+  margin: 0;
+  color: var(--green);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}

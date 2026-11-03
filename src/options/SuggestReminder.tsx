@@ -4,7 +4,7 @@ import { GITHUB_WEB, buildIssueUrl, emptySuggestion, formErrors, type Suggestion
 const CATEGORIES: { id: SuggestionCategory; label: string }[] = [
   { id: 'quran', label: 'Qur’an' },
   { id: 'hadith', label: 'Hadith' },
-  { id: 'scholar', label: 'Scholar quotation' },
+  { id: 'scholar', label: 'Scholar quotation (not hadith)' },
 ];
 
 function verseParts(value: string): { surah: string; verses: string } {

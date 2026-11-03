@@ -12,8 +12,9 @@ export function regionClass(siteId: string, regionId: string): string {
 
 export function buildPageCss(regions: { className: string; selectors: string[] }[]): string {
   const lines = [
-    '#ife-reminder-host{all:initial;display:block;width:100%;box-sizing:border-box;}',
-    '#ife-reminder-host.ife-overlay{position:fixed;z-index:2019;pointer-events:none;display:flex;justify-content:center;align-items:flex-start;width:auto;min-width:18rem;max-width:100vw;overflow:auto;overscroll-behavior:contain;opacity:1;transition:opacity 160ms ease;}',
+    '#ife-reminder-host{all:initial;display:block;width:100%;box-sizing:border-box;opacity:1;transition:opacity 160ms ease;}',
+    '#ife-reminder-host.ife-settling{opacity:0;pointer-events:none;transition:none;}',
+    '#ife-reminder-host.ife-overlay{position:fixed;z-index:2019;pointer-events:auto;display:flex;justify-content:center;align-items:flex-start;width:auto;min-width:18rem;max-width:100vw;overflow:auto;overscroll-behavior:contain;opacity:1;transition:opacity 160ms ease;}',
     '#ife-reminder-host.ife-pending{opacity:0;pointer-events:none;transition:none;}',
     '[data-ife-column]{box-sizing:border-box;}',
     '[data-ife-column]>:not(#ife-reminder-host){display:none !important;}',

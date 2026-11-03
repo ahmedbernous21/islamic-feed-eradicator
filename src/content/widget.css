@@ -43,8 +43,13 @@
   }
 }
 
-.ife-card {
+.ife-card,
+.ife-actions,
+.ife-actions button {
   pointer-events: auto;
+}
+
+.ife-card {
   box-sizing: border-box;
   width: min(42rem, calc(100% - 2rem));
   min-width: 0;
@@ -94,7 +99,9 @@
   line-height: 1.9;
 }
 
-.ife-arabic-source {
+.ife-arabic-source,
+.ife-speaker,
+.ife-narrator {
   margin: 0.2rem 0 0;
   color: var(--gold);
   font-family: "Amiri", "Noto Naskh Arabic", "Scheherazade New", "Traditional Arabic", serif;
@@ -105,6 +112,12 @@
   direction: rtl;
 }
 
+.ife-narrator {
+  color: var(--muted);
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
 .ife-translation {
   margin: 0.9rem 0 0;
   color: var(--ink);
@@ -112,6 +125,20 @@
   line-height: 1.6;
   direction: ltr;
   text-align: left;
+}
+
+.ife-speaker-en {
+  margin: 0.35rem 0 0;
+  color: var(--gold);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.ife-source-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .ife-source,

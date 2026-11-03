@@ -9,12 +9,67 @@ if (!reminder) throw new Error('missing verse');
 const actions = {
   onPrevious: () => undefined,
   onNext: () => undefined,
-  onRandom: () => undefined,
   onToggleFavorite: () => undefined,
   onToggleTranslation: () => undefined,
 };
 
 describe('reminder card', () => {
+  it('shows the hadith without an Arabic speaker line and links the source', () => {
+    const hadith = libraryReminders.find((item) => item.id === 'hadith-bukhari-54');
+    if (!hadith || hadith.category !== 'hadith') throw new Error('missing hadith');
+    const { document } = parseHTML('<!doctype html><html><body><div id="host"></div></body></html>');
+    const host = document.getElementById('host');
+    if (!host) throw new Error('missing host');
+    renderReminder(
+      host,
+      {
+        reminder: hadith,
+        showTranslation: true,
+        theme: 'light',
+        favorite: false,
+        compact: false,
+        emptyMessage: '',
+      },
+      actions,
+    );
+    const root = host.shadowRoot ?? host;
+    expect(root.querySelector('.ife-kicker')?.textContent).toContain('Hadith');
+    expect(root.querySelector('.ife-speaker')).toBeNull();
+    expect(root.querySelector('.ife-card')?.textContent).not.toContain('قال رسول الله');
+    expect(root.querySelector('.ife-narrator')).toBeNull();
+    expect(root.querySelector('.ife-speaker-en')?.textContent).toMatch(/The Prophet/);
+    expect(root.querySelector('.ife-speaker-en')?.textContent).not.toContain('Narrated by');
+    const link = root.querySelector('.ife-source-link');
+    expect(link?.getAttribute('href')).toBe('https://sunnah.com/bukhari:54');
+    expect(link?.textContent).toContain('Sahih al-Bukhari');
+    expect(root.querySelector('.ife-arabic')?.textContent).toBe(hadith.arabic);
+  });
+
+  it('does not present a scholar quotation as a prophetic hadith', () => {
+    const scholar = libraryReminders.find((item) => item.id === 'scholar-abu-hurayrah-heart');
+    if (!scholar) throw new Error('missing scholar');
+    const { document } = parseHTML('<!doctype html><html><body><div id="host"></div></body></html>');
+    const host = document.getElementById('host');
+    if (!host) throw new Error('missing host');
+    renderReminder(
+      host,
+      {
+        reminder: scholar,
+        showTranslation: true,
+        theme: 'light',
+        favorite: false,
+        compact: false,
+        emptyMessage: '',
+      },
+      actions,
+    );
+    const root = host.shadowRoot ?? host;
+    expect(root.querySelector('.ife-kicker')?.textContent).toContain('Scholar quotation');
+    expect(root.querySelector('.ife-speaker')).toBeNull();
+    expect(root.querySelector('.ife-source-link')).toBeNull();
+    expect(root.querySelector('.ife-arabic')?.textContent).toBe(scholar.arabic);
+  });
+
   it('hides the English source and the rendering note with the translation', () => {
     const { document } = parseHTML('<!doctype html><html><body><div id="host"></div></body></html>');
     const host = document.getElementById('host');

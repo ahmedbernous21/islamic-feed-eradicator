@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { renderReminder } from '../content/widget';
 import { buildReportUrl } from '../shared/community/submission';
 import { citation, collectReminders, libraryMeta, moveCursor, reminderById, toggleFavorite } from '../shared/reminders/engine';
-import { clearSnooze, defaultSettings, isSnoozing, normalizeSettings, resolveCardTheme, snoozeButtonLabel, startSnooze, type RotationMode, type Settings } from '../shared/settings';
+import { clearSnooze, defaultSettings, isSnoozing, normalizeSettings, resolveCardTheme, snoozeRemainingClock, startSnooze, type RotationMode, type Settings } from '../shared/settings';
+import { track } from '../shared/telemetry';
 import { SnoozePicker } from '../ui/SnoozePicker';
 import { ThemePicker } from '../ui/ThemePicker';
 import { SITES } from '../shared/sites';
@@ -31,7 +32,6 @@ function Preview({ settings, onUpdate }: { settings: Settings; onUpdate: (mutato
       {
         onPrevious: () => onUpdate((current) => moveCursor(current, 'previous', 'options', Date.now())),
         onNext: () => onUpdate((current) => moveCursor(current, 'next', 'options', Date.now())),
-        onRandom: () => onUpdate((current) => moveCursor(current, 'random', 'options', Date.now())),
         onToggleFavorite: () => {
           if (reminder) onUpdate((current) => toggleFavorite(current, reminder.id));
         },
@@ -41,12 +41,9 @@ function Preview({ settings, onUpdate }: { settings: Settings; onUpdate: (mutato
           window.open(buildReportUrl(reminder.id, citation(reminder), note), '_blank', 'noopener');
         },
         onOpenSettings: () => document.getElementById('general')?.scrollIntoView({ behavior: 'smooth' }),
-        onSnooze: () =>
-          onUpdate((current) => (isSnoozing(current) ? clearSnooze(current) : startSnooze(current, current.snoozeMinutes))),
-        snoozeLabel: isSnoozing(settings) ? 'Resume reminders' : snoozeButtonLabel(settings.snoozeMinutes),
       },
     );
-  }, [onUpdate, reminder, settings.favorites, settings.showTranslation, settings.theme, settings.snoozeMinutes, settings.snoozeUntil]);
+  }, [onUpdate, reminder, settings.favorites, settings.showTranslation, settings.theme]);
 
   return <div className="preview" ref={ref} />;
 }
@@ -126,22 +123,7 @@ export function App() {
             <span id="theme">Theme</span>
             <ThemePicker value={settings.theme} onChange={(theme) => update((current) => ({ ...current, theme }))} />
           </div>
-          <div className="row">
-            <span>
-              Snooze
-              <small>
-                {isSnoozing(settings)
-                  ? 'The original feed is visible. Reminders return when this ends.'
-                  : 'Show the original feed for a while.'}
-              </small>
-            </span>
-            <SnoozePicker
-              minutes={settings.snoozeMinutes}
-              snoozing={isSnoozing(settings)}
-              onSnooze={(minutes) => update((current) => startSnooze(current, minutes))}
-              onResume={() => update(clearSnooze)}
-            />
-          </div>
+          <SettingsSnooze settings={settings} onUpdate={update} />
           <div className="row">
             <label htmlFor="rotation">Reminder rotation</label>
             <select
@@ -182,7 +164,7 @@ export function App() {
           {([
             ['quran', "Qur'an"],
             ['hadith', 'Hadith'],
-            ['scholar', 'Scholars'],
+            ['scholar', 'Scholar quotations'],
             ['personal', 'Personal notes'],
           ] as const).map(([key, label]) => (
             <label className="choice" key={key}>
@@ -358,6 +340,53 @@ export function App() {
         </section>
       </div>
     </main>
+  );
+}
+
+function SettingsSnooze({
+  settings,
+  onUpdate,
+}: {
+  settings: Settings;
+  onUpdate: (mutator: (current: Settings) => Settings) => void;
+}) {
+  const [now, setNow] = useState(() => Date.now());
+  const snoozing = isSnoozing(settings, now);
+  const clock = snoozeRemainingClock(settings, now);
+
+  useEffect(() => {
+    if (!snoozing) return;
+    const timer = window.setInterval(() => setNow(Date.now()), 250);
+    return () => window.clearInterval(timer);
+  }, [snoozing, settings.snoozeUntil]);
+
+  return (
+    <div className="row">
+      <span>
+        Snooze
+        <small>
+          {snoozing && clock
+            ? `The original feed is visible on every site. ${clock} left.`
+            : 'Show the original feed from this page only. The reminder card has no snooze button.'}
+        </small>
+      </span>
+      <div className="snooze-controls">
+        {snoozing && clock ? (
+          <p className="snooze-clock" aria-live="polite">
+            {clock}
+          </p>
+        ) : null}
+        <SnoozePicker
+          minutes={settings.snoozeMinutes}
+          snoozing={snoozing}
+          onSnooze={(minutes) => {
+            track({ name: 'action', action: 'snooze' });
+            onUpdate((current) => startSnooze(current, minutes));
+          }}
+          onResume={() => onUpdate(clearSnooze)}
+        />
+      </div>
+    </div>
   );
 }
 

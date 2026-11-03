@@ -19,6 +19,10 @@ export type ReminderCursor = {
   reminderId: string | null;
   lastPath: string | null;
   lastAdvancedAt: number;
+  /** Reminder ids already shown in the current random pass. Cleared when the pass finishes. */
+  seenIds: string[];
+  /** Recent reminder ids for the Previous button (most recent last). */
+  history: string[];
 };
 
 export type Settings = {
@@ -81,7 +85,7 @@ export function defaultSettings(): Settings {
     sites,
     favorites: [],
     personalNotes: [],
-    cursor: { reminderId: null, lastPath: null, lastAdvancedAt: 0 },
+    cursor: { reminderId: null, lastPath: null, lastAdvancedAt: 0, seenIds: [], history: [] },
     cursors: {},
   };
 }
@@ -182,11 +186,19 @@ export function normalizeSettings(input: unknown): Settings {
 }
 
 function normalizeCursor(value: unknown, fallback: ReminderCursor): ReminderCursor {
-  if (!isRecord(value)) return { ...fallback };
+  if (!isRecord(value)) return { ...fallback, seenIds: [...fallback.seenIds], history: [...fallback.history] };
+  const seenIds = Array.isArray(value.seenIds)
+    ? value.seenIds.filter((id): id is string => typeof id === 'string')
+    : [];
+  const history = Array.isArray(value.history)
+    ? value.history.filter((id): id is string => typeof id === 'string')
+    : [];
   return {
     reminderId: typeof value.reminderId === 'string' ? value.reminderId : null,
     lastPath: typeof value.lastPath === 'string' ? value.lastPath : null,
     lastAdvancedAt: typeof value.lastAdvancedAt === 'number' ? value.lastAdvancedAt : 0,
+    seenIds,
+    history,
   };
 }
 
@@ -209,6 +221,20 @@ export function snoozeButtonLabel(minutes: number): string {
     return hours === 1 ? 'Show feed for 1 hour' : `Show feed for ${hours} hours`;
   }
   return `Show feed for ${minutes} min`;
+}
+
+export function snoozeRemainingLabel(settings: Settings, now = Date.now()): string | null {
+  if (!isSnoozing(settings, now) || typeof settings.snoozeUntil !== 'number') return null;
+  const minutes = Math.max(1, Math.ceil((settings.snoozeUntil - now) / 60_000));
+  return minutes === 1 ? '1 min' : `${minutes} min`;
+}
+
+export function snoozeRemainingClock(settings: Settings, now = Date.now()): string | null {
+  if (!isSnoozing(settings, now) || typeof settings.snoozeUntil !== 'number') return null;
+  const totalSec = Math.max(0, Math.ceil((settings.snoozeUntil - now) / 1000));
+  const minutes = Math.floor(totalSec / 60);
+  const seconds = totalSec % 60;
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
 function luminance(color: string): number | null {
