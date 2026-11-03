@@ -53,8 +53,9 @@ const site: SiteDefinition = {
       defaultEnabled: false,
       paths: ['/watch', '/watch/*'],
       placement: 'compact',
-      mountSelectors: ['#secondary', '#related', 'ytd-watch-flexy'],
-      selectors: ['#related', 'ytd-watch-next-secondary-results-renderer', '#secondary-inner'],
+      replaceColumn: true,
+      mountSelectors: ['#secondary'],
+      selectors: ['#related', 'ytd-watch-next-secondary-results-renderer'],
     },
     {
       id: 'end-screen',

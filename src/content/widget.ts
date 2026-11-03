@@ -14,6 +14,7 @@ export type ReminderView = {
   theme: Theme;
   favorite: boolean;
   compact: boolean;
+  panel?: boolean;
   emptyMessage: string;
 };
 
@@ -71,7 +72,7 @@ export function renderReminder(host: HTMLElement, view: ReminderView, actions: R
   const style = doc.createElement('style');
   style.textContent = `${fontCss()}\n${widgetCss}`;
   const card = doc.createElement('article');
-  card.className = view.compact ? 'ife-card is-compact' : 'ife-card';
+  card.className = view.panel ? 'ife-card is-panel' : view.compact ? 'ife-card is-compact' : 'ife-card';
   card.dataset.theme = view.theme;
   card.tabIndex = 0;
   card.setAttribute('aria-label', 'Islamic reminder');

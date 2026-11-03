@@ -9,6 +9,9 @@ describe('page css', () => {
     expect(css).toContain('html.ife-r-youtube-home-feed ytd-rich-grid-renderer:not(#ife-reminder-host){display:none !important;}');
     expect(css).not.toContain('color:red');
     expect(css).toContain('#ife-reminder-host.ife-overlay{position:fixed;z-index:2019;pointer-events:auto;');
+    expect(css).toContain('#ife-reminder-host.ife-sidebar{display:flex;align-items:center;justify-content:center;');
+    expect(css).toContain('#ife-reminder-host.ife-overlay.ife-sidebar{align-items:center;justify-content:center;');
+    expect(css).toContain('background:var(--yt-spec-base-background,#0f0f0f)');
     expect(css).toContain('[data-ife-column]>:not(#ife-reminder-host){display:none !important;}');
   });
 });

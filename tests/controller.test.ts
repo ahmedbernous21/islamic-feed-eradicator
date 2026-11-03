@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { startController } from '../src/content/controller';
 import { defaultSettings, startSnooze } from '../src/shared/settings';
 import { createMemoryStore } from '../src/shared/storage';
+import youtube from '../src/shared/sites/youtube';
 import type { SiteDefinition } from '../src/shared/sites/types';
 
 const site: SiteDefinition = {
@@ -702,6 +703,99 @@ describe('feed controller', () => {
     if (host) document.body.append(host);
     await controller.refresh();
     expect(document.getElementById('ife-reminder-host')).toBeNull();
+    controller.stop();
+  });
+
+  it('keeps the watch-suggestion reminder on the right', async () => {
+    const { document, window } = parseHTML(
+      '<!doctype html><html><body><ytd-watch-flexy><div id="primary"><div class="player">A video</div></div><div id="secondary"><div id="related">Suggested</div></div></ytd-watch-flexy></body></html>',
+    );
+    Object.defineProperty(window, 'innerWidth', { value: 1280, configurable: true });
+    Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true });
+    stubBox(document.querySelector('ytd-watch-flexy'), 1280, 0);
+    stubBox(document.getElementById('primary'), 860, 0);
+    stubBox(document.getElementById('secondary'), 400, 860);
+    stubBox(document.getElementById('related'), 400, 860);
+    const settings = defaultSettings();
+    settings.sites.youtube.regions['watch-suggestions'] = true;
+    const controller = startController({
+      document,
+      location: { hostname: 'www.youtube.com', pathname: '/watch', href: 'https://www.youtube.com/watch?v=1' } as Location,
+      history: { pushState() {}, replaceState() {} } as unknown as History,
+      store: createMemoryStore(settings),
+      sites: [youtube],
+      windowTarget: window,
+      now: () => 1_000,
+    });
+    await controller.ready;
+    const host = document.getElementById('ife-reminder-host');
+    expect(host).toBeTruthy();
+    expect(host?.parentElement?.id).toBe('secondary');
+    expect(host?.classList.contains('ife-overlay')).toBe(false);
+    expect(host?.classList.contains('ife-sidebar')).toBe(true);
+    expect(host?.style.left).toBe('');
+    expect(host?.shadowRoot?.querySelector('.ife-card')?.classList.contains('is-panel')).toBe(true);
+    expect(document.querySelector('#primary .player')?.textContent).toBe('A video');
+    controller.stop();
+  });
+
+  it('still shows the watch-suggestion reminder when a leftover search view is in the DOM', async () => {
+    const { document, window } = parseHTML(
+      '<!doctype html><html><body><ytd-search></ytd-search><ytd-watch-flexy><div id="primary"><div class="player">A video</div></div><div id="secondary"><div id="related">Suggested</div></div></ytd-watch-flexy></body></html>',
+    );
+    Object.defineProperty(window, 'innerWidth', { value: 1280, configurable: true });
+    Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true });
+    stubBox(document.querySelector('ytd-search'), 1280, 0);
+    stubBox(document.querySelector('ytd-watch-flexy'), 1280, 0);
+    stubBox(document.getElementById('primary'), 860, 0);
+    stubBox(document.getElementById('secondary'), 400, 860);
+    const settings = defaultSettings();
+    settings.sites.youtube.regions['watch-suggestions'] = true;
+    const controller = startController({
+      document,
+      location: { hostname: 'www.youtube.com', pathname: '/watch', href: 'https://www.youtube.com/watch?v=1' } as Location,
+      history: { pushState() {}, replaceState() {} } as unknown as History,
+      store: createMemoryStore(settings),
+      sites: [youtube],
+      windowTarget: window,
+      now: () => 1_000,
+    });
+    await controller.ready;
+    const host = document.getElementById('ife-reminder-host');
+    expect(host?.parentElement?.id).toBe('secondary');
+    expect(host?.classList.contains('ife-overlay')).toBe(false);
+    expect(document.querySelector('#primary .player')?.textContent).toBe('A video');
+    controller.stop();
+  });
+
+  it('puts a removed watch-suggestion reminder back in the suggestions column', async () => {
+    const { document, window } = parseHTML(
+      '<!doctype html><html><body><ytd-watch-flexy><div id="primary"><div class="player">A video</div></div><div id="secondary"><div id="related">Suggested</div></div></ytd-watch-flexy></body></html>',
+    );
+    Object.defineProperty(window, 'innerWidth', { value: 1280, configurable: true });
+    Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true });
+    stubBox(document.querySelector('ytd-watch-flexy'), 1280, 0);
+    stubBox(document.getElementById('primary'), 860, 0);
+    stubBox(document.getElementById('secondary'), 400, 860);
+    const settings = defaultSettings();
+    settings.sites.youtube.regions['watch-suggestions'] = true;
+    const controller = startController({
+      document,
+      location: { hostname: 'www.youtube.com', pathname: '/watch', href: 'https://www.youtube.com/watch?v=1' } as Location,
+      history: { pushState() {}, replaceState() {} } as unknown as History,
+      store: createMemoryStore(settings),
+      sites: [youtube],
+      windowTarget: window,
+      now: () => 1_000,
+    });
+    await controller.ready;
+    const host = document.getElementById('ife-reminder-host');
+    expect(host?.parentElement?.id).toBe('secondary');
+    host?.remove();
+    await controller.refresh();
+    const again = document.getElementById('ife-reminder-host');
+    expect(again?.parentElement?.id).toBe('secondary');
+    expect(again?.classList.contains('ife-overlay')).toBe(false);
     controller.stop();
   });
 

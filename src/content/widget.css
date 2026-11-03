@@ -69,6 +69,12 @@
   padding: 1rem;
 }
 
+.ife-card.is-panel {
+  width: min(36rem, 100%);
+  margin: 0 auto;
+  padding: 1.85rem 1.6rem 1.3rem;
+}
+
 .ife-kicker {
   display: flex;
   justify-content: space-between;

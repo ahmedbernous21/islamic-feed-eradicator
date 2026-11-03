@@ -80,6 +80,7 @@ function reminderRegion(regions: RegionDefinition[]): RegionDefinition | null {
 }
 
 function youtubeSearchOpen(doc: Document, pathname: string): boolean {
+  if (pathMatches(pathname, ['/watch', '/watch/*', '/shorts', '/shorts/*'])) return false;
   if (pathMatches(pathname, ['/results', '/results/*'])) return true;
   const search = query(doc, 'ytd-search');
   if (!search || isUnmeasured(search) || !isUsableMount(search)) return false;
@@ -144,10 +145,25 @@ function isUsableMount(element: Element): boolean {
   return rect.width >= 80 && rect.height >= 40;
 }
 
-function pickMount(candidates: Element[]): Element | null {
+/** Compact cards belong in the right-hand column, not the whole watch page. */
+function isCompactColumn(element: Element): boolean {
+  if (!element.isConnected) return false;
+  if (element.id === 'secondary' || element.hasAttribute('data-ife-column')) return true;
+  if (!isUsableMount(element)) return false;
+  if (isUnmeasured(element)) return true;
+  const rect = element.getBoundingClientRect();
+  if (rect.width > 640) return false;
+  const viewportW = element.ownerDocument.defaultView?.innerWidth ?? 0;
+  return !viewportW || viewportW < 800 || rect.width <= viewportW * 0.45;
+}
+
+function pickMount(candidates: Element[], compact = false): Element | null {
   const unique = [...new Set(candidates)];
-  const usable = unique.filter(isUsableMount);
+  const usable = unique.filter((item) => (compact ? isCompactColumn(item) : isUsableMount(item)));
   if (!usable.length) return null;
+  if (compact) {
+    return [...usable].sort((left, right) => right.getBoundingClientRect().left - left.getBoundingClientRect().left)[0] ?? null;
+  }
   return [...usable].sort((left, right) => area(right) - area(left))[0] ?? null;
 }
 
@@ -180,6 +196,16 @@ function headerBottom(doc: Document): number {
   return bottom;
 }
 
+function hiddenByRegion(element: Element, region: RegionDefinition): boolean {
+  return region.selectors.some((selector) => {
+    try {
+      return element.matches(selector);
+    } catch {
+      return false;
+    }
+  });
+}
+
 function findMount(doc: Document, region: RegionDefinition): Element | null {
   const fromMount: Element[] = [];
   for (const selector of region.mountSelectors ?? []) {
@@ -191,16 +217,19 @@ function findMount(doc: Document, region: RegionDefinition): Element | null {
       }
     }
   }
-  const picked = pickMount(fromMount);
-  if (picked && isUsableMount(picked)) return picked;
+  const compact = region.placement === 'compact';
+  const picked = pickMount(fromMount, compact);
+  if (picked && (compact ? isCompactColumn(picked) : isUsableMount(picked))) return picked;
   const fromFeed: Element[] = [];
   for (const selector of region.selectors) {
     for (const found of queryAll(doc, selector)) {
-      if (found.parentElement) fromFeed.push(found.parentElement);
+      const parent = found.parentElement;
+      if (!parent || hiddenByRegion(parent, region)) continue;
+      fromFeed.push(parent);
     }
   }
-  const fallback = pickMount(fromFeed);
-  if (fallback && isUsableMount(fallback)) return fallback;
+  const fallback = pickMount(fromFeed, compact);
+  if (fallback && (compact ? isCompactColumn(fallback) : isUsableMount(fallback))) return fallback;
   return null;
 }
 
@@ -233,8 +262,57 @@ function boxKey(column: Element): string {
   return `${Math.round(box.left)}:${Math.round(box.top)}:${Math.round(box.width)}`;
 }
 
+function watchFreeLeft(doc: Document, viewportW: number): number {
+  const video =
+    query(doc, '#movie_player video') ??
+    query(doc, '.html5-video-player video') ??
+    query(doc, 'ytd-player video') ??
+    query(doc, 'ytd-watch-flexy video');
+  if (video) {
+    const rect = video.getBoundingClientRect();
+    if (rect.width >= 240 && rect.right < viewportW - 200) return Math.round(rect.right);
+  }
+  const primary = query(doc, '#primary') ?? query(doc, 'ytd-player') ?? query(doc, '#player');
+  if (primary) {
+    const rect = primary.getBoundingClientRect();
+    if (rect.width >= 240 && rect.right < viewportW - 160) return Math.round(rect.right);
+  }
+  return Math.round(viewportW * 0.58);
+}
+
+function placeWatchRail(host: HTMLElement, doc: Document, _column: Element | null, lockKey: string | null): string {
+  host.classList.add('ife-overlay', 'ife-sidebar');
+  host.classList.remove('ife-pending', 'ife-settling');
+  const viewportW = doc.defaultView?.innerWidth || 1200;
+  const viewportH = doc.defaultView?.innerHeight || 800;
+  const top = Math.max(headerBottom(doc), 56);
+  const height = Math.max(viewportH - top, 240);
+  const left = Math.max(0, watchFreeLeft(doc, viewportW));
+  const width = Math.max(viewportW - left, 320);
+  const key = `${viewportW}x${viewportH}`;
+  if (lockKey === key && Number.parseFloat(host.style.width) >= 280 && host.style.left) {
+    const prevLeft = Number.parseFloat(host.style.left);
+    const prevWidth = Number.parseFloat(host.style.width);
+    if (Math.abs(prevLeft - left) < 32 && Math.abs(prevWidth - width) < 32) {
+      if (Math.abs(Number.parseFloat(host.style.top) - top) >= 8) {
+        host.style.top = `${Math.round(top)}px`;
+        host.style.height = `${Math.round(height)}px`;
+        host.style.maxHeight = `${Math.round(height)}px`;
+      }
+      return key;
+    }
+  }
+  host.style.left = `${Math.round(left)}px`;
+  host.style.top = `${Math.round(top)}px`;
+  host.style.width = `${Math.round(width)}px`;
+  host.style.height = `${Math.round(height)}px`;
+  host.style.maxHeight = `${Math.round(height)}px`;
+  return key;
+}
+
 function placeOverlay(host: HTMLElement, column: Element, siteId: string, reveal = true): void {
   host.classList.add('ife-overlay');
+  host.classList.remove('ife-sidebar');
   const rect = columnBox(column);
   if (rect.width < 160) {
     // The column can collapse for a frame while the site lays out. Keep a card
@@ -254,6 +332,7 @@ function placeOverlay(host: HTMLElement, column: Element, siteId: string, reveal
   host.style.left = `${Math.round(rect.left)}px`;
   host.style.top = `${Math.round(top)}px`;
   host.style.width = `${Math.round(width)}px`;
+  host.style.height = '';
   host.style.maxHeight = `${Math.round(Math.max(bottom - top, 0))}px`;
 }
 
@@ -291,6 +370,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
   let visibleSince = 0;
   let visibleSite: SiteId | null = null;
   let hostObserver: MutationObserver | null = null;
+  let railKey: string | null = null;
   const scheduleTimer = (callback: () => void, delay: number) => globalThis.setTimeout(callback, delay);
   const cancelTimer = (timer: ReturnType<typeof setTimeout> | 0) => globalThis.clearTimeout(timer);
 
@@ -298,6 +378,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     wantsHost = false;
     hostObserver?.disconnect();
     hostObserver = null;
+    railKey = null;
     const host = (options.document.getElementById('ife-reminder-host') as HTMLElement | null) ?? keptHost;
     host?.remove();
     keptHost = null;
@@ -378,6 +459,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       placement = null;
     }
     const mount = placement ? findMount(options.document, placement) : null;
+    const panel = Boolean(placement?.placement === 'compact');
     const cssRegions = !placement
       ? regions.filter((region) => region.placement === 'none')
       : mount || !placement.overlay
@@ -430,7 +512,8 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       theme: cardTheme,
       showTranslation: settings.showTranslation,
       favorite: reminder ? settings.favorites.includes(reminder.id) : false,
-      compact: placement?.placement === 'compact',
+      compact: false,
+      panel: placement?.placement === 'compact',
       path: options.location.pathname,
       snoozeMinutes: settings.snoozeMinutes,
     });
@@ -476,8 +559,8 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       host.id = 'ife-reminder-host';
     }
     keptHost = host;
-    const settle = Boolean(placement.replaceColumn);
-    if (settle) {
+    const settle = Boolean(placement.replaceColumn && mount && !panel);
+    if (settle && mount) {
       const at = now();
       if (settlePath !== pathKey) {
         settlePath = pathKey;
@@ -505,7 +588,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       const current = options.document.querySelector('[data-ife-column]');
       if (current && current !== mount) clearColumn(options.document);
       markColumn(mount as HTMLElement, settled);
-      host.classList.remove('ife-settling');
+      host.classList.remove('ife-settling', 'ife-sidebar');
       if (host.parentElement !== options.document.body) {
         host.classList.add('ife-overlay', 'ife-pending');
         options.document.body?.append(host);
@@ -515,22 +598,25 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     } else if (placement.replaceColumn) {
       const current = options.document.querySelector('[data-ife-column]');
       if (current && current !== mount) clearColumn(options.document);
-      markColumn(mount as HTMLElement, !settle || settled);
-      host.classList.toggle('ife-settling', settle && !settled);
+      markColumn(mount as HTMLElement, panel ? true : !settle || settled);
+      host.classList.toggle('ife-settling', Boolean(settle && !settled && !panel));
+      host.classList.toggle('ife-sidebar', panel);
       host.classList.remove('ife-overlay', 'ife-pending');
       host.style.left = '';
       host.style.top = '';
       host.style.width = '';
+      host.style.height = '';
       host.style.maxHeight = '';
       if (host.parentElement !== mount) mount.prepend(host);
       watchColumn(null);
     } else {
       clearColumn(options.document);
       watchColumn(null);
-      host.classList.remove('ife-overlay', 'ife-pending', 'ife-settling');
+      host.classList.remove('ife-overlay', 'ife-sidebar', 'ife-pending', 'ife-settling');
       host.style.left = '';
       host.style.top = '';
       host.style.width = '';
+      host.style.height = '';
       host.style.maxHeight = '';
       if (placement.insert === 'before') {
         if (host.nextElementSibling !== mount) mount.before(host);
@@ -547,7 +633,8 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
         showTranslation: settings.showTranslation,
         theme: cardTheme,
         favorite: reminder ? settings.favorites.includes(reminder.id) : false,
-        compact: placement.placement === 'compact',
+        compact: false,
+        panel,
         emptyMessage: settings.favoritesOnly
           ? 'No favorite reminders yet. Save one from a reminder card, or turn off favorites-only in settings.'
           : 'No reminders match the categories you have enabled. Turn a category back on in the extension settings.',
@@ -592,12 +679,14 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     if (next === lastPath) return;
     lastPath = next;
     applied = '';
+    railKey = null;
     schedule();
   };
   // The path is part of the card signature, so a real page change redraws the
   // card on its own. Load events that keep the same page only re-place it.
   const onNavigate = () => {
     lastPath = currentPath();
+    railKey = null;
     schedule();
   };
 
@@ -634,9 +723,14 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     if (frame || typeof requestAnimationFrame !== 'function') return;
     frame = requestAnimationFrame(() => {
       frame = 0;
-      const host = options.document.getElementById('ife-reminder-host');
+      const host = options.document.getElementById('ife-reminder-host') as HTMLElement | null;
+      if (!host?.classList.contains('ife-overlay')) return;
+      if (host.classList.contains('ife-sidebar')) {
+        railKey = placeWatchRail(host, options.document, options.document.querySelector('[data-ife-column]'), railKey);
+        return;
+      }
       const column = options.document.querySelector('[data-ife-column]');
-      if (host?.classList.contains('ife-overlay') && column) placeOverlay(host, column, activeSiteId, settled);
+      if (column) placeOverlay(host, column, activeSiteId, settled);
     });
   };
   options.document.addEventListener('scroll', reposition, true);
@@ -687,7 +781,7 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
       if (host.classList.contains('ife-overlay')) {
         options.document.body?.append(host);
       } else {
-        options.document.querySelector('[data-ife-column]')?.prepend(host);
+        (options.document.querySelector('[data-ife-column]') ?? options.document.getElementById('secondary'))?.prepend(host);
       }
       runRefresh();
     });
@@ -700,7 +794,12 @@ export function startController(options: ControllerOptions): { ready: Promise<vo
     if (stopped) return;
     scheduleIfMoved();
     const host = options.document.getElementById('ife-reminder-host') as HTMLElement | null;
+    if (hostHasCard(host) && host?.classList.contains('ife-sidebar') && host.parentElement) return;
     if (hostHasCard(host) && host?.classList.contains('ife-overlay')) {
+      if (host.classList.contains('ife-sidebar')) {
+        if (!overlayAllowedOnThisPage() || youtubeSearchOpen(options.document, options.location.pathname)) runRefresh();
+        return;
+      }
       const overlayStale =
         !overlayAllowedOnThisPage() ||
         youtubeSearchOpen(options.document, options.location.pathname) ||
