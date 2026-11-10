@@ -56,7 +56,7 @@ Open a [correction issue](https://github.com/ahmedbernous21/islamic-feed-eradica
 ## Code changes
 
 - Keep feed hiding reversible. Hide with the page stylesheet; do not delete the site's nodes.
-- Keep permissions limited to `storage` and the four sites. Do not add a host wildcard, `history`, or a token.
+- Keep permissions limited to `storage`, `alarms`, `scripting`, `activeTab`, and the four sites. Do not add a host wildcard, `history`, `tabs`, or a token.
 - Do not commit `.env` files, credentials, API keys, or `node_modules` and `dist`.
 - Prefer free and open-source dependencies. If you add one, record its license in the README.
 - Cover behavior with a test when the change is in the reminder engine, settings, selectors, or the submission validator.

@@ -2,12 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { renderReminder } from '../content/widget';
 import { buildReportUrl } from '../shared/community/submission';
 import { citation, collectReminders, libraryMeta, moveCursor, reminderById, toggleFavorite } from '../shared/reminders/engine';
-import { clearSnooze, defaultSettings, isSnoozing, normalizeSettings, resolveCardTheme, snoozeRemainingClock, startSnooze, type RotationMode, type Settings } from '../shared/settings';
+import { clearSnooze, defaultSettings, isSnoozing, normalizeSettings, resolveCardTheme, snoozeRemainingClock, startSnooze, toggleRegion, toggleSite, type RotationMode, type Settings } from '../shared/settings';
 import { track } from '../shared/telemetry';
 import { SnoozePicker } from '../ui/SnoozePicker';
 import { ThemePicker } from '../ui/ThemePicker';
 import { SITES } from '../shared/sites';
-import type { SiteId } from '../shared/sites/types';
 import { useSettings } from '../ui/useSettings';
 import { SuggestReminder } from './SuggestReminder';
 
@@ -390,28 +389,3 @@ function SettingsSnooze({
   );
 }
 
-function toggleSite(settings: Settings, id: SiteId): Settings {
-  return {
-    ...settings,
-    sites: {
-      ...settings.sites,
-      [id]: { ...settings.sites[id], enabled: !settings.sites[id].enabled },
-    },
-  };
-}
-
-function toggleRegion(settings: Settings, id: SiteId, regionId: string): Settings {
-  return {
-    ...settings,
-    sites: {
-      ...settings.sites,
-      [id]: {
-        ...settings.sites[id],
-        regions: {
-          ...settings.sites[id].regions,
-          [regionId]: settings.sites[id].regions[regionId] === false,
-        },
-      },
-    },
-  };
-}

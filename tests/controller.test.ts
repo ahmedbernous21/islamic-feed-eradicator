@@ -77,6 +77,11 @@ describe('feed controller', () => {
     expect(document.documentElement.classList.contains('ife-r-youtube-home-feed')).toBe(false);
     expect(document.getElementById('ife-reminder-host')).toBeNull();
     expect(document.querySelector('.posts')).toBeTruthy();
+
+    await store.update((current) => ({ ...current, globalEnabled: true }));
+    await controller.refresh();
+    expect(document.getElementById('ife-reminder-host')).toBeTruthy();
+    expect(document.documentElement.classList.contains('ife-r-youtube-home-feed')).toBe(true);
     controller.stop();
   });
 
@@ -159,7 +164,7 @@ describe('feed controller', () => {
     expect(host?.classList.contains('ife-overlay')).toBe(true);
     expect(host?.style.width).toBe('860px');
     expect(Number.parseFloat(host?.style.top ?? '0')).toBeGreaterThanOrEqual(104);
-    expect(column?.getAttribute('data-ife-column')).toBe('');
+    expect(column?.getAttribute('data-ife-column')).toBeNull();
     expect(document.querySelector('.posts')?.textContent).toBe('A video');
     controller.stop();
   });
@@ -205,6 +210,50 @@ describe('feed controller', () => {
     expect(document.getElementById('ife-reminder-host')).toBeNull();
     expect(document.documentElement.className).not.toContain('ife-r-');
     expect(document.querySelector('.posts')?.textContent).toBe('A video');
+    expect(reloads).toBe(1);
+    controller.stop();
+  });
+
+  it('puts the YouTube overlay back after the extension is turned off and on', async () => {
+    const { document, window } = parseHTML(
+      '<!doctype html><html><body><ytd-browse page-subtype="home"><div id="primary"><div class="posts">A video</div></div></ytd-browse></body></html>',
+    );
+    stubBox(document.getElementById('primary'), 860, 240);
+    let reloads = 0;
+    const location = {
+      hostname: 'www.youtube.com',
+      pathname: '/',
+      href: 'https://www.youtube.com/',
+      reload() {
+        reloads += 1;
+      },
+    } as Location;
+    const history = { pushState() {}, replaceState() {} } as unknown as History;
+    const store = createMemoryStore(defaultSettings());
+    const overlaySite = {
+      ...site,
+      regions: [{ ...site.regions[0], replaceColumn: true, overlay: true, mountSelectors: ['ytd-browse[page-subtype="home"] #primary'] }],
+    };
+    const controller = startController({
+      document,
+      location,
+      history,
+      store,
+      sites: [overlaySite],
+      windowTarget: window,
+      now: () => 1_000,
+    });
+    await controller.ready;
+    expect(document.getElementById('ife-reminder-host')).toBeTruthy();
+    await store.update((current) => ({ ...current, globalEnabled: false }));
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(document.getElementById('ife-reminder-host')).toBeNull();
+    expect(reloads).toBe(1);
+    await store.update((current) => ({ ...current, globalEnabled: true }));
+    await controller.refresh();
+    const host = document.getElementById('ife-reminder-host');
+    expect(host).toBeTruthy();
+    expect(host?.classList.contains('ife-overlay')).toBe(true);
     expect(reloads).toBe(1);
     controller.stop();
   });
@@ -282,6 +331,39 @@ describe('feed controller', () => {
     controller.stop();
   });
 
+  it('drops the YouTube overlay when leftover home is sitting under a live search page', async () => {
+    const { document, window } = parseHTML(
+      '<!doctype html><html><body><ytd-browse page-subtype="home"><div id="primary"><div class="posts">A video</div></div></ytd-browse></body></html>',
+    );
+    const home = stubBox(document.getElementById('primary'), 220, 0);
+    home.getBoundingClientRect = () =>
+      ({ x: 0, y: 56, left: 0, top: 56, right: 220, bottom: 120, width: 220, height: 64, toJSON() {} }) as DOMRect;
+    const search = document.createElement('ytd-search');
+    document.body.append(search);
+    stubBox(search, 1100, 0);
+    Object.defineProperty(window, 'innerWidth', { value: 1280, configurable: true });
+    Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true });
+    const location = { hostname: 'www.youtube.com', pathname: '/', href: 'https://www.youtube.com/' } as Location;
+    const history = { pushState() {}, replaceState() {} } as unknown as History;
+    const controller = startController({
+      document,
+      location,
+      history,
+      store: createMemoryStore(defaultSettings()),
+      sites: [
+        {
+          ...site,
+          regions: [{ ...site.regions[0], replaceColumn: true, overlay: true, mountSelectors: ['ytd-browse[page-subtype="home"] #primary'] }],
+        },
+      ],
+      windowTarget: window,
+      now: () => 1_000,
+    });
+    await controller.ready;
+    expect(document.getElementById('ife-reminder-host')).toBeNull();
+    controller.stop();
+  });
+
   it('hides the YouTube overlay when the search view is showing', async () => {
     const { document, window } = parseHTML(
       '<!doctype html><html><body><ytd-browse page-subtype="home" hidden><div id="primary"><div class="posts">A video</div></div></ytd-browse></body></html>',
@@ -338,7 +420,7 @@ describe('feed controller', () => {
     document.querySelector('ytd-browse')?.setAttribute('hidden', '');
     await controller.refresh();
     expect(document.getElementById('ife-reminder-host')).toBeNull();
-    expect(document.documentElement.classList.contains('ife-r-youtube-home-feed')).toBe(false);
+    expect(document.documentElement.classList.contains('ife-r-youtube-home-feed')).toBe(true);
     controller.stop();
   });
 
@@ -428,7 +510,7 @@ describe('feed controller', () => {
     expect(host?.classList.contains('ife-overlay')).toBe(false);
     expect(column?.firstElementChild).toBe(host);
     expect(document.getElementById('chat')?.textContent).toBe('Chat');
-    expect(column?.getAttribute('data-ife-column')).toBe('');
+    expect(column?.getAttribute('data-ife-column')).toBeNull();
     expect(document.getElementById('rail')?.getAttribute('data-ife-column')).toBeNull();
     expect(document.getElementById('composer')?.textContent).toBe('What is on your mind');
     expect(column?.contains(host)).toBe(true);
@@ -477,6 +559,7 @@ describe('feed controller', () => {
     await controller.ready;
     const host = document.getElementById('ife-reminder-host');
     expect(host?.classList.contains('ife-settling')).toBe(true);
+    expect(column.getAttribute('data-ife-column')).toBeNull();
     expect(column.style.minWidth).toBe('');
 
     const card = (host?.shadowRoot ?? host)?.querySelector('.ife-card');
@@ -485,6 +568,7 @@ describe('feed controller', () => {
     clock += 500;
     await controller.refresh();
     expect(host?.classList.contains('ife-settling')).toBe(false);
+    expect(column.getAttribute('data-ife-column')).toBe('');
     expect(column.style.minWidth).toBe('620px');
 
     host?.remove();
@@ -497,7 +581,7 @@ describe('feed controller', () => {
 
   it('turns on for LinkedIn For you and sits before the feed', async () => {
     const { document, window } = parseHTML(
-      '<!doctype html><html><body><main><div id="layout"><div componentkey="container-update-list_mainFeed" id="feed"><div class="posts">A post</div></div></div></main></body></html>',
+      '<!doctype html><html><body><main><aside id="profile">Profile</aside><div id="layout"><div componentkey="container-update-list_mainFeed" id="feed"><div class="posts">A post</div></div></div><aside id="rail">Jobs</aside></main></body></html>',
     );
     const location = {
       hostname: 'www.linkedin.com',
@@ -518,13 +602,46 @@ describe('feed controller', () => {
     const feed = document.getElementById('feed');
     expect(host?.nextElementSibling).toBe(feed);
     expect(host?.classList.contains('ife-overlay')).toBe(false);
+    expect(feed?.getAttribute('data-ife-column')).toBeNull();
+    expect(document.getElementById('profile')?.textContent).toBe('Profile');
+    expect(document.getElementById('rail')?.textContent).toBe('Jobs');
     expect(feed?.textContent).toBe('A post');
+    expect(document.getElementById('ife-style')?.textContent).toContain('scaffold-finite-scroll__loader');
     expect((host?.shadowRoot ?? host)?.querySelector('.ife-card')).toBeTruthy();
     host?.remove();
     await controller.refresh();
     const restored = document.getElementById('ife-reminder-host');
     expect(restored?.nextElementSibling).toBe(feed);
+    expect(document.getElementById('profile')?.textContent).toBe('Profile');
     expect((restored?.shadowRoot ?? restored)?.querySelector('.ife-card')).toBeTruthy();
+    controller.stop();
+  });
+
+  it('keeps the LinkedIn reminder after the feed is hidden by the extension css', async () => {
+    const { document, window } = parseHTML(
+      '<!doctype html><html><body><main><div data-testid="mainFeed" id="feed"><div data-view-name="feed-full-update">A post</div></div></main></body></html>',
+    );
+    const feed = stubBox(document.getElementById('feed'), 540, 280);
+    const view = document.defaultView;
+    if (view) {
+      view.getComputedStyle = ((element: Element) => {
+        const hidden = element.id === 'feed' || element.getAttribute('data-view-name') === 'feed-full-update';
+        return { display: hidden ? 'none' : 'block', visibility: 'visible' } as CSSStyleDeclaration;
+      }) as typeof getComputedStyle;
+    }
+    const controller = startController({
+      document,
+      location: { hostname: 'www.linkedin.com', pathname: '/feed', href: 'https://www.linkedin.com/feed/' } as Location,
+      history: { pushState() {}, replaceState() {} } as unknown as History,
+      store: createMemoryStore(defaultSettings()),
+      windowTarget: window,
+      now: () => 1_000,
+    });
+    await controller.ready;
+    expect(document.getElementById('ife-reminder-host')?.nextElementSibling).toBe(feed);
+    await controller.refresh();
+    expect(document.getElementById('ife-reminder-host')?.nextElementSibling).toBe(feed);
+    expect(document.documentElement.classList.contains('ife-r-linkedin-home-feed')).toBe(true);
     controller.stop();
   });
 
@@ -706,16 +823,10 @@ describe('feed controller', () => {
     controller.stop();
   });
 
-  it('keeps the watch-suggestion reminder on the right', async () => {
+  it('hides watch suggestions without placing a reminder card', async () => {
     const { document, window } = parseHTML(
       '<!doctype html><html><body><ytd-watch-flexy><div id="primary"><div class="player">A video</div></div><div id="secondary"><div id="related">Suggested</div></div></ytd-watch-flexy></body></html>',
     );
-    Object.defineProperty(window, 'innerWidth', { value: 1280, configurable: true });
-    Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true });
-    stubBox(document.querySelector('ytd-watch-flexy'), 1280, 0);
-    stubBox(document.getElementById('primary'), 860, 0);
-    stubBox(document.getElementById('secondary'), 400, 860);
-    stubBox(document.getElementById('related'), 400, 860);
     const settings = defaultSettings();
     settings.sites.youtube.regions['watch-suggestions'] = true;
     const controller = startController({
@@ -728,27 +839,18 @@ describe('feed controller', () => {
       now: () => 1_000,
     });
     await controller.ready;
-    const host = document.getElementById('ife-reminder-host');
-    expect(host).toBeTruthy();
-    expect(host?.parentElement?.id).toBe('secondary');
-    expect(host?.classList.contains('ife-overlay')).toBe(false);
-    expect(host?.classList.contains('ife-sidebar')).toBe(true);
-    expect(host?.style.left).toBe('');
-    expect(host?.shadowRoot?.querySelector('.ife-card')?.classList.contains('is-panel')).toBe(true);
+    expect(document.documentElement.classList.contains('ife-r-youtube-watch-suggestions')).toBe(true);
+    expect(document.getElementById('ife-style')?.textContent).toContain('#related');
+    expect(document.getElementById('ife-reminder-host')).toBeNull();
     expect(document.querySelector('#primary .player')?.textContent).toBe('A video');
     controller.stop();
   });
 
-  it('still shows the watch-suggestion reminder when a leftover search view is in the DOM', async () => {
+  it('still hides watch suggestions when a leftover search view is in the DOM', async () => {
     const { document, window } = parseHTML(
       '<!doctype html><html><body><ytd-search></ytd-search><ytd-watch-flexy><div id="primary"><div class="player">A video</div></div><div id="secondary"><div id="related">Suggested</div></div></ytd-watch-flexy></body></html>',
     );
-    Object.defineProperty(window, 'innerWidth', { value: 1280, configurable: true });
-    Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true });
     stubBox(document.querySelector('ytd-search'), 1280, 0);
-    stubBox(document.querySelector('ytd-watch-flexy'), 1280, 0);
-    stubBox(document.getElementById('primary'), 860, 0);
-    stubBox(document.getElementById('secondary'), 400, 860);
     const settings = defaultSettings();
     settings.sites.youtube.regions['watch-suggestions'] = true;
     const controller = startController({
@@ -761,41 +863,9 @@ describe('feed controller', () => {
       now: () => 1_000,
     });
     await controller.ready;
-    const host = document.getElementById('ife-reminder-host');
-    expect(host?.parentElement?.id).toBe('secondary');
-    expect(host?.classList.contains('ife-overlay')).toBe(false);
+    expect(document.documentElement.classList.contains('ife-r-youtube-watch-suggestions')).toBe(true);
+    expect(document.getElementById('ife-reminder-host')).toBeNull();
     expect(document.querySelector('#primary .player')?.textContent).toBe('A video');
-    controller.stop();
-  });
-
-  it('puts a removed watch-suggestion reminder back in the suggestions column', async () => {
-    const { document, window } = parseHTML(
-      '<!doctype html><html><body><ytd-watch-flexy><div id="primary"><div class="player">A video</div></div><div id="secondary"><div id="related">Suggested</div></div></ytd-watch-flexy></body></html>',
-    );
-    Object.defineProperty(window, 'innerWidth', { value: 1280, configurable: true });
-    Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true });
-    stubBox(document.querySelector('ytd-watch-flexy'), 1280, 0);
-    stubBox(document.getElementById('primary'), 860, 0);
-    stubBox(document.getElementById('secondary'), 400, 860);
-    const settings = defaultSettings();
-    settings.sites.youtube.regions['watch-suggestions'] = true;
-    const controller = startController({
-      document,
-      location: { hostname: 'www.youtube.com', pathname: '/watch', href: 'https://www.youtube.com/watch?v=1' } as Location,
-      history: { pushState() {}, replaceState() {} } as unknown as History,
-      store: createMemoryStore(settings),
-      sites: [youtube],
-      windowTarget: window,
-      now: () => 1_000,
-    });
-    await controller.ready;
-    const host = document.getElementById('ife-reminder-host');
-    expect(host?.parentElement?.id).toBe('secondary');
-    host?.remove();
-    await controller.refresh();
-    const again = document.getElementById('ife-reminder-host');
-    expect(again?.parentElement?.id).toBe('secondary');
-    expect(again?.classList.contains('ife-overlay')).toBe(false);
     controller.stop();
   });
 

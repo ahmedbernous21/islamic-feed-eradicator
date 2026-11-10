@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { clearSnooze, defaultSettings, isSnoozing, normalizeSettings, resolveCardTheme, snoozeButtonLabel, snoozeRemainingClock, snoozeRemainingLabel, startSnooze } from '../src/shared/settings';
+import { clearSnooze, defaultSettings, isSnoozing, normalizeSettings, resolveCardTheme, snoozeButtonLabel, snoozeRemainingClock, snoozeRemainingLabel, startSnooze, toggleRegion, toggleSite } from '../src/shared/settings';
 import { SITES } from '../src/shared/sites';
 
 describe('settings', () => {
@@ -59,5 +59,15 @@ describe('settings', () => {
     expect(snoozeRemainingLabel(snoozed, now + 59 * 60_000)).toBe('1 min');
     expect(snoozeRemainingClock(snoozed, now)).toBe('60:00');
     expect(snoozeRemainingClock(snoozed, now + 90_000)).toBe('58:30');
+  });
+
+  it('toggles a site and a region without touching the others', () => {
+    const off = toggleSite(defaultSettings(), 'youtube');
+    expect(off.sites.youtube.enabled).toBe(false);
+    expect(off.sites.facebook.enabled).toBe(true);
+    const region = toggleRegion(off, 'youtube', 'comments');
+    expect(region.sites.youtube.regions.comments).toBe(true);
+    expect(region.sites.youtube.regions['home-feed']).toBe(true);
+    expect(toggleRegion(region, 'youtube', 'comments').sites.youtube.regions.comments).toBe(false);
   });
 });

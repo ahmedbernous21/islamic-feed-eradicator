@@ -227,6 +227,136 @@
       "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
     },
     {
+      "category": "quran",
+      "id": "quran-2-216",
+      "surah": {
+        "number": 2,
+        "arabic": "البقرة",
+        "english": "Al-Baqarah"
+      },
+      "verses": "2:216",
+      "arabic": "كُتِبَ عَلَيْكُمُ ٱلْقِتَالُ وَهُوَ كُرْهٌ لَّكُمْ ۖ وَعَسَىٰٓ أَن تَكْرَهُوا۟ شَيْـًٔا وَهُوَ خَيْرٌ لَّكُمْ ۖ وَعَسَىٰٓ أَن تُحِبُّوا۟ شَيْـًٔا وَهُوَ شَرٌّ لَّكُمْ ۗ وَٱللَّهُ يَعْلَمُ وَأَنتُمْ لَا تَعْلَمُونَ",
+      "translation": "Fighting has been prescribed for you, though you dislike it. You may hate a thing and it is good for you, and you may love a thing and it is bad for you. Allah knows, and you do not know.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-3-8",
+      "surah": {
+        "number": 3,
+        "arabic": "آل عمران",
+        "english": "Al Imran"
+      },
+      "verses": "3:8",
+      "arabic": "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً ۚ إِنَّكَ أَنتَ ٱلْوَهَّابُ",
+      "translation": "Our Lord, do not let our hearts deviate after You have guided us, and give us mercy from Yourself. You are the Giver.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-8-2",
+      "surah": {
+        "number": 8,
+        "arabic": "الأنفال",
+        "english": "Al-Anfal"
+      },
+      "verses": "8:2",
+      "arabic": "إِنَّمَا ٱلْمُؤْمِنُونَ ٱلَّذِينَ إِذَا ذُكِرَ ٱللَّهُ وَجِلَتْ قُلُوبُهُمْ وَإِذَا تُلِيَتْ عَلَيْهِمْ ءَايَـٰتُهُۥ زَادَتْهُمْ إِيمَـٰنًا وَعَلَىٰ رَبِّهِمْ يَتَوَكَّلُونَ",
+      "translation": "The believers are those whose hearts tremble when Allah is mentioned, whose faith increases when His verses are recited to them, and who rely upon their Lord.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-9-51",
+      "surah": {
+        "number": 9,
+        "arabic": "التوبة",
+        "english": "At-Tawbah"
+      },
+      "verses": "9:51",
+      "arabic": "قُل لَّن يُصِيبَنَآ إِلَّا مَا كَتَبَ ٱللَّهُ لَنَا هُوَ مَوْلَىٰنَا ۚ وَعَلَى ٱللَّهِ فَلْيَتَوَكَّلِ ٱلْمُؤْمِنُونَ",
+      "translation": "Say: Nothing will befall us except what Allah has written for us. He is our Protector. So let the believers rely upon Allah.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-13-11",
+      "surah": {
+        "number": 13,
+        "arabic": "الرعد",
+        "english": "Ar-Ra'd"
+      },
+      "verses": "13:11",
+      "arabic": "لَهُۥ مُعَقِّبَـٰتٌ مِّنۢ بَيْنِ يَدَيْهِ وَمِنْ خَلْفِهِۦ يَحْفَظُونَهُۥ مِنْ أَمْرِ ٱللَّهِ ۗ إِنَّ ٱللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا۟ مَا بِأَنفُسِهِمْ ۗ وَإِذَآ أَرَادَ ٱللَّهُ بِقَوْمٍ سُوٓءًا فَلَا مَرَدَّ لَهُۥ ۚ وَمَا لَهُم مِّن دُونِهِۦ مِن وَالٍ",
+      "translation": "He has successive angels before him and behind him, guarding him by the command of Allah. Allah does not change what is with a people until they change what is in themselves. When Allah wants harm for a people, none can turn it back, and they have no protector besides Him.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-16-90",
+      "surah": {
+        "number": 16,
+        "arabic": "النحل",
+        "english": "An-Nahl"
+      },
+      "verses": "16:90",
+      "arabic": "۞ إِنَّ ٱللَّهَ يَأْمُرُ بِٱلْعَدْلِ وَٱلْإِحْسَـٰنِ وَإِيتَآئِ ذِى ٱلْقُرْبَىٰ وَيَنْهَىٰ عَنِ ٱلْفَحْشَآءِ وَٱلْمُنكَرِ وَٱلْبَغْىِ ۚ يَعِظُكُمْ لَعَلَّكُمْ تَذَكَّرُونَ",
+      "translation": "Allah commands justice, excellence, and giving to relatives, and forbids indecency, wrong, and transgression. He warns you, so that you may remember.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-21-87",
+      "surah": {
+        "number": 21,
+        "arabic": "الأنبياء",
+        "english": "Al-Anbiya"
+      },
+      "verses": "21:87",
+      "arabic": "وَذَا ٱلنُّونِ إِذ ذَّهَبَ مُغَـٰضِبًا فَظَنَّ أَن لَّن نَّقْدِرَ عَلَيْهِ فَنَادَىٰ فِى ٱلظُّلُمَـٰتِ أَن لَّآ إِلَـٰهَ إِلَّآ أَنتَ سُبْحَـٰنَكَ إِنِّى كُنتُ مِنَ ٱلظَّـٰلِمِينَ",
+      "translation": "And the man of the fish, when he left in anger, thinking We would not have power over him. Then he called out in the darkness: There is no god but You. Glory be to You. I was of the wrongdoers.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-33-21",
+      "surah": {
+        "number": 33,
+        "arabic": "الأحزاب",
+        "english": "Al-Ahzab"
+      },
+      "verses": "33:21",
+      "arabic": "لَّقَدْ كَانَ لَكُمْ فِى رَسُولِ ٱللَّهِ أُسْوَةٌ حَسَنَةٌ لِّمَن كَانَ يَرْجُوا۟ ٱللَّهَ وَٱلْيَوْمَ ٱلْـَٔاخِرَ وَذَكَرَ ٱللَّهَ كَثِيرًا",
+      "translation": "You have in the Messenger of Allah a good example, for whoever hopes in Allah and the Last Day and remembers Allah often.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-57-16",
+      "surah": {
+        "number": 57,
+        "arabic": "الحديد",
+        "english": "Al-Hadid"
+      },
+      "verses": "57:16",
+      "arabic": "۞ أَلَمْ يَأْنِ لِلَّذِينَ ءَامَنُوٓا۟ أَن تَخْشَعَ قُلُوبُهُمْ لِذِكْرِ ٱللَّهِ وَمَا نَزَلَ مِنَ ٱلْحَقِّ وَلَا يَكُونُوا۟ كَٱلَّذِينَ أُوتُوا۟ ٱلْكِتَـٰبَ مِن قَبْلُ فَطَالَ عَلَيْهِمُ ٱلْأَمَدُ فَقَسَتْ قُلُوبُهُمْ ۖ وَكَثِيرٌ مِّنْهُمْ فَـٰسِقُونَ",
+      "translation": "Has the time not come for those who believe that their hearts should humble to the remembrance of Allah and to what has come down of the truth, and not be like those given the Book before, so that time passed over them and their hearts hardened? Many of them are defiantly disobedient.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
+      "category": "quran",
+      "id": "quran-59-18",
+      "surah": {
+        "number": 59,
+        "arabic": "الحشر",
+        "english": "Al-Hashr"
+      },
+      "verses": "59:18",
+      "arabic": "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ ٱتَّقُوا۟ ٱللَّهَ وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ ۖ وَٱتَّقُوا۟ ٱللَّهَ ۚ إِنَّ ٱللَّهَ خَبِيرٌۢ بِمَا تَعْمَلُونَ",
+      "translation": "You who believe, be mindful of Allah, and let every soul look to what it has put forth for tomorrow. And be mindful of Allah. Allah is aware of what you do.",
+      "note": "English rendering prepared for this extension. It is a concise rendering of the meaning, not a published translation."
+    },
+    {
       "id": "hadith-bukhari-54",
       "category": "hadith",
       "collection": "Sahih al-Bukhari",
@@ -583,8 +713,158 @@
       "authenticityBasis": "Included in Sahih Muslim. That inclusion is the grading used here.",
       "arabic": "حُفَّتِ الْجَنَّةُ بِالْمَكَارِهِ وَحُفَّتِ النَّارُ بِالشَّهَوَاتِ.",
       "arabicFull": "حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ بْنِ قَعْنَبٍ، حَدَّثَنَا حَمَّادُ بْنُ سَلَمَةَ، عَنْ ثَابِتٍ، وَحُمَيْدٍ، عَنْ أَنَسِ بْنِ مَالِكٍ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ \"‏ حُفَّتِ الْجَنَّةُ بِالْمَكَارِهِ وَحُفَّتِ النَّارُ بِالشَّهَوَاتِ ‏\"‏ ‏.‏",
-      "translation": "Paradise is surrounded by hardships, and the Fire is surrounded by desires.",
+      "translation": "Paradise is surrounded by hardships, and Hellfire is surrounded by desires.",
       "note": "Arabic follows hadith-api, Sahih Muslim 2822 (hadith number 7130 in that edition). The card shows that whole report. Sahih al-Bukhari 6487 records the same meaning with the wording حُجِبَت. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-52",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 52",
+      "narrator": "al-Nu'man ibn Bashir",
+      "narratorArabic": "النعمان بن بشير",
+      "sourceUrl": "https://sunnah.com/bukhari:52",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "الْحَلاَلُ بَيِّنٌ وَالْحَرَامُ بَيِّنٌ، وَبَيْنَهُمَا مُشَبَّهَاتٌ لاَ يَعْلَمُهَا كَثِيرٌ مِنَ النَّاسِ، فَمَنِ اتَّقَى الْمُشَبَّهَاتِ اسْتَبْرَأَ لِدِيِنِهِ وَعِرْضِهِ، وَمَنْ وَقَعَ فِي الشُّبُهَاتِ كَرَاعٍ يَرْعَى حَوْلَ الْحِمَى، يُوشِكُ أَنْ يُوَاقِعَهُ. أَلاَ وَإِنَّ لِكُلِّ مَلِكٍ حِمًى، أَلاَ إِنَّ حِمَى اللَّهِ فِي أَرْضِهِ مَحَارِمُهُ، أَلاَ وَإِنَّ فِي الْجَسَدِ مُضْغَةً إِذَا صَلَحَتْ صَلَحَ الْجَسَدُ كُلُّهُ، وَإِذَا فَسَدَتْ فَسَدَ الْجَسَدُ كُلُّهُ. أَلاَ وَهِيَ الْقَلْبُ.",
+      "arabicFull": "حَدَّثَنَا أَبُو نُعَيْمٍ، حَدَّثَنَا زَكَرِيَّاءُ، عَنْ عَامِرٍ، قَالَ سَمِعْتُ النُّعْمَانَ بْنَ بَشِيرٍ، يَقُولُ سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ ‏ \"‏ الْحَلاَلُ بَيِّنٌ وَالْحَرَامُ بَيِّنٌ، وَبَيْنَهُمَا مُشَبَّهَاتٌ لاَ يَعْلَمُهَا كَثِيرٌ مِنَ النَّاسِ، فَمَنِ اتَّقَى الْمُشَبَّهَاتِ اسْتَبْرَأَ لِدِيِنِهِ وَعِرْضِهِ، وَمَنْ وَقَعَ فِي الشُّبُهَاتِ كَرَاعٍ يَرْعَى حَوْلَ الْحِمَى، يُوشِكُ أَنْ يُوَاقِعَهُ‏.‏ أَلاَ وَإِنَّ لِكُلِّ مَلِكٍ حِمًى، أَلاَ إِنَّ حِمَى اللَّهِ فِي أَرْضِهِ مَحَارِمُهُ، أَلاَ وَإِنَّ فِي الْجَسَدِ مُضْغَةً إِذَا صَلَحَتْ صَلَحَ الْجَسَدُ كُلُّهُ، وَإِذَا فَسَدَتْ فَسَدَ الْجَسَدُ كُلُّهُ‏.‏ أَلاَ وَهِيَ الْقَلْبُ ‏\"‏‏.‏",
+      "translation": "The lawful is clear and the unlawful is clear, and between them are doubtful matters many people do not know. Whoever stays away from the doubtful matters has protected his religion and his honour. Whoever falls into the doubtful matters is like a shepherd grazing around a reserve who is about to enter it. Every king has a reserve, and the reserve of Allah on His earth is what He has forbidden. In the body is a piece of flesh: if it is sound, the whole body is sound, and if it is corrupt, the whole body is corrupt. It is the heart.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 52. The card shows the whole prophetic wording in that entry. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-5027",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 5027",
+      "narrator": "Uthman ibn Affan",
+      "narratorArabic": "عثمان بن عفان",
+      "sourceUrl": "https://sunnah.com/bukhari:5027",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ. قَالَ وَأَقْرَأَ أَبُو عَبْدِ الرَّحْمَنِ فِي إِمْرَةِ عُثْمَانَ حَتَّى كَانَ الْحَجَّاجُ، قَالَ وَذَاكَ الَّذِي أَقْعَدَنِي مَقْعَدِي هَذَا.",
+      "arabicFull": "حَدَّثَنَا حَجَّاجُ بْنُ مِنْهَالٍ، حَدَّثَنَا شُعْبَةُ، قَالَ أَخْبَرَنِي عَلْقَمَةُ بْنُ مَرْثَدٍ، سَمِعْتُ سَعْدَ بْنَ عُبَيْدَةَ، عَنْ أَبِي عَبْدِ الرَّحْمَنِ السُّلَمِيِّ، عَنْ عُثْمَانَ ـ رضى الله عنه ـ عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ ‏\"‏‏.‏ قَالَ وَأَقْرَأَ أَبُو عَبْدِ الرَّحْمَنِ فِي إِمْرَةِ عُثْمَانَ حَتَّى كَانَ الْحَجَّاجُ، قَالَ وَذَاكَ الَّذِي أَقْعَدَنِي مَقْعَدِي هَذَا‏.‏",
+      "translation": "The best of you are those who learn the Qur'an and teach it. Abu Abd al-Rahman then said he taught recitation from the time of Uthman until al-Hajjaj, and that this is what seated him in that place.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 5027. The prophetic wording is the first sentence. The rest is Abu Abd al-Rahman's remark in the same Bukhari entry, not the Prophet's words. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-6011",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 6011",
+      "narrator": "al-Nu'man ibn Bashir",
+      "narratorArabic": "النعمان بن بشير",
+      "sourceUrl": "https://sunnah.com/bukhari:6011",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "تَرَى الْمُؤْمِنِينَ فِي تَرَاحُمِهِمْ وَتَوَادِّهِمْ وَتَعَاطُفِهِمْ كَمَثَلِ الْجَسَدِ إِذَا اشْتَكَى عُضْوًا تَدَاعَى لَهُ سَائِرُ جَسَدِهِ بِالسَّهَرِ وَالْحُمَّى.",
+      "arabicFull": "حَدَّثَنَا أَبُو نُعَيْمٍ، حَدَّثَنَا زَكَرِيَّاءُ، عَنْ عَامِرٍ، قَالَ سَمِعْتُهُ يَقُولُ سَمِعْتُ النُّعْمَانَ بْنَ بَشِيرٍ، يَقُولُ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ \"‏ تَرَى الْمُؤْمِنِينَ فِي تَرَاحُمِهِمْ وَتَوَادِّهِمْ وَتَعَاطُفِهِمْ كَمَثَلِ الْجَسَدِ إِذَا اشْتَكَى عُضْوًا تَدَاعَى لَهُ سَائِرُ جَسَدِهِ بِالسَّهَرِ وَالْحُمَّى ‏\"‏‏.‏",
+      "translation": "You see the believers in their mercy, love, and kindness like one body: when one limb suffers, the rest of the body stays awake with it in fever.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6011. The card shows that whole report. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-6406",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 6406",
+      "narrator": "Abu Hurayrah",
+      "narratorArabic": "أبو هريرة",
+      "sourceUrl": "https://sunnah.com/bukhari:6406",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "كَلِمَتَانِ خَفِيفَتَانِ عَلَى اللِّسَانِ، ثَقِيلَتَانِ فِي الْمِيزَانِ، حَبِيبَتَانِ إِلَى الرَّحْمَنِ، سُبْحَانَ اللَّهِ الْعَظِيمِ، سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.",
+      "arabicFull": "حَدَّثَنَا زُهَيْرُ بْنُ حَرْبٍ، حَدَّثَنَا ابْنُ فُضَيْلٍ، عَنْ عُمَارَةَ، عَنْ أَبِي زُرْعَةَ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ كَلِمَتَانِ خَفِيفَتَانِ عَلَى اللِّسَانِ، ثَقِيلَتَانِ فِي الْمِيزَانِ، حَبِيبَتَانِ إِلَى الرَّحْمَنِ، سُبْحَانَ اللَّهِ الْعَظِيمِ، سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ‏\"‏‏.‏",
+      "translation": "Two words are light on the tongue, heavy on the scale, and beloved to the Most Merciful: Glory be to Allah, the Magnificent, and Glory be to Allah and to Him belongs praise.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6406. The card shows that whole report. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-6415",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 6415",
+      "narrator": "Sahl ibn Sa'd",
+      "narratorArabic": "سهل بن سعد",
+      "sourceUrl": "https://sunnah.com/bukhari:6415",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "مَوْضِعُ سَوْطٍ فِي الْجَنَّةِ خَيْرٌ مِنَ الدُّنْيَا وَمَا فِيهَا، وَلَغَدْوَةٌ فِي سَبِيلِ اللَّهِ أَوْ رَوْحَةٌ خَيْرٌ مِنَ الدُّنْيَا وَمَا فِيهَا.",
+      "arabicFull": "حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ، حَدَّثَنَا عَبْدُ الْعَزِيزِ بْنُ أَبِي حَازِمٍ، عَنْ أَبِيهِ، عَنْ سَهْلٍ، قَالَ سَمِعْتُ النَّبِيَّ صلى الله عليه وسلم يَقُولُ ‏ \"‏ مَوْضِعُ سَوْطٍ فِي الْجَنَّةِ خَيْرٌ مِنَ الدُّنْيَا وَمَا فِيهَا، وَلَغَدْوَةٌ فِي سَبِيلِ اللَّهِ أَوْ رَوْحَةٌ خَيْرٌ مِنَ الدُّنْيَا وَمَا فِيهَا ‏\"‏‏.‏",
+      "translation": "A space the size of a whip in Paradise is better than the world and all that is in it, and a morning or an evening in the path of Allah is better than the world and all that is in it.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6415. The card shows that whole report. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-6416",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 6416",
+      "narrator": "Abdullah ibn Umar",
+      "narratorArabic": "عبد الله بن عمر",
+      "sourceUrl": "https://sunnah.com/bukhari:6416",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "كُنْ فِي الدُّنْيَا كَأَنَّكَ غَرِيبٌ، أَوْ عَابِرُ سَبِيلٍ. وَكَانَ ابْنُ عُمَرَ يَقُولُ إِذَا أَمْسَيْتَ فَلاَ تَنْتَظِرِ الصَّبَاحَ، وَإِذَا أَصْبَحْتَ فَلاَ تَنْتَظِرِ الْمَسَاءَ، وَخُذْ مِنْ صِحَّتِكَ لِمَرَضِكَ، وَمِنْ حَيَاتِكَ لِمَوْتِكَ.",
+      "arabicFull": "حَدَّثَنَا عَلِيُّ بْنُ عَبْدِ اللَّهِ، حَدَّثَنَا مُحَمَّدُ بْنُ عَبْدِ الرَّحْمَنِ أَبُو الْمُنْذِرِ الطُّفَاوِيُّ، عَنْ سُلَيْمَانَ الأَعْمَشِ، قَالَ حَدَّثَنِي مُجَاهِدٌ، عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ ـ رضى الله عنهما ـ قَالَ أَخَذَ رَسُولُ اللَّهِ صلى الله عليه وسلم بِمَنْكِبِي فَقَالَ ‏ \"‏ كُنْ فِي الدُّنْيَا كَأَنَّكَ غَرِيبٌ، أَوْ عَابِرُ سَبِيلٍ ‏\"‏‏.‏ وَكَانَ ابْنُ عُمَرَ يَقُولُ إِذَا أَمْسَيْتَ فَلاَ تَنْتَظِرِ الصَّبَاحَ، وَإِذَا أَصْبَحْتَ فَلاَ تَنْتَظِرِ الْمَسَاءَ، وَخُذْ مِنْ صِحَّتِكَ لِمَرَضِكَ، وَمِنْ حَيَاتِكَ لِمَوْتِكَ‏.‏",
+      "translation": "Be in this world as if you were a stranger or a traveler. Ibn Umar used to say: If evening comes, do not wait for morning, and if morning comes, do not wait for evening. Take from your health for your sickness, and from your life for your death.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6416. The first sentence is the Prophet's wording. The rest is Ibn Umar's words in the same Bukhari entry. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-bukhari-6446",
+      "category": "hadith",
+      "collection": "Sahih al-Bukhari",
+      "reference": "Hadith 6446",
+      "narrator": "Abu Hurayrah",
+      "narratorArabic": "أبو هريرة",
+      "sourceUrl": "https://sunnah.com/bukhari:6446",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih al-Bukhari. That inclusion is the grading used here.",
+      "arabic": "لَيْسَ الْغِنَى عَنْ كَثْرَةِ الْعَرَضِ، وَلَكِنَّ الْغِنَى غِنَى النَّفْسِ.",
+      "arabicFull": "حَدَّثَنَا أَحْمَدُ بْنُ يُونُسَ، حَدَّثَنَا أَبُو بَكْرٍ، حَدَّثَنَا أَبُو حَصِينٍ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ ‏ \"‏ لَيْسَ الْغِنَى عَنْ كَثْرَةِ الْعَرَضِ، وَلَكِنَّ الْغِنَى غِنَى النَّفْسِ ‏\"‏‏.‏",
+      "translation": "Richness is not having many possessions. Richness is richness of the soul.",
+      "note": "Arabic follows hadith-api, Sahih al-Bukhari 6446. The card shows that whole report. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-muslim-55",
+      "category": "hadith",
+      "collection": "Sahih Muslim",
+      "reference": "Hadith 55",
+      "narrator": "Tamim al-Dari",
+      "narratorArabic": "تميم الداري",
+      "sourceUrl": "https://sunnah.com/muslim:55",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih Muslim. That inclusion is the grading used here.",
+      "arabic": "الدِّينُ النَّصِيحَةُ. قُلْنَا لِمَنْ. قَالَ لِلَّهِ وَلِكِتَابِهِ وَلِرَسُولِهِ وَلأَئِمَّةِ الْمُسْلِمِينَ وَعَامَّتِهِمْ.",
+      "arabicFull": "حَدَّثَنَا مُحَمَّدُ بْنُ عَبَّادٍ الْمَكِّيُّ، حَدَّثَنَا سُفْيَانُ، قَالَ قُلْتُ لِسُهَيْلٍ إِنَّ عَمْرًا حَدَّثَنَا عَنِ الْقَعْقَاعِ، عَنْ أَبِيكَ، قَالَ وَرَجَوْتُ أَنْ يُسْقِطَ، عَنِّي رَجُلاً قَالَ فَقَالَ سَمِعْتُهُ مِنَ الَّذِي سَمِعَهُ مِنْهُ أَبِي كَانَ صَدِيقًا لَهُ بِالشَّامِ ثُمَّ حَدَّثَنَا سُفْيَانُ عَنْ سُهَيْلٍ عَنْ عَطَاءِ بْنِ يَزِيدَ عَنْ تَمِيمٍ الدَّارِيِّ أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏\"‏ الدِّينُ النَّصِيحَةُ ‏\"‏ قُلْنَا لِمَنْ قَالَ ‏\"‏ لِلَّهِ وَلِكِتَابِهِ وَلِرَسُولِهِ وَلأَئِمَّةِ الْمُسْلِمِينَ وَعَامَّتِهِمْ ‏\"‏ ‏.‏",
+      "translation": "The religion is sincerity. We said: To whom? He said: To Allah, to His Book, to His Messenger, and to the leaders of the Muslims and their common people.",
+      "note": "Arabic follows hadith-api, Sahih Muslim 55 (arabic number 55.01 in that edition). The card shows that whole report. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-muslim-2699",
+      "category": "hadith",
+      "collection": "Sahih Muslim",
+      "reference": "Hadith 2699",
+      "narrator": "Abu Hurayrah",
+      "narratorArabic": "أبو هريرة",
+      "sourceUrl": "https://sunnah.com/muslim:2699",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih Muslim. That inclusion is the grading used here.",
+      "arabic": "وَاللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ",
+      "arabicFull": "حَدَّثَنَا يَحْيَى بْنُ يَحْيَى التَّمِيمِيُّ، وَأَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ وَمُحَمَّدُ بْنُ الْعَلاَءِ الْهَمْدَانِيُّ - وَاللَّفْظُ لِيَحْيَى - قَالَ يَحْيَى أَخْبَرَنَا وَقَالَ الآخَرَانِ، حَدَّثَنَا أَبُو مُعَاوِيَةَ، عَنِ الأَعْمَشِ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏ \"‏ مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ وَمَنْ يَسَّرَ عَلَى مُعْسِرٍ يَسَّرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالآخِرَةِ وَمَنْ سَتَرَ مُسْلِمًا سَتَرَهُ اللَّهُ فِي الدُّنْيَا وَالآخِرَةِ وَاللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ وَمَا اجْتَمَعَ قَوْمٌ فِي بَيْتٍ مِنْ بُيُوتِ اللَّهِ يَتْلُونَ كِتَابَ اللَّهِ وَيَتَدَارَسُونَهُ بَيْنَهُمْ إِلاَّ نَزَلَتْ عَلَيْهِمُ السَّكِينَةُ وَغَشِيَتْهُمُ الرَّحْمَةُ وَحَفَّتْهُمُ الْمَلاَئِكَةُ وَذَكَرَهُمُ اللَّهُ فِيمَنْ عِنْدَهُ وَمَنْ بَطَّأَ بِهِ عَمَلُهُ لَمْ يُسْرِعْ بِهِ نَسَبُهُ ‏\"‏ ‏.‏",
+      "translation": "Allah is in the aid of the servant as long as the servant is in the aid of his brother. Whoever takes a path seeking knowledge, Allah makes a path to Paradise easy for him by it.",
+      "note": "Arabic follows hadith-api, Sahih Muslim 2699 (arabic number 2699.01 in that edition). The card shows this contiguous excerpt from a longer report that also speaks of relieving hardship, concealing a Muslim's faults, sitting with the Qur'an, and that lineage does not outrun one's deeds. The chain of narrators is under Full entry."
+    },
+    {
+      "id": "hadith-muslim-2963",
+      "category": "hadith",
+      "collection": "Sahih Muslim",
+      "reference": "Hadith 2963",
+      "narrator": "Abu Hurayrah",
+      "narratorArabic": "أبو هريرة",
+      "sourceUrl": "https://sunnah.com/muslim:2963",
+      "authenticity": "Sahih",
+      "authenticityBasis": "Included in Sahih Muslim. That inclusion is the grading used here.",
+      "arabic": "انْظُرُوا إِلَى مَنْ أَسْفَلَ مِنْكُمْ وَلاَ تَنْظُرُوا إِلَى مَنْ هُوَ فَوْقَكُمْ فَهُوَ أَجْدَرُ أَنْ لاَ تَزْدَرُوا نِعْمَةَ اللَّهِ.",
+      "arabicFull": "وَحَدَّثَنِي زُهَيْرُ بْنُ حَرْبٍ، حَدَّثَنَا جَرِيرٌ، ح وَحَدَّثَنَا أَبُو كُرَيْبٍ، حَدَّثَنَا أَبُو مُعَاوِيَةَ، ح وَحَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، - وَاللَّفْظُ لَهُ - حَدَّثَنَا أَبُو مُعَاوِيَةَ، وَوَكِيعٌ، عَنِ الأَعْمَشِ، عَنْ أَبِي صَالِحٍ، عَنْ أَبِي هُرَيْرَةَ، قَالَ قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم ‏\"‏ انْظُرُوا إِلَى مَنْ أَسْفَلَ مِنْكُمْ وَلاَ تَنْظُرُوا إِلَى مَنْ هُوَ فَوْقَكُمْ فَهُوَ أَجْدَرُ أَنْ لاَ تَزْدَرُوا نِعْمَةَ اللَّهِ ‏\"‏ ‏.‏ قَالَ أَبُو مُعَاوِيَةَ ‏\"‏ عَلَيْكُمْ ‏\"‏ ‏.‏",
+      "translation": "Look at those below you, and do not look at those above you. That is more likely to keep you from belittling the favour of Allah.",
+      "note": "Arabic follows hadith-api, Sahih Muslim 2963 (arabic number 2963.03 in that edition). The card shows the prophetic wording in that entry. Abu Mu'awiya's extra word عليكم stays under Full entry. The chain of narrators is under Full entry."
     },
     {
       "id": "scholar-abu-hurayrah-heart",
@@ -594,6 +874,7 @@
       "arabic": "القلب ملك وله جنود، فإذا صلح الملك صلحت جنوده، وإذا فسد الملك فسدت جنوده",
       "translation": "The heart is a king and it has soldiers. If the king is sound, his soldiers are sound, and if the king is corrupt, his soldiers are corrupt.",
       "source": "Musannaf Abd al-Razzaq, Kitab al-Jami', Bab al-Qalb, no. 20375",
+      "sourceArabic": "مصنف عبد الرزاق، كتاب الجامع، باب القلب، رقم ٢٠٣٧٥",
       "verification": "source_checked",
       "verificationNote": "This is a statement of Abu Hurayrah, a Companion, recorded by Abd al-Razzaq. It is not a prophetic hadith. The wording follows the text on Islamweb's copy of the Musannaf and was not recollated against a critical print. The report continues by describing the limbs."
     },
@@ -605,6 +886,7 @@
       "arabic": "إِذا أردْت الِانْتِفَاع بِالْقُرْآنِ فاجمع قَلْبك عِنْد تِلَاوَته وسماعه وأَلْقِ سَمعك واحضر حُضُور من يخاطبه بِهِ من تكلّم بِهِ سُبْحَانَهُ مِنْهُ إِلَيْهِ",
       "translation": "If you want to benefit from the Qur'an, gather your heart when you recite it and when you hear it, give it your hearing, and be present as someone whom the One who spoke it, glory be to Him, is addressing through it.",
       "source": "al-Fawa'id, opening section. Edition listed by usul.ai: Dar al-Kutub al-Ilmiyyah, Beirut, second printing, 1393 AH",
+      "sourceArabic": "الفوائد",
       "verification": "source_checked",
       "verificationNote": "The Arabic is the digital text as displayed on usul.ai, including its orthography. Check a printed copy of al-Fawa'id before treating the spelling as critical."
     },
@@ -616,6 +898,7 @@
       "arabic": "فَإِذا حصل الْمُؤثر وَهُوَ الْقُرْآن وَالْمحل الْقَابِل وَهُوَ الْقلب الْحَيّ وَوجد الشَّرْط وَهُوَ الإصغاء وانتفى الْمَانِع وَهُوَ اشْتِغَال الْقلب وذهوله عَن معنى الْخطاب وانصرافه عَنهُ إِلَى شَيْء آخر حصل الْأَثر وَهُوَ الِانْتِفَاع والتذكّر",
       "translation": "When the cause is present, and that is the Qur'an, and the receptive place is present, and that is the living heart, and the condition is present, and that is listening, and the obstacle is absent, and that is the heart being busy and absent from the meaning of the address, the effect follows: benefit and being reminded.",
       "source": "al-Fawa'id, same opening section as the previous passage. Edition listed by usul.ai: Dar al-Kutub al-Ilmiyyah, Beirut",
+      "sourceArabic": "الفوائد",
       "verification": "source_checked",
       "verificationNote": "The Arabic is the digital text as displayed on usul.ai, including its orthography. It is Ibn al-Qayyim's explanation of Qur'an 50:37, not a separate prophetic report."
     },
@@ -627,6 +910,7 @@
       "arabic": "مَثَلُ عِلْمٍ لَا يُعْمَلُ بِهِ كَمَثَلِ كَنْزٍ لَا يُنْفَقُ مِنْهُ فِي سَبِيلِ اللَّهِ",
       "translation": "Knowledge that is not acted upon is like a treasure that is never spent in the way of Allah.",
       "source": "Ibn Abd al-Barr, Jami' Bayan al-Ilm wa Fadlih, report 1237",
+      "sourceArabic": "ابن عبد البر، جامع بيان العلم وفضله، رقم ١٢٣٧",
       "verification": "source_checked",
       "verificationNote": "This is attributed to Abu Hurayrah through a chain recorded by Ibn Abd al-Barr. It is not a prophetic hadith. The chain was not independently graded here."
     },
@@ -638,6 +922,7 @@
       "arabic": "لَأَنْ أَجْلِسَ سَاعَةً فَأَفْقَهُ فِي دِينِي أَحَبُّ إِلَيَّ مِنْ أَنْ أُحْيِيَ لَيْلَةً إِلَى الصَّبَاحِ",
       "translation": "To sit for an hour and gain understanding of my religion is more beloved to me than staying up in prayer until morning.",
       "source": "Ibn Abd al-Barr, Jami' Bayan al-Ilm wa Fadlih, Bab Tafdil al-Ilm ala al-Ibadah, report 109",
+      "sourceArabic": "ابن عبد البر، جامع بيان العلم وفضله، باب تفضيل العلم على العبادة، رقم ١٠٩",
       "verification": "source_checked",
       "verificationNote": "This is a statement of Abu Hurayrah, a Companion, recorded as his own words, not a prophetic hadith. The Arabic follows Ibn Abd al-Barr. The chain includes Yazid ibn Iyad, whom hadith critics have criticised; the chain was not independently graded here. Circulating copies add other sentences, including that a faqih is harder on Shaytan than a thousand worshippers. Collections record those extra sentences as a separate marfu' report through the same narrator, so they are not on this card."
     },
@@ -649,6 +934,7 @@
       "arabic": "تَعَلَّمُوا، فَمَنْ عَلِمَ فَلْيَعْمَلْ",
       "translation": "Learn, and whoever gains knowledge should act upon it.",
       "source": "Al-Khatib al-Baghdadi, Iqtida' al-Ilm al-Amal",
+      "sourceArabic": "الخطيب البغدادي، اقتضاء العلم العمل",
       "verification": "source_checked",
       "verificationNote": "Reported from Ibn Mas'ud in the chapter on acting upon knowledge. Other transmissions of this wording exist."
     },
@@ -660,6 +946,7 @@
       "arabic": "هَتَفَ الْعِلْمُ بِالْعَمَلِ، فَإِنْ أَجَابَهُ وَإِلَّا ارْتَحَلَ",
       "translation": "Knowledge calls out for action. If action answers, it stays; otherwise it departs.",
       "source": "Al-Khatib al-Baghdadi, Iqtida' al-Ilm al-Amal",
+      "sourceArabic": "الخطيب البغدادي، اقتضاء العلم العمل",
       "verification": "source_checked",
       "verificationNote": "A saying attributed to Ali in that book. It is not a prophetic hadith. The chain in this book should not be assumed authentic."
     },
@@ -671,6 +958,7 @@
       "arabic": "إِنَّ أَخْوَفَ مَا أَخَافُ عَلَى نَفْسِي أَنْ يُقَالَ لِي: يَا عُوَيْمِرُ، هَلْ عَلِمْتَ؟ فَأَقُولَ: نَعَمْ، فَيُقَالَ: فَمَاذَا عَمِلْتَ فِيمَا عَلِمْتَ؟",
       "translation": "What I fear most is being asked: 'O Uwaymir, did you know?' I will say yes, and then be asked: 'What did you do with what you knew?'",
       "source": "Al-Khatib al-Baghdadi, Iqtida' al-Ilm al-Amal",
+      "sourceArabic": "الخطيب البغدادي، اقتضاء العلم العمل",
       "verification": "source_checked",
       "verificationNote": "A report attributed to Abu al-Darda in that book. It is not a prophetic hadith."
     },
@@ -682,6 +970,7 @@
       "arabic": "مَنْ تَعَلَّمَ الْعِلْمَ لِلْعَمَلِ كَسَرَهُ عِلْمُهُ، وَمَنْ طَلَبَهُ لِغَيْرِ الْعَمَلِ زَادَهُ فَخْرًا",
       "translation": "Whoever seeks knowledge to act upon it will be humbled by it; whoever seeks it for anything else will only grow in pride.",
       "source": "Al-Khatib al-Baghdadi, Iqtida' al-Ilm al-Amal",
+      "sourceArabic": "الخطيب البغدادي، اقتضاء العلم العمل",
       "verification": "source_checked",
       "verificationNote": "Attributed to Malik ibn Dinar in the chapter on acting upon knowledge."
     },
@@ -693,6 +982,7 @@
       "arabic": "لَا يَزَالُ الْعَالِمُ جَاهِلًا بِمَا عَلِمَ حَتَّى يَعْمَلَ بِهِ",
       "translation": "A person remains ignorant of the knowledge he possesses until he puts it into practice.",
       "source": "Al-Khatib al-Baghdadi, Iqtida' al-Ilm al-Amal",
+      "sourceArabic": "الخطيب البغدادي، اقتضاء العلم العمل",
       "verification": "source_checked",
       "verificationNote": "Attributed to al-Fudayl ibn Iyad in the cited collection."
     },
@@ -704,6 +994,7 @@
       "arabic": "الْعِلْمُ إِنْ لَمْ يَنْفَعْكَ ضَرَّكَ",
       "translation": "If knowledge does not benefit you, it will harm you.",
       "source": "Al-Khatib al-Baghdadi, Iqtida' al-Ilm al-Amal",
+      "sourceArabic": "الخطيب البغدادي، اقتضاء العلم العمل",
       "verification": "source_checked",
       "verificationNote": "Recorded as a saying of Sufyan ibn Uyaynah in the cited collection."
     },
@@ -715,6 +1006,7 @@
       "arabic": "حَقٌّ عَلَى مَنْ طَلَبَ الْعِلْمَ أَنْ يَكُونَ لَهُ وَقَارٌ وَسَكِينَةٌ وَخَشْيَةٌ",
       "translation": "It is fitting for the seeker of knowledge to have dignity, calm, and reverent fear of Allah.",
       "source": "Abu Nu'aym, Hilyat al-Awliya, biography of Malik ibn Anas, vol. 6",
+      "sourceArabic": "أبو نعيم، حلية الأولياء، ترجمة مالك بن أنس، ج٦",
       "verification": "source_checked",
       "verificationNote": "Recorded as a statement of Imam Malik in Hilyat al-Awliya."
     },
@@ -726,6 +1018,7 @@
       "arabic": "مَا كُنْتَ لَاعِبًا فَلَا تَلْعَبَنَّ بِدِينِكَ",
       "translation": "Whatever you may play around with, never play around with your religion.",
       "source": "Abu Nu'aym, Hilyat al-Awliya, biography of Malik ibn Anas, vol. 6",
+      "sourceArabic": "أبو نعيم، حلية الأولياء، ترجمة مالك بن أنس، ج٦",
       "verification": "source_checked",
       "verificationNote": "Recorded in Hilyat al-Awliya with an attribution to Imam Malik."
     },
@@ -737,6 +1030,7 @@
       "arabic": "مَا ضُرِبَ عَبْدٌ بِعُقُوبَةٍ أَعْظَمَ مِنْ قَسْوَةِ الْقَلْبِ وَالْبُعْدِ عَنِ اللَّهِ",
       "translation": "A person is never struck with a punishment greater than a hardened heart and distance from Allah.",
       "source": "al-Fawa'id. Wording as cited on Islamweb.",
+      "sourceArabic": "الفوائد",
       "verification": "source_checked",
       "verificationNote": "The Arabic follows the wording displayed on Islamweb as from al-Fawa'id. Check a printed copy before treating the page number or spelling as critical."
     },
@@ -759,6 +1053,7 @@
       "arabic": "إِنِّي لَأَحْسَبُ الْعَبْدَ يَنْسَى الْعِلْمَ كَانَ يَعْلَمُهُ بِالْخَطِيئَةِ يَعْمَلُهَا",
       "translation": "I believe a person may forget knowledge he once possessed because of a sin he commits.",
       "source": "Al-Khatib al-Baghdadi, Iqtida' al-Ilm al-Amal",
+      "sourceArabic": "الخطيب البغدادي، اقتضاء العلم العمل",
       "verification": "source_checked",
       "verificationNote": "Attributed to Ibn Mas'ud in the cited collection. The chain was not independently graded here."
     },
@@ -770,6 +1065,7 @@
       "arabic": "يَا حَمَلَةَ الْعِلْمِ، اعْمَلُوا بِهِ",
       "translation": "O bearers of knowledge, act upon what you know.",
       "source": "Ibn Abd al-Barr, Jami' Bayan al-Ilm wa Fadlih, report 1237",
+      "sourceArabic": "ابن عبد البر، جامع بيان العلم وفضله، رقم ١٢٣٧",
       "verification": "source_checked",
       "verificationNote": "The beginning of a longer report attributed to Ali. It is not a prophetic hadith. The chain was not independently graded here."
     },
@@ -781,6 +1077,7 @@
       "arabic": "إِنَّمَا يُرَادُ مِنَ الْعِلْمِ الْعَمَلُ",
       "translation": "The purpose of knowledge is to put it into practice.",
       "source": "Al-Khatib al-Baghdadi, Iqtida' al-Ilm al-Amal",
+      "sourceArabic": "الخطيب البغدادي، اقتضاء العلم العمل",
       "verification": "source_checked",
       "verificationNote": "Recorded among the statements attributed to al-Fudayl ibn Iyad."
     },
@@ -792,8 +1089,105 @@
       "arabic": "الدُّنْيَا جَهْلٌ وَمَوَاتٌ إِلَّا الْعِلْمَ، وَالْعِلْمُ كُلُّهُ حُجَّةٌ إِلَّا الْعَمَلَ بِهِ",
       "translation": "The world is ignorance and lifelessness except for knowledge, and knowledge is a proof against you unless you act upon it.",
       "source": "Al-Khatib al-Baghdadi, Iqtida' al-Ilm al-Amal",
+      "sourceArabic": "الخطيب البغدادي، اقتضاء العلم العمل",
       "verification": "source_checked",
       "verificationNote": "A saying attributed to Sahl al-Tustari. This is an excerpt from a longer statement in that collection."
+    },
+    {
+      "id": "scholar-hasan-days",
+      "category": "scholar",
+      "scholar": "Al-Hasan al-Basri",
+      "scholarArabic": "الحسن البصري",
+      "arabic": "ابْنَ آدَمَ إِنَّمَا أَنْتَ أَيَّامٌ، كُلَّمَا ذَهَبَ يَوْمٌ ذَهَبَ بَعْضُكَ",
+      "translation": "Son of Adam, you are only days. Whenever a day goes, part of you has gone.",
+      "source": "Abu Nu'aym, Hilyat al-Awliya, biography of al-Hasan al-Basri, vol. 2, p. 148",
+      "sourceArabic": "أبو نعيم، حلية الأولياء، ترجمة الحسن البصري، ج٢، ص١٤٨",
+      "verification": "source_checked",
+      "verificationNote": "Recorded from al-Hasan in Islamweb's copy of Hilyat al-Awliya. The chain in that book includes Salih al-Murri, whom hadith critics have criticised. The chain was not independently graded here. It is not a prophetic hadith."
+    },
+    {
+      "id": "scholar-malik-dinar-marifah",
+      "category": "scholar",
+      "scholar": "Malik ibn Dinar",
+      "scholarArabic": "مالك بن دينار",
+      "arabic": "خَرَجَ أَهْلُ الدُّنْيَا مِنَ الدُّنْيَا وَلَمْ يَذُوقُوا أَطْيَبَ شَيْءٍ فِيهَا، قَالُوا: وَمَا هُوَ يَا أَبَا يَحْيَى؟ قَالَ: مَعْرِفَةُ اللَّهِ تَعَالَى",
+      "translation": "The people of this world left it without tasting the sweetest thing in it. They said: What is it, Abu Yahya? He said: Knowing Allah.",
+      "source": "Abu Nu'aym, Hilyat al-Awliya, biography of Malik ibn Dinar, vol. 2, p. 358",
+      "sourceArabic": "أبو نعيم، حلية الأولياء، ترجمة مالك بن دينار، ج٢، ص٣٥٨",
+      "verification": "source_checked",
+      "verificationNote": "The Arabic follows Islamweb's copy of Hilyat al-Awliya. It is a statement of Malik ibn Dinar, not a prophetic hadith. The chain was not independently graded here."
+    },
+    {
+      "id": "scholar-ibrahim-adham-covers",
+      "category": "scholar",
+      "scholar": "Ibrahim ibn Adham",
+      "scholarArabic": "إبراهيم بن أدهم",
+      "arabic": "عَلَى الْقَلْبِ ثَلَاثَةُ أَغْطِيَةٍ: الْفَرَحُ وَالْحَزَنُ وَالسُّرُورُ، فَإِذَا فَرِحْتَ بِالْمَوْجُودِ فَأَنْتَ حَرِيصٌ وَالْحَرِيصُ مَحْرُومٌ، وَإِذَا حَزِنْتَ عَلَى الْمَفْقُودِ فَأَنْتَ سَاخِطٌ وَالسَّاخِطُ مُعَذَّبٌ، وَإِذَا سُرِرْتَ بِالْمَدْحِ فَأَنْتَ مُعْجَبٌ وَالْعُجْبُ يُحْبِطُ الْعَمَلَ",
+      "translation": "The heart has three covers: joy, grief, and being pleased. If you rejoice in what you have, you are greedy, and the greedy are deprived. If you grieve what you lost, you are angry, and the angry are punished. If you are pleased by praise, you are self-amazed, and self-amazement nullifies the deed.",
+      "source": "Abu Nu'aym, Hilyat al-Awliya, biography of Ibrahim ibn Adham, vol. 8, p. 34",
+      "sourceArabic": "أبو نعيم، حلية الأولياء، ترجمة إبراهيم بن أدهم، ج٨، ص٣٤",
+      "verification": "source_checked",
+      "verificationNote": "The Arabic follows the wording in the printed Hilyat al-Awliya, vol. 8, p. 34, as displayed in digital copies of that edition. The report continues by citing Qur'an 57:23 as its evidence. It is not a prophetic hadith. The chain was not independently graded here."
+    },
+    {
+      "id": "scholar-umar-dunya",
+      "category": "scholar",
+      "scholar": "Umar ibn Abd al-Aziz",
+      "scholarArabic": "عمر بن عبد العزيز",
+      "arabic": "إِنَّ الدُّنْيَا لَيْسَتْ بِدَارِ قَرَارِكُمْ، دَارٌ كَتَبَ اللَّهُ عَلَيْهَا الْفَنَاءَ، وَكَتَبَ عَلَى أَهْلِهَا مِنْهَا الظَّعْنَ. إِنَّ الدُّنْيَا لَا تَسُرُّ بِقَدْرِ مَا تَضُرُّ، إِنَّهَا تَسُرُّ قَلِيلًا، وَتَجُرُّ حُزْنًا طَوِيلًا",
+      "translation": "This world is not your home. It is a house Allah has written to perish, and He has written departure upon its people. This world does not please as much as it harms. It pleases a little and brings a long grief.",
+      "source": "Abu Nu'aym, Hilyat al-Awliya, a khutba of Umar ibn Abd al-Aziz, vol. 5",
+      "sourceArabic": "أبو نعيم، حلية الأولياء، خطبة لعمر بن عبد العزيز، ج٥",
+      "verification": "source_checked",
+      "verificationNote": "The Arabic follows Islamweb's copy of Hilyat al-Awliya. The card shows the opening and the close of this khutba. The middle of the sermon is omitted. It is not a prophetic hadith."
+    },
+    {
+      "id": "scholar-sufyan-zuhd",
+      "category": "scholar",
+      "scholar": "Sufyan al-Thawri",
+      "scholarArabic": "سفيان الثوري",
+      "arabic": "الزُّهْدُ فِي الدُّنْيَا قَصْرُ الْأَمَلِ، لَيْسَ بِأَكْلِ الْغَلِيظِ، وَلَا لُبْسِ الْعَبَاءِ",
+      "translation": "Zuhd in this world is short hope. It is not coarse food and a wool cloak.",
+      "source": "Abu Nu'aym, Hilyat al-Awliya, biography of Sufyan al-Thawri, vol. 6, p. 387",
+      "sourceArabic": "أبو نعيم، حلية الأولياء، ترجمة سفيان الثوري، ج٦، ص٣٨٧",
+      "verification": "source_checked",
+      "verificationNote": "The Arabic follows Islamweb's copy of Hilyat al-Awliya, from Waki' from Sufyan. Other transmissions in the same section word it as: zuhd is not coarse food and rough clothing; zuhd is short hope. It is not a prophetic hadith."
+    },
+    {
+      "id": "scholar-darani-hours",
+      "category": "scholar",
+      "scholar": "Abu Sulayman al-Darani",
+      "scholarArabic": "أبو سليمان الداراني",
+      "arabic": "يَعْرِضُ اللَّهُ عَزَّ وَجَلَّ يَوْمَ الْقِيَامَةِ عَلَى ابْنِ آدَمَ عُمُرَهُ مِنْ أَوَّلِهِ إِلَى آخِرِهِ سَاعَةً سَاعَةً يَقُولُ: ابْنَ آدَمَ أَتَتْ عَلَيْكَ سَاعَةٌ كُنْتَ تُطِيعُنِي، وَسَاعَةٌ كُنْتَ تَذْكُرُنِي، وَسَاعَةٌ كُنْتَ غَافِلًا",
+      "translation": "On the Day of Resurrection Allah will present to the son of Adam his life from its beginning to its end, hour by hour, and say: Son of Adam, an hour came upon you in which you obeyed Me, an hour in which you remembered Me, and an hour in which you were heedless.",
+      "source": "Abu Nu'aym, Hilyat al-Awliya, biography of Abu Sulayman al-Darani, vol. 9, p. 270",
+      "sourceArabic": "أبو نعيم، حلية الأولياء، ترجمة أبي سليمان الداراني، ج٩، ص٢٧٠",
+      "verification": "source_checked",
+      "verificationNote": "The Arabic follows Islamweb's copy of Hilyat al-Awliya, from Ahmad ibn Abi al-Hawari from Abu Sulayman. It is not a prophetic hadith. The chain was not independently graded here."
+    },
+    {
+      "id": "scholar-ibn-qayyim-irad",
+      "category": "scholar",
+      "scholar": "Ibn Qayyim al-Jawziyyah",
+      "scholarArabic": "ابن قيم الجوزية",
+      "arabic": "الْعجب مِمَّن تعرض لَهُ حَاجَة فَيصْرف رغبته وهمته فِيهَا إِلَى الله ليقضيها لَهُ وَلَا يتَصَدَّى للسؤال لحياة قلبه من موت الْجَهْل والإعراض وشفائه من دَاء الشَّهَوَات والشبهات وَلَكِن إِذا مَاتَ الْقلب لم يشْعر بمعصيته",
+      "translation": "The wonder is of someone who, when a need comes to him, turns his desire and his concern to Allah so that He may fulfill it, yet does not ask for the life of his heart from the death of ignorance and turning away, and its healing from the disease of desires and doubts. But when the heart dies, it does not feel its sin.",
+      "source": "al-Fawa'id, same chapter on wasted things. Digital text as on Shamela, Dar al-Kutub al-Ilmiyyah edition",
+      "sourceArabic": "الفوائد",
+      "verification": "source_checked",
+      "verificationNote": "The Arabic follows the digital text of al-Fawa'id on Shamela (Dar al-Kutub al-Ilmiyyah), immediately after the sentence on wasting the heart and wasting time. The short circulating sentence that the heart is ruined by turning away from Allah and set right by turning to Him was not found in that wording in this edition, so the card uses this print passage on the death of the heart through ignorance and turning away. Check a printed copy before treating the spelling as critical."
+    },
+    {
+      "id": "scholar-ibn-qayyim-waste",
+      "category": "scholar",
+      "scholar": "Ibn Qayyim al-Jawziyyah",
+      "scholarArabic": "ابن قيم الجوزية",
+      "arabic": "أعظم هَذِه الإضاعات إضاعتان هما أصل كل إِضَاعَة إِضَاعَة الْقلب وإضاعة الْوَقْت فإضاعة الْقلب من إِيثَار الدُّنْيَا على الْآخِرَة وإضاعة الْوَقْت من طول الأمل",
+      "translation": "The greatest of these wastes are two, and they are the root of every waste: wasting the heart and wasting time. Wasting the heart comes from preferring this world to the hereafter, and wasting time comes from long hope.",
+      "source": "al-Fawa'id, chapter on wasted things. Digital text as on Shamela, Dar al-Kutub al-Ilmiyyah edition",
+      "sourceArabic": "الفوائد",
+      "verification": "source_checked",
+      "verificationNote": "The Arabic follows the digital text of al-Fawa'id on Shamela (Dar al-Kutub al-Ilmiyyah). The chapter first lists ten wasted things, then this sentence. The initial connecting و in the print was dropped so the card can stand alone. Check a printed copy before treating the spelling as critical."
     }
   ]
 }

@@ -1,6 +1,6 @@
 import type { SiteDefinition } from './types';
 
-const FEED_PATHS = ['/', '/feed', '/feed/foryou', '/feed/network'];
+const FEED_PATHS = ['/', '/feed', '/feed/foryou', '/feed/following', '/feed/recent', '/feed/network', '/feed/all'];
 
 const site: SiteDefinition = {
   id: 'linkedin',
@@ -16,23 +16,35 @@ const site: SiteDefinition = {
       placement: 'primary',
       insert: 'before',
       mountSelectors: [
-        'main > div.relative > .scaffold-finite-scroll',
+        '[data-testid="mainFeed"]',
         'div[componentkey^="container-update-list_mainFeed"]',
         'div[componentkey^="container-update-list_NetworkFeedListCollection"]',
-        '[data-testid="mainFeed"]',
+        'main .scaffold-finite-scroll__content',
+        'main .scaffold-finite-scroll',
       ],
       selectors: [
-        'div[componentkey^="container-update-list_mainFeed"]',
-        'div[componentkey^="container-update-list_NetworkFeedListCollection"]',
-        'main > div.relative > .scaffold-finite-scroll',
         '[data-testid="mainFeed"] [data-view-name="feed-full-update"]',
         '[data-testid="mainFeed"] [role="listitem"]',
         '[data-view-name="feed-full-update"]',
+        '[role="listitem"]:has([data-view-name="feed-full-update"])',
         '[data-id^="urn:li:activity"]',
         '[data-urn^="urn:li:activity"]',
-        'div[componentkey^="container-update-list"]',
+        'div[componentkey*="FeedType_MAIN_FEED"]',
+        'div[componentkey^="container-update-list_mainFeed"]',
+        'div[componentkey^="container-update-list_NetworkFeedListCollection"]',
         '.feed-shared-update-v2',
         '.occludable-update',
+        'main[aria-label="Main Feed"] .scaffold-finite-scroll',
+        'main .scaffold-finite-scroll',
+        'main .scaffold-finite-scroll__content',
+        'main .scaffold-finite-scroll__loader',
+        '[data-testid="mainFeed"] .scaffold-finite-scroll',
+        '[data-finite-scroll-hotkey-context="FEED"]',
+        '[data-testid="mainFeed"] .artdeco-loader',
+        '[data-testid="mainFeed"] .artdeco-spinner',
+        '[data-testid="mainFeed"] [role="progressbar"]',
+        'main .artdeco-loader',
+        'main .feed-shared-skeleton',
       ],
     },
     {
@@ -46,7 +58,6 @@ const site: SiteDefinition = {
         '#feed-news-module',
         '[data-view-name="news-module"]',
         '[data-testid="news-module"]',
-        'div:has(> div > div[data-view-name="news-module"])',
         'aside .news-module',
       ],
     },

@@ -13,8 +13,9 @@ describe('paths', () => {
     expect(pathMatches('/shorts/abc', ['/shorts/*'])).toBe(true);
     expect(pathMatches('/shorts', ['/shorts/*'])).toBe(true);
     expect(pathMatches('/feed/subscriptions', '*')).toBe(true);
-    expect(pathMatches('/feed/foryou', ['/', '/feed', '/feed/foryou', '/feed/network'])).toBe(true);
-    expect(pathMatches('/feed/network/', ['/', '/feed', '/feed/foryou', '/feed/network'])).toBe(true);
+    expect(pathMatches('/feed/foryou', ['/', '/feed', '/feed/foryou', '/feed/following', '/feed/recent', '/feed/network', '/feed/all'])).toBe(true);
+    expect(pathMatches('/feed/following', ['/', '/feed', '/feed/foryou', '/feed/following', '/feed/recent', '/feed/network', '/feed/all'])).toBe(true);
+    expect(pathMatches('/feed/network/', ['/', '/feed', '/feed/foryou', '/feed/following', '/feed/recent', '/feed/network', '/feed/all'])).toBe(true);
     expect(pathMatches('/feed/update/urn:li:activity:1', ['/', '/feed', '/feed/foryou', '/feed/network'])).toBe(false);
     expect(pathMatches('/reel/123', ['/reel', '/reel/*', '/reels'])).toBe(true);
     expect(pathMatches('/reels', ['/reel', '/reel/*', '/reels'])).toBe(true);

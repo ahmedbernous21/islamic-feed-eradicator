@@ -1,10 +1,15 @@
 import { startController } from './controller';
 import { createSettingsStore } from '../shared/storage';
 
-void startController({
-  document,
-  location: window.location,
-  history: window.history,
-  store: createSettingsStore(),
-  windowTarget: window,
-});
+const BOOT = '__ifeControllerStarted';
+const root = globalThis as typeof globalThis & { [BOOT]?: boolean };
+if (!root[BOOT]) {
+  root[BOOT] = true;
+  void startController({
+    document,
+    location: window.location,
+    history: window.history,
+    store: createSettingsStore(),
+    windowTarget: window,
+  });
+}

@@ -36,6 +36,7 @@ export type ScholarReminder = {
   arabic: string;
   translation: string;
   source: string;
+  sourceArabic?: string;
   verification: Verification;
   verificationNote: string;
 };

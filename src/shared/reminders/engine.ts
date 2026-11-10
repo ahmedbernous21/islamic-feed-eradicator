@@ -309,7 +309,11 @@ export function arabicCitation(reminder: Reminder): string {
     const number = reminder.reference.replace(/[^\d]/g, '');
     return number ? `${name} ${arabicDigits(number)}` : name;
   }
-  if (reminder.category === 'scholar') return reminder.scholarArabic;
+  if (reminder.category === 'scholar') {
+    return reminder.sourceArabic
+      ? `${reminder.scholarArabic} — ${reminder.sourceArabic}`
+      : reminder.scholarArabic;
+  }
   return '';
 }
 

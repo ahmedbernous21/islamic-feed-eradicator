@@ -215,6 +215,32 @@ export function clearSnooze(settings: Settings): Settings {
   return { ...settings, snoozeUntil: null };
 }
 
+export function toggleSite(settings: Settings, id: SiteId): Settings {
+  return {
+    ...settings,
+    sites: {
+      ...settings.sites,
+      [id]: { ...settings.sites[id], enabled: !settings.sites[id].enabled },
+    },
+  };
+}
+
+export function toggleRegion(settings: Settings, id: SiteId, regionId: string): Settings {
+  return {
+    ...settings,
+    sites: {
+      ...settings.sites,
+      [id]: {
+        ...settings.sites[id],
+        regions: {
+          ...settings.sites[id].regions,
+          [regionId]: settings.sites[id].regions[regionId] === false,
+        },
+      },
+    },
+  };
+}
+
 export function snoozeButtonLabel(minutes: number): string {
   if (minutes % 60 === 0) {
     const hours = minutes / 60;

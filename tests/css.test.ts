@@ -13,5 +13,6 @@ describe('page css', () => {
     expect(css).toContain('#ife-reminder-host.ife-overlay.ife-sidebar{align-items:center;justify-content:center;');
     expect(css).toContain('background:var(--yt-spec-base-background,#0f0f0f)');
     expect(css).toContain('[data-ife-column]>:not(#ife-reminder-host){display:none !important;}');
+    expect(css).toContain('#ife-reminder-host.ife-settling{opacity:0;pointer-events:none;transition:none;position:absolute;width:0;height:0;overflow:hidden;}');
   });
 });

@@ -12,7 +12,7 @@ The installed extension does **not** fetch verses or hadith while you browse. Re
 | --- | --- | --- |
 | [Quran.com content API](https://api.quran.com/api/v4/quran/verses/uthmani) | Building the library | Uthmani Qur’an text (`text_uthmani`) |
 | [hadith-api](https://github.com/fawazahmed0/hadith-api) `ara-bukhari`, `ara-muslim` | Building the library | Sahih al-Bukhari and Sahih Muslim Arabic |
-| Chrome `storage`, `alarms`, `runtime` | Runtime | Settings and badge |
+| Chrome `storage`, `alarms`, `scripting`, `activeTab`, `runtime` | Runtime | Settings, badge, and putting the reminder back on the current tab |
 | GitHub Issues (browser form) | Suggest / Report | Opens a public issue. No GitHub token in the extension. |
 
 No Quran.com, hadith, or translation API is called on YouTube, Facebook, LinkedIn, or Instagram.

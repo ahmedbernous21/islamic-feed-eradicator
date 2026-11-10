@@ -68,6 +68,9 @@ describe('reminder card', () => {
     expect(root.querySelector('.ife-speaker')).toBeNull();
     expect(root.querySelector('.ife-source-link')).toBeNull();
     expect(root.querySelector('.ife-arabic')?.textContent).toBe(scholar.arabic);
+    expect(root.querySelector('.ife-arabic-source')?.textContent).toBe(
+      'أبو هريرة — مصنف عبد الرزاق، كتاب الجامع، باب القلب، رقم ٢٠٣٧٥',
+    );
   });
 
   it('hides the English source and the rendering note with the translation', () => {

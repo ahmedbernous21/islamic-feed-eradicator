@@ -42,7 +42,11 @@ describe('reminder engine', () => {
     const hadith = list.find((item) => item.id === 'hadith-bukhari-54');
     const scholar = list.find((item) => item.id === 'scholar-abu-hurayrah-heart');
     expect(hadith && arabicCitation(hadith)).toBe('صحيح البخاري ٥٤');
-    expect(scholar && arabicCitation(scholar)).toBe('أبو هريرة');
+    expect(scholar && arabicCitation(scholar)).toBe('أبو هريرة — مصنف عبد الرزاق، كتاب الجامع، باب القلب، رقم ٢٠٣٧٥');
+    const ibnMasud = list.find((item) => item.id === 'scholar-ibn-masud-learn');
+    expect(ibnMasud && arabicCitation(ibnMasud)).toBe('عبد الله بن مسعود — الخطيب البغدادي، اقتضاء العلم العمل');
+    const unlocated = list.find((item) => item.id === 'scholar-ibn-qayyim-remembrance');
+    expect(unlocated && arabicCitation(unlocated)).toBe('ابن قيم الجوزية');
   });
 
   it('keeps hadith as the Prophet’s words and scholar quotations in their own category', () => {

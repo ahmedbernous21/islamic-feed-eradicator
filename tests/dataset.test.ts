@@ -36,6 +36,11 @@ describe('reminder dataset', () => {
         expect(reminder.arabic).toMatch(arabic);
         expect(reminder.source.length).toBeGreaterThan(8);
         expect(reminder.scholarArabic).toMatch(arabic);
+        if (reminder.sourceArabic) {
+          expect(reminder.sourceArabic).toMatch(arabic);
+        } else {
+          expect(reminder.source).toMatch(/attributed/i);
+        }
         expect(reminder.verification).toBe('source_checked');
         expect(reminder.verificationNote.length).toBeGreaterThan(20);
       }

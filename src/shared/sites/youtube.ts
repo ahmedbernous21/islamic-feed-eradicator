@@ -49,12 +49,10 @@ const site: SiteDefinition = {
     {
       id: 'watch-suggestions',
       title: 'Suggestions beside a video',
-      description: 'Hides the recommendation column on watch pages. The player, title, and controls stay visible.',
+      description: 'Hides related videos beside the player. No reminder card is shown on the watch page. The player, title, and controls stay visible.',
       defaultEnabled: false,
       paths: ['/watch', '/watch/*'],
-      placement: 'compact',
-      replaceColumn: true,
-      mountSelectors: ['#secondary'],
+      placement: 'none',
       selectors: ['#related', 'ytd-watch-next-secondary-results-renderer'],
     },
     {
